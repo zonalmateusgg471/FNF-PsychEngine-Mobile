@@ -326,7 +326,7 @@ class LoadingState extends MusicBeatState
 		}
 
 		var song:SwagSong = PlayState.SONG;
-		var folder:String = Paths.formatToSongPath(song.song);
+		var folder:String = Paths.formatToSongPath(Song.loadedSongName);
 		#if (target.threaded)
 		Thread.create(() -> {
 		#end
