@@ -1,13 +1,6 @@
 {
   "dependencies": [
     {
-      "name": "lime",
-      "type": "git",
-      "dir": null,
-      "ref": "develop",
-      "url": "https://github.com/mcagabe19-stuff/lime"
-    },
-    {
       "name": "openfl",
       "type": "haxelib",
       "version": "9.3.2"
@@ -28,28 +21,11 @@
       "version": "1.5.1"
     },
     {
-      "name": "hxcpp",
-      "type": "git",
-      "dir": null,
-      "ref": "master",
-      "url": "https://github.com/mcagabe19-stuff/hxcpp"
-    },
-    {
-      "name": "hxvlc",
-      "type": "haxelib",
-      "version": null
-    },
-    {
       "name": "SScript",
       "type": "git",
       "dir": null,
       "ref": "main",
       "url": "https://github.com/MobilePorting/SScript-Base"
-    },
-    {
-      "name": "hxcpp-debug-server",
-      "type": "haxelib",
-      "version": null
     },
     {
       "name": "tjson",
@@ -60,13 +36,6 @@
       "name": "hxdiscord_rpc",
       "type": "haxelib",
       "version": null
-    },
-    {
-      "name": "linc_luajit",
-      "type": "git",
-      "dir": null,
-      "ref": "main",
-      "url": "https://github.com/mcagabe19-stuff/linc_luajit-legacy.git"
     },
     {
       "name": "flxanimate",
