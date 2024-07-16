@@ -17,6 +17,9 @@ import objects.Character;
 import objects.HealthIcon;
 import objects.Bar;
 
+import states.editors.content.Prompt;
+import states.editors.content.PsychJsonPrinter;
+
 class CharacterEditorState extends MusicBeatState implements PsychUIEventHandler.PsychUIEvent
 {
 	var character:Character;
@@ -1060,7 +1063,7 @@ class CharacterEditorState extends MusicBeatState implements PsychUIEventHandler
 					MusicBeatState.switchState(new states.editors.MasterEditorMenu());
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				}
-				else openSubState(new ConfirmationPopupSubstate());
+				else openSubState(new ExitConfirmationPrompt());
 			}
 			else MusicBeatState.switchState(new PlayState());
 			return;
@@ -1296,7 +1299,7 @@ class CharacterEditorState extends MusicBeatState implements PsychUIEventHandler
 			"_editor_isPlayer": character.isPlayer
 		};
 
-		var data:String = haxe.Json.stringify(json, "\t");
+		var data:String = PsychJsonPrinter.print(json, ['offsets', 'position', 'healthbar_colors', 'camera_position', 'indices']);
 
 		if (data.length > 0)
 		{
