@@ -118,6 +118,8 @@
 	<haxelib name="hxdiscord_rpc" if="DISCORD_ALLOWED"/>
 	<haxelib name="flxanimate" unless="html5"/>
 	<haxelib name="tjson"/>
+	<haxelib name="funkin.vis"/>
+	<haxelib name="grig.audio" />
 
 	<!-- Android Specific-->
 	<haxelib name="extension-androidtools" if="android" />
