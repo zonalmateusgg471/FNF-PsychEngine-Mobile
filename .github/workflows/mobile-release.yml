@@ -125,8 +125,8 @@ jobs:
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: true
-          automatic_release_tag: "dev-5112f18"
-          title: "DevBuild 5112f18"
+          automatic_release_tag: "dev-ec4edcf"
+          title: "DevBuild ec4edcf"
           files: |
             /home/runner/*.apk
             /home/runner/*.zip
