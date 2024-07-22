@@ -108,11 +108,13 @@
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
-	<haxelib name="flixel" />
-	<haxelib name="flixel-addons" />
+	<haxelib name="flixel" version="5.6.1"/>
+	<haxelib name="flixel-addons" version="3.2.2"/>
+	<haxelib name="tjson" version="1.4.0"/>
 
 	<!--Psych stuff needed-->
 	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
+	<haxelib name="SScript" if="HSCRIPT_ALLOWED"/>
 	<haxelib name="hxvlc" if="VIDEOS_ALLOWED"/>
 	<haxelib name="SScript" if="HSCRIPT_ALLOWED"/>
 	<haxelib name="hxdiscord_rpc" if="DISCORD_ALLOWED"/>
@@ -218,9 +220,8 @@
 
 	<!-- _________________________________ Custom _______________________________ -->
 
-	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
-
-	<assets path='art/icon16.png' rename='icon.png' if="linux" />
+	<assets path='art/iconOG.png' rename='icon.png' if="linux" />
+	
 	<icon path="art/icon16.png" size='16'/>
 	<icon path="art/icon32.png" size='32'/>
 	<icon path="art/icon64.png" size='64'/>
