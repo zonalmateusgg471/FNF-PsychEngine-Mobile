@@ -133,7 +133,7 @@ jobs:
       - name: Install Libraries
         run: |
           haxelib git hxcpp https://github.com/mcagabe19-stuff/hxcpp 8dd30d69399f616f4e85295ce3f828219b78af17 --quiet
-          haxelib git lime https://github.com/mcagabe19-stuff/lime 9abb68d02cafd1022148cbb023a05e15b8bfc961 --quiet
+          haxelib git lime https://github.com/mcagabe19-stuff/lime --quiet
           haxelib install openfl 9.3.3 --quiet
           haxelib install flixel 5.6.1 --quiet
           haxelib install flixel-addons 3.2.2 --quiet
@@ -178,7 +178,7 @@ jobs:
       - name: Install Libraries
         run: |
           haxelib git hxcpp https://github.com/mcagabe19-stuff/hxcpp 8dd30d69399f616f4e85295ce3f828219b78af17 --quiet
-          haxelib git lime https://github.com/mcagabe19-stuff/lime 9abb68d02cafd1022148cbb023a05e15b8bfc961 --quiet
+          haxelib git lime https://github.com/mcagabe19-stuff/lime --quiet
           haxelib install openfl 9.3.3 --quiet
           haxelib install flixel 5.6.1 --quiet
           haxelib install flixel-addons 3.2.2 --quiet
