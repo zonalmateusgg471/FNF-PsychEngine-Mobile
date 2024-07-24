@@ -41,7 +41,7 @@ class CreditsState extends MusicBeatState
 			['Mobile Porting Team'],
 			['mcagabe19',			'lily',             'Head Porter of Psych Engine Mobile',                       'https://youtube.com/@mcagabe19',		'FFE7C0'],
 			['Karim Akra',			'karim',			'Second Porter of Psych Engine Mobile',						'https://youtube.com/@Karim0690',		'FFB4F0'],
-			['MemeHoovy',			'hoovy',			'Helper of Psych Engine Mobile',							'https://twitter.com/meme_hoovy',       'F592C4'],
+			['Moxie',			'hoovy',			'Helper of Psych Engine Mobile',						'https://twitter.com/moxie_specalist',       'F592C4'],
 			[''],
 			["Psych Engine Team"],
 			["Shadow Mario",		"shadowmario",		"Main Programmer and Head of Psych Engine",					"https://ko-fi.com/shadowmario",		"444444"],
