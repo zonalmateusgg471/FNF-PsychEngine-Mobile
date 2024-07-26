@@ -2,6 +2,7 @@ package options;
 
 import objects.Note;
 import objects.StrumNote;
+import objects.Alphabet;
 
 class VisualsSettingsSubState extends BaseOptionsMenu
 {
@@ -112,9 +113,9 @@ class VisualsSettingsSubState extends BaseOptionsMenu
 		option.changeValue = 0.1;
 		option.decimals = 1;
 		addOption(option);
-
+		
 		var option:Option = new Option('FPS Counter',
-			'If unchecked, hides the FPS Counter.',
+			'If unchecked, hides FPS Counter.',
 			'showFPS',
 			BOOL);
 		addOption(option);
@@ -145,7 +146,7 @@ class VisualsSettingsSubState extends BaseOptionsMenu
 		#end
 
 		var option:Option = new Option('Combo Stacking',
-			"If unchecked, Ratings and Combo won't stack, saving on System Memory and easier to read",
+			"If unchecked, Ratings and Combo won't stack, saving on System Memory and making them easier to read",
 			'comboStacking',
 			BOOL);
 		addOption(option);

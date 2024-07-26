@@ -1,18 +1,22 @@
 package;
 
-import mobile.backend.MobileScaleMode;
 import debug.FPSCounter;
+import backend.Highscore;
 import flixel.FlxGame;
 import haxe.io.Path;
 import openfl.Lib;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
-import lime.system.System as LimeSystem;
+import lime.app.Application;
 import states.TitleState;
+import mobile.backend.MobileScaleMode;
 import openfl.events.KeyboardEvent;
-import mobile.states.CopyState;
+import lime.system.System as LimeSystem;
 import mobile.objects.MobileControls;
+#if mobile
+import mobile.states.CopyState;
+#end
 #if linux
 import lime.graphics.Image;
 
@@ -21,6 +25,7 @@ import lime.graphics.Image;
 	#define GAMEMODE_AUTO
 ')
 #end
+
 class Main extends Sprite
 {
 	var game = {
@@ -36,7 +41,7 @@ class Main extends Sprite
 	public static var fpsVar:FPSCounter;
 
 	public static final platform:String = #if mobile "Phones" #else "PCs" #end;
-	
+
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
 	public static function main():Void
@@ -62,10 +67,10 @@ class Main extends Sprite
 
 		#if windows
 		@:functionCode("
-		#include <windows.h>
-		#include <winuser.h>
-		setProcessDPIAware() // allows for more crisp visuals
-		DisableProcessWindowsGhosting() // lets you move the window and such if it's not responding
+			#include <windows.h>
+			#include <winuser.h>
+			setProcessDPIAware() // allows for more crisp visuals
+			DisableProcessWindowsGhosting() // lets you move the window and such if it's not responding
 		")
 		#end
 
@@ -85,7 +90,9 @@ class Main extends Sprite
 	private function init(?E:Event):Void
 	{
 		if (hasEventListener(Event.ADDED_TO_STAGE))
+		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
+		}
 
 		setupGame();
 	}
@@ -109,16 +116,28 @@ class Main extends Sprite
 			game.zoom = 1.0;
 		#end
 
+		#if LUA_ALLOWED
+		Mods.pushGlobalMods();
+		#end
+		Mods.loadTopMod();
+
+		FlxG.save.bind('funkin', CoolUtil.getSavePath());
+
+		Highscore.load();
+
+		#if LUA_ALLOWED Lua.set_callbacks_function(cpp.Callable.fromStaticFunction(psychlua.CallbackHandler.call)); #end
 		Controls.instance = new Controls();
-		
+		ClientPrefs.loadDefaultKeys();
+		#if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
 		addChild(new FlxGame(game.width, game.height, #if (mobile && MODS_ALLOWED) CopyState.checkExistingFiles() ? game.initialState : CopyState #else game.initialState #end, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
+
 		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
-		if(fpsVar != null)
-			fpsVar.visible = ClientPrefs.data.showFPS;
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
-		FlxG.game.stage.quality = openfl.display.StageQuality.LOW;
+		if(fpsVar != null) {
+			fpsVar.visible = ClientPrefs.data.showFPS;
+		}
 
 		#if linux
 		var icon = Image.fromFile("icon.png");
@@ -132,18 +151,15 @@ class Main extends Sprite
 
 		FlxG.fixedTimestep = false;
 		FlxG.game.focusLostFramerate = #if mobile 30 #else 60 #end;
-
 		#if web
 		FlxG.keys.preventDefaultKeys.push(TAB);
 		#else
 		FlxG.keys.preventDefaultKeys = [TAB];
 		#end
-		
-		#if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
-		#if DISCORD_ALLOWED DiscordClient.prepare(); #end
-		#if LUA_ALLOWED llua.Lua.set_callbacks_function(cpp.Callable.fromStaticFunction(psychlua.CallbackHandler.call)); #end
-		ClientPrefs.loadDefaultKeys();
 
+		#if DISCORD_ALLOWED
+		DiscordClient.prepare();
+		#end
 		MobileControls.initSave();
 
 		#if desktop FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, toggleFullScreen); #end
@@ -154,8 +170,6 @@ class Main extends Sprite
 		LimeSystem.allowScreenTimeout = ClientPrefs.data.screensaver; 		
 		FlxG.scaleMode = new MobileScaleMode();
 		#end
-		
-		FlxG.save.bind('funkin', CoolUtil.getSavePath());
 
 		// shader coords fix
 		FlxG.signals.gameResized.add(function (w, h) {
@@ -173,9 +187,9 @@ class Main extends Sprite
 		});
 	}
 
-	static function resetSpriteCache(sprite:Sprite) {
+	static function resetSpriteCache(sprite:Sprite):Void {
 		@:privateAccess {
-		    sprite.__cacheBitmap = null;
+		        sprite.__cacheBitmap = null;
 			sprite.__cacheBitmapData = null;
 		}
 	}

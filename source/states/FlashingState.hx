@@ -17,11 +17,14 @@ class FlashingState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
 
-		var guh:String = "Hey, watch out!\n
+		final silly:String = controls.mobileC ? 'A' : 'ENTER';
+		final baka:String = controls.mobileC ? 'B' : 'ENTER';
+
+		var guh:String = 'Hey, watch out!\n
 		This Mod contains some flashing lights!\n
-		Press A/ENTER to disable them now or go to Options Menu.\n
-		Press B/ESCAPE to ignore this message.\n
-		You've been warned!";
+		Press $silly to disable them now or go to Options Menu.\n
+		Press $baka to ignore this message.\n
+		You\'ve been warned!';
 
 		controls.isInSubstate = false; // qhar I hate it
 		warnText = new FlxText(0, 0, FlxG.width, guh, 32);

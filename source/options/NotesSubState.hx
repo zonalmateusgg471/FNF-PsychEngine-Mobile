@@ -9,7 +9,7 @@ import lime.system.Clipboard;
 import flixel.util.FlxGradient;
 import objects.StrumNote;
 import objects.Note;
-import flixel.addons.transition.FlxTransitionableState;
+
 import shaders.RGBPalette;
 import shaders.RGBPalette.RGBShaderReference;
 
@@ -88,7 +88,7 @@ class NotesSubState extends MusicBeatSubstate
 		var bg:FlxSprite = new FlxSprite(750, 160).makeGraphic(FlxG.width - 780, 540, FlxColor.BLACK);
 		bg.alpha = 0.25;
 		add(bg);
-
+		
 		var sigh:String;
 		var sighPosX:Int;
 
@@ -196,7 +196,7 @@ class NotesSubState extends MusicBeatSubstate
 	function updateTip()
 	{
 		var key:String = !controls.controllerMode ? Language.getPhrase('note_colors_shift', 'Shift') : Language.getPhrase('note_colors_lb', 'Left Shoulder Button');
-		if(!controls.mobileC)
+		if (!controls.mobileC)
 			tipTxt.text = Language.getPhrase('note_colors_hold_tip', 'Hold {1} + Press RESET key to fully reset the selected Note.', [key]);
 	}
 
@@ -212,7 +212,6 @@ class NotesSubState extends MusicBeatSubstate
 		if (controls.BACK) {
 			FlxG.mouse.visible = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			ClientPrefs.saveSettings();
 			controls.isInSubstate = false;
 			close();
 			return;
@@ -447,7 +446,6 @@ class NotesSubState extends MusicBeatSubstate
 			else if(pointerY() >= hexTypeLine.y && pointerY() < hexTypeLine.y + hexTypeLine.height &&
 					Math.abs(pointerX() - 1000) <= 84)
 			{
-				FlxG.stage.window.textInputEnabled = true;
 				hexTypeNum = 0;
 				for (letter in alphabetHex.letters)
 				{
@@ -661,8 +659,8 @@ class NotesSubState extends MusicBeatSubstate
 		{
 			Note.initializeGlobalRGBShader(i);
 			var newNote:StrumNote = new StrumNote(150 + (480 / dataArray.length * i), 200, i, 0);
-			newNote.setGraphicSize(102);
 			newNote.useRGBShader = true;
+			newNote.setGraphicSize(102);
 			newNote.updateHitbox();
 			newNote.ID = i;
 			myNotes.add(newNote);

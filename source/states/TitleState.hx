@@ -18,9 +18,6 @@ import shaders.ColorSwap;
 import states.StoryMenuState;
 import states.OutdatedState;
 import states.MainMenuState;
-#if mobile
-import mobile.states.CopyState;
-#end
 
 typedef TitleData =
 {
@@ -72,17 +69,6 @@ class TitleState extends MusicBeatState
 	override public function create():Void
 	{
 		Paths.clearStoredMemory();
-
-		#if MODS_ALLOWED
-		Mods.pushGlobalMods();
-		Mods.loadTopMod();
-		#end
-
-		curWacky = FlxG.random.getObject(getIntroTextShit());
-
-		super.create();
-
-
 		ClientPrefs.loadPrefs();
 		Language.reloadPhrases();
 

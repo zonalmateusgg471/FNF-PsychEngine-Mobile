@@ -7,6 +7,7 @@ import flixel.input.gamepad.FlxGamepadManager;
 
 import objects.CheckboxThingie;
 import objects.AttachedText;
+import options.Option;
 import backend.InputFormatter;
 
 class BaseOptionsMenu extends MusicBeatSubstate
@@ -28,7 +29,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	public var bg:FlxSprite;
 	public function new()
 	{
-                controls.isInSubstate = true;
+		controls.isInSubstate = true;
 
 		super();
 
@@ -143,7 +144,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		}
 
 		if (controls.BACK) {
-			ClientPrefs.saveSettings();
 			close();
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
@@ -507,4 +507,4 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	function reloadCheckboxes()
 		for (checkbox in checkboxGroup)
 			checkbox.daValue = Std.string(optionsArray[checkbox.ID].getValue()) == 'true'; //Do not take off the Std.string() from this, it will break a thing in Mod Settings Menu
-	}
+}

@@ -2,7 +2,6 @@ package substates;
 
 import backend.WeekData;
 import backend.Highscore;
-import flixel.addons.transition.FlxTransitionableState;
 import flixel.FlxSubState;
 import objects.HealthIcon;
 

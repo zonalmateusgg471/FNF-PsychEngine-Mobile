@@ -24,7 +24,6 @@ class OptionsState extends MusicBeatState
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
 	public static var onPlayState:Bool = false;
-	var tipText:FlxText;
 	#if (target.threaded) var mutex:Mutex = new Mutex(); #end
 
 	function openSelectedSubstate(label:String) {
@@ -37,7 +36,13 @@ class OptionsState extends MusicBeatState
 			case 'Note Colors':
 				openSubState(new options.NotesSubState());
 			case 'Controls':
-				openSubState(new options.ControlsSubState());
+				switch (controls.mobileC)
+				{
+					case true:
+						persistentUpdate = false;
+						openSubState(new MobileControlSelectSubState());
+					default: openSubState(new options.ControlsSubState());
+				}
 			case 'Graphics':
 				openSubState(new options.GraphicsSettingsSubState());
 			case 'Visuals':
@@ -72,13 +77,6 @@ class OptionsState extends MusicBeatState
 		bg.screenCenter();
 		add(bg);
 
-		tipText = new FlxText(150, FlxG.height - 24, 0, Language.getPhrase('open_mobileC_menu', 'Press ${controls.mobileC ? "C" : "CTRL"} to Go Mobile Controls Menu'), 16);
-		tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		tipText.borderSize = 1.25;
-		tipText.scrollFactor.set();
-		tipText.antialiasing = ClientPrefs.data.antialiasing;
-		add(tipText);
-
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
@@ -98,7 +96,7 @@ class OptionsState extends MusicBeatState
 		changeSelection();
 		ClientPrefs.saveSettings();
 
-		addVirtualPad('UP_DOWN', 'A_B_C');
+		addVirtualPad('UP_DOWN', 'A_B');
 
 		#if (target.threaded)
 		Thread.create(()->{
@@ -120,22 +118,21 @@ class OptionsState extends MusicBeatState
 	override function closeSubState()
 	{
 		super.closeSubState();
+		ClientPrefs.saveSettings();
 		#if DISCORD_ALLOWED
 		DiscordClient.changePresence("Options Menu", null);
 		#end
-		ClientPrefs.saveSettings();
-		ClientPrefs.loadPrefs();
 		controls.isInSubstate = false;
         removeVirtualPad();
-		addVirtualPad('UP_DOWN', 'A_B_C');
+		addVirtualPad('UP_DOWN', 'A_B');
 		persistentUpdate = true;
 	}
 
-    var exiting:Bool = false;
+	var exiting = false;
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if(!exiting){
+		if(!exiting) {
 			if (controls.UI_UP_P)
 				changeSelection(-1);
 			if (controls.UI_DOWN_P)
@@ -154,11 +151,6 @@ class OptionsState extends MusicBeatState
 				else MusicBeatState.switchState(new MainMenuState());
 			}
 			else if (controls.ACCEPT) openSelectedSubstate(options[curSelected]);
-	
-			if (virtualPad.buttonC.justPressed || FlxG.keys.justPressed.CONTROL) {
-				persistentUpdate = false;
-				openSubState(new MobileControlSelectSubState());
-			}
 		}
 	}
 	

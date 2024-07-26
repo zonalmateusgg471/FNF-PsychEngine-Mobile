@@ -3,6 +3,7 @@ package options;
 import states.ModsMenuState;
 import flixel.input.keyboard.FlxKey;
 import flixel.input.gamepad.FlxGamepadInputID;
+
 import objects.Character;
 import haxe.Json;
 
@@ -55,9 +56,9 @@ class ModSettingsSubState extends BaseOptionsMenu
 
 						if(save.exists(option.save)) save.remove(option.save);
 
-						newOption.keys.keyboard = newOption.defaultKeys.keyboard;
-						newOption.keys.gamepad = newOption.defaultKeys.gamepad;
-						save.set(option.save, newOption.keys);
+							newOption.keys.keyboard = newOption.defaultKeys.keyboard;
+							newOption.keys.gamepad = newOption.defaultKeys.gamepad;
+							save.set(option.save, newOption.keys);
 
 						// getting inputs and checking
 						var keyboardKey:FlxKey = cast FlxKey.fromString(keyboardStr);
