@@ -82,7 +82,7 @@ class LoadingState extends MusicBeatState
 				return;
 			}
 			#if (!SHOW_LOADING_SCREEN || sys)
-			Sys.sleep(0.01);
+			Sys.sleep(0.001);
 			#end
 		}
 
@@ -283,7 +283,7 @@ class LoadingState extends MusicBeatState
 			if(!checkLoaded())
 			{
 				#if sys
-				Sys.sleep(0.01);
+				Sys.sleep(0.001);
 				#end
 			}
 			else break;
@@ -574,20 +574,15 @@ class LoadingState extends MusicBeatState
 			mutex.acquire();
 		#end
 			try {
-				var ret:Dynamic = func();
-				#if (target.threaded)
-				mutex.release();
-				#end
-
-				if (ret != null) trace('finished preloading $traceData');
+				if (func() != null) trace('finished preloading $traceData');
 				else trace('ERROR! fail on preloading $traceData');
 			}
 			catch(e:Dynamic) {
-				#if (target.threaded)
-				mutex.release();
-				#end
 				trace('ERROR! fail on preloading $traceData');
 			}
+			#if (target.threaded)
+			mutex.release();
+			#end
 			loaded++;
 		#if (target.threaded)
 		});

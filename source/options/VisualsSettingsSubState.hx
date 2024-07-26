@@ -120,8 +120,8 @@ class VisualsSettingsSubState extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = onChangeFPSCounter;
 		
-		var option:Option = new Option('Pause Screen Song:',
-			"Which song do you prefer for the Pause Screen?",
+		var option:Option = new Option('Pause Music:',
+			"What song do you prefer for the Pause Screen?",
 			'pauseMusic',
 			STRING,
 			pauseMusics);
