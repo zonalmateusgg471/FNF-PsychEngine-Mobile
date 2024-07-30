@@ -41,6 +41,7 @@ class DialogueBoxPsych extends FlxSpriteGroup
 
 	var currentText:Int = 0;
 	var offsetPos:Float = -600;
+	var skipText:FlxText;
 
 	var textBoxTypes:Array<String> = ['normal', 'angry'];
 	
@@ -90,6 +91,11 @@ class DialogueBoxPsych extends FlxSpriteGroup
 		daText = new TypedAlphabet(DEFAULT_TEXT_X, DEFAULT_TEXT_Y, '');
 		daText.setScale(0.7);
 		add(daText);
+
+		skipText = new FlxText(FlxG.width - 320, FlxG.height - 30, 300, Language.getPhrase('dialogue_skip', 'Press BACK to Skip'), 16);
+		skipText.setFormat(null, 16, FlxColor.WHITE, RIGHT, OUTLINE_FAST, FlxColor.BLACK);
+		skipText.borderSize = 2;
+		add(skipText);
 
 		startNextDialog();
 	}
@@ -165,13 +171,17 @@ class DialogueBoxPsych extends FlxSpriteGroup
 				if (touch.justPressed)
 					justTouched = true;
 
-			if(Controls.instance.ACCEPT || justTouched) {
-				if(!daText.finishedText) {
+			var back:Bool = Controls.instance.BACK;
+			if(Controls.instance.ACCEPT || back || justTouched) {
+				if(!daText.finishedText && !back)
+				{
 					daText.finishText();
 					if(skipDialogueThing != null) {
 						skipDialogueThing();
 					}
-				} else if(currentText >= dialogueList.dialogue.length) {
+				}
+				else if(back || currentText >= dialogueList.dialogue.length)
+				{
 					dialogueEnded = true;
 					for (i in 0...textBoxTypes.length) {
 						var checkArray:Array<String> = ['', 'center-'];
@@ -191,6 +201,7 @@ class DialogueBoxPsych extends FlxSpriteGroup
 						daText.kill();
 						daText.destroy();
 					}
+					skipText.visible = false;
 					updateBoxOffsets(box);
 					FlxG.sound.music.fadeOut(1, 0, (_) -> FlxG.sound.music.stop());
 				} else {
