@@ -484,11 +484,6 @@ class PlayState extends MusicBeatState
 			timeTxt.y += 3;
 		}
 
-		var splash:NoteSplash = new NoteSplash(100, 100);
-		splash.setupNoteSplash(100, 100);
-		grpNoteSplashes.add(splash);
-		splash.alpha = 0.000001; //cant make it invisible or it won't allow precaching
-
 		opponentStrums = new FlxTypedGroup<StrumNote>();
 		playerStrums = new FlxTypedGroup<StrumNote>();
 
@@ -596,9 +591,9 @@ class PlayState extends MusicBeatState
 				#end
 			}
 		#end
-
+		
 		addMobileControls(false);
-                mobileControls.visible = true;
+		mobileControls.visible = true;
 
 		startCallback();
 		RecalculateRating();
@@ -626,7 +621,7 @@ class PlayState extends MusicBeatState
 		grpNoteSplashes.add(splash);
 		splash.alpha = 0.000001; //cant make it invisible or it won't allow precaching
 
-		#if (!android)
+		#if !android
 		addVirtualPad('NONE', 'P');
     	addVirtualPadCamera(false);
 		#end
@@ -793,7 +788,8 @@ class PlayState extends MusicBeatState
 		#end
 		{
 			scriptFile = Paths.getSharedPath(scriptFile);
-			if(#if sys FileSystem.exists(scriptFile) #else Assets.exists(scriptFile) #end) doPush = true;
+			if(FileSystem.exists(scriptFile))
+				doPush = true;
 		}
 
 		if(doPush)
@@ -1563,21 +1559,17 @@ class PlayState extends MusicBeatState
 
 	override public function onFocus():Void
 	{
-		callOnScripts('onFocus');
 		if (health > 0 && !paused) resetRPC(Conductor.songPosition > 0.0);
 		super.onFocus();
-		callOnScripts('onFocusPost');
 	}
 
 	override public function onFocusLost():Void
 	{
-		callOnScripts('onFocusLost');
 		#if DISCORD_ALLOWED
 		if (health > 0 && !paused && autoUpdateRPC) DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
 
 		super.onFocusLost();
-		callOnScripts('onFocusLostPost');
 	}
 
 	// Updating Discord Rich Presence.
@@ -2443,8 +2435,6 @@ class PlayState extends MusicBeatState
 	public var uiGroup:FlxSpriteGroup;
 	// Stores Note Objects in a Group
 	public var noteGroup:FlxTypedGroup<FlxBasic>;
-	// Stores The Cached PopUpRating Sprites As String
-	public var ratingsCache:Map<String, FlxSprite> = new Map<String, FlxSprite>();
 
 	private function cachePopUpScore()
 	{
@@ -2456,14 +2446,10 @@ class PlayState extends MusicBeatState
 			if (PlayState.isPixelStage) uiPostfix = '-pixel';
 		}
 
-		for (rating in ratingsData){
-			var ratingName = uiPrefix + rating.image + uiPostfix;
-			ratingsCache.set(ratingName, new FlxSprite().loadGraphic(Paths.image(ratingName)));
-		}
-		for (i in 0...10){
-			var ratingName = uiPrefix + 'num' + Std.int(i) + uiPostfix;
-			ratingsCache.set(ratingName, new FlxSprite().loadGraphic(Paths.image(ratingName)));
-		}
+		for (rating in ratingsData)
+			Paths.image(uiPrefix + rating.image + uiPostfix);
+		for (i in 0...10)
+			Paths.image(uiPrefix + 'num' + i + uiPostfix);
 	}
 
 	private function popUpScore(note:Note = null):Void
@@ -2520,7 +2506,7 @@ class PlayState extends MusicBeatState
 		}
 
 		if (ClientPrefs.data.popUpRating){
-		rating.loadGraphicFromSprite(ratingsCache.get(uiPrefix + daRating.image + uiPostfix));
+		rating.loadGraphic(Paths.image(uiPrefix + daRating.image + uiPostfix));
 		rating.screenCenter();
 		rating.x = placement - 40;
 		rating.y -= 60;
@@ -2567,7 +2553,7 @@ class PlayState extends MusicBeatState
 		var separatedScore:String = Std.string(combo).lpad('0', 3);
 		for (i in 0...separatedScore.length)
 		{
-			var numScore:FlxSprite = new FlxSprite().loadGraphicFromSprite(ratingsCache.get(uiPrefix + 'num' + Std.int(i) + uiPostfix));
+			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image(uiPrefix + 'num' + Std.parseInt(separatedScore.charAt(i)) + uiPostfix));
 			numScore.screenCenter();
 			numScore.x = placement + (43 * daLoop) - 90 + ClientPrefs.data.comboOffset[2];
 			numScore.y += 80 - ClientPrefs.data.comboOffset[3];
@@ -2612,6 +2598,7 @@ class PlayState extends MusicBeatState
 		});
 	}
 	}
+
 	public var strumsBlocked:Array<Bool> = [];
 	private function onKeyPress(event:KeyboardEvent):Void
 	{
