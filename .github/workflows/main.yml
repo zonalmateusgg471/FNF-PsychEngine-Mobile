@@ -29,7 +29,7 @@ jobs:
           haxelib git grig.audio https://gitlab.com/haxe-grig/grig.audio.git cbf91e2180fd2e374924fe74844086aab7891666 --quiet
 
       - name: Compile
-        run: haxelib run lime build windows
+        run: haxelib run lime build windows -D officialBuild
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
@@ -66,7 +66,7 @@ jobs:
           haxelib git grig.audio https://gitlab.com/haxe-grig/grig.audio.git cbf91e2180fd2e374924fe74844086aab7891666 --quiet
 
       - name: Compile
-        run: haxelib run lime build linux
+        run: haxelib run lime build linux -D officialBuild
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main

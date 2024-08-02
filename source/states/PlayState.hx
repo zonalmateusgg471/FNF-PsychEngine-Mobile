@@ -451,10 +451,10 @@ class PlayState extends MusicBeatState
 
 		comboGroup = new FlxSpriteGroup();
 		add(comboGroup);
-		noteGroup = new FlxTypedGroup<FlxBasic>();
-		add(noteGroup);
 		uiGroup = new FlxSpriteGroup();
 		add(uiGroup);
+		noteGroup = new FlxTypedGroup<FlxBasic>();
+		add(noteGroup);
 
 		Conductor.songPosition = -Conductor.crochet * 5 + Conductor.offset;
 		var showTime:Bool = (ClientPrefs.data.timeBarType != 'Disabled');
@@ -620,9 +620,11 @@ class PlayState extends MusicBeatState
 
 		stagesFunc(function(stage:BaseStage) stage.createPost());
 		callOnScripts('onCreatePost');
-
-		cacheCountdown();
-		cachePopUpScore();
+		
+		var splash:NoteSplash = new NoteSplash();
+		splash.setupNoteSplash(100, 100);
+		grpNoteSplashes.add(splash);
+		splash.alpha = 0.000001; //cant make it invisible or it won't allow precaching
 
 		#if (!android)
 		addVirtualPad('NONE', 'P');
@@ -631,6 +633,9 @@ class PlayState extends MusicBeatState
 
 		super.create();
 		Paths.clearUnusedMemory();
+
+		cacheCountdown();
+		cachePopUpScore();
 
 		if(eventNotes.length < 1) checkEventNote();
 	}
@@ -2466,10 +2471,14 @@ class PlayState extends MusicBeatState
 		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.data.ratingOffset);
 		vocals.volume = 1;
 
-		if (!ClientPrefs.data.comboStacking && comboGroup.members.length > 0) {
-			for (spr in comboGroup) {
-				spr.destroy();
+		if (!ClientPrefs.data.comboStacking && comboGroup.members.length > 0)
+		{
+			for (spr in comboGroup)
+			{
+				if(spr == null) continue;
+
 				comboGroup.remove(spr);
+				spr.destroy();
 			}
 		}
 
@@ -2550,21 +2559,13 @@ class PlayState extends MusicBeatState
 		comboSpr.updateHitbox();
 		rating.updateHitbox();
 
-		var seperatedScore:Array<Int> = [];
-
-		if(combo >= 1000) {
-			seperatedScore.push(Math.floor(combo / 1000) % 10);
-		}
-		seperatedScore.push(Math.floor(combo / 100) % 10);
-		seperatedScore.push(Math.floor(combo / 10) % 10);
-		seperatedScore.push(combo % 10);
-
 		var daLoop:Int = 0;
 		var xThing:Float = 0;
 		if (showCombo)
 			comboGroup.add(comboSpr);
 
-		for (i in seperatedScore)
+		var separatedScore:String = Std.string(combo).lpad('0', 3);
+		for (i in 0...separatedScore.length)
 		{
 			var numScore:FlxSprite = new FlxSprite().loadGraphicFromSprite(ratingsCache.get(uiPrefix + 'num' + Std.int(i) + uiPostfix));
 			numScore.screenCenter();
