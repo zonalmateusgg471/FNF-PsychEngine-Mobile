@@ -252,6 +252,7 @@ class CharacterEditorState extends MusicBeatState implements PsychUIEventHandler
 			if(check_player != null) check_player.checked = character.isPlayer;
 		}
 		character.debugMode = true;
+		character.missingCharacter = false;
 
 		if(pos > -1) insert(pos, character);
 		else add(character);
@@ -433,6 +434,7 @@ class CharacterEditorState extends MusicBeatState implements PsychUIEventHandler
 			};
 
 			character.loadCharacterFile(_template);
+			character.missingCharacter = false;
 			character.color = FlxColor.WHITE;
 			character.alpha = 1;
 			reloadAnimList();
@@ -545,7 +547,7 @@ class CharacterEditorState extends MusicBeatState implements PsychUIEventHandler
 			for (anim in character.animationsArray)
 				if(animationInputText.text == anim.anim) {
 					lastOffsets = anim.offsets;
-					if(character.animOffsets.exists(animationInputText.text))
+					if(character.hasAnimation(animationInputText.text))
 					{
 						if(!character.isAnimateAtlas) character.animation.remove(animationInputText.text);
 						else @:privateAccess character.atlas.anim.animsMap.remove(animationInputText.text);
@@ -573,7 +575,7 @@ class CharacterEditorState extends MusicBeatState implements PsychUIEventHandler
 				{
 					var resetAnim:Bool = false;
 					if(anim.anim == character.getAnimationName()) resetAnim = true;
-					if(character.animOffsets.exists(anim.anim))
+					if(character.hasAnimation(anim.anim))
 					{
 						if(!character.isAnimateAtlas) character.animation.remove(anim.anim);
 						else @:privateAccess character.atlas.anim.animsMap.remove(anim.anim);
@@ -677,7 +679,7 @@ class CharacterEditorState extends MusicBeatState implements PsychUIEventHandler
 		};
 
 		positionXStepper = new PsychUINumericStepper(flipXCheckBox.x + 110, flipXCheckBox.y, 10, character.positionArray[0], -9000, 9000, 0);
-		positionYStepper = new PsychUINumericStepper(positionXStepper.x + 60, positionXStepper.y, 10, character.positionArray[1], -9000, 9000, 0);
+		positionYStepper = new PsychUINumericStepper(positionXStepper.x + 70, positionXStepper.y, 10, character.positionArray[1], -9000, 9000, 0);
 
 		positionCameraXStepper = new PsychUINumericStepper(positionXStepper.x, positionXStepper.y + 40, 10, character.cameraPosition[0], -9000, 9000, 0);
 		positionCameraYStepper = new PsychUINumericStepper(positionYStepper.x, positionYStepper.y + 40, 10, character.cameraPosition[1], -9000, 9000, 0);
@@ -1137,6 +1139,8 @@ class CharacterEditorState extends MusicBeatState implements PsychUIEventHandler
 
 	inline function updatePointerPos(?snap:Bool = true)
 	{
+		if(character == null || cameraFollowPointer == null) return;
+
 		var offX:Float = 0;
 		var offY:Float = 0;
 		if(!character.isPlayer)
@@ -1212,6 +1216,7 @@ class CharacterEditorState extends MusicBeatState implements PsychUIEventHandler
 
 		character.x += character.positionArray[0];
 		character.y += character.positionArray[1];
+		updatePointerPos(false);
 	}
 
 	inline function predictCharacterIsNotPlayer(name:String)
@@ -1237,7 +1242,7 @@ class CharacterEditorState extends MusicBeatState implements PsychUIEventHandler
 				character.atlas.anim.addBySymbol(anim, name, fps, loop);
 		}
 
-		if(!character.animOffsets.exists(anim))
+		if(!character.hasAnimation(anim))
 			character.addOffset(anim, 0, 0);
 	}
 
