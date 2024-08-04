@@ -90,8 +90,8 @@ class DiscordClient
 						Discord.RunCallbacks();
 					}
 
-					// Wait 1 second until the next loop...
-					Sys.sleep(1.0);
+					// Wait 2 second until the next loop...
+					Sys.sleep(2);
 				}
 			});
 		}
