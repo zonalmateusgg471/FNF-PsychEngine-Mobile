@@ -112,7 +112,7 @@ class MusicBeatState extends FlxState
 	{
 		var camera = new PsychCamera();
 		FlxG.cameras.reset(camera);
-		FlxG.cameras.setdefaultDrawTarget(camera, true);
+		FlxG.cameras.setDefaultDrawTarget(camera, true);
 		_psychCameraInitialized = true;
 		//trace('initialized psych camera ' + Sys.cpuTime());
 		return camera;
