@@ -143,8 +143,8 @@ class PauseSubState extends MusicBeatSubstate
 		regenMenu();
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 
-		addVirtualPad(PlayState.chartingMode ? 'LEFT_FULL' : 'UP_DOWN', 'A');
-		addVirtualPadCamera(false);
+		addTouchPad(PlayState.chartingMode ? 'LEFT_FULL' : 'UP_DOWN', 'A');
+		addTouchPadCamera(false);
 
 		super.create();
 	}
@@ -334,10 +334,10 @@ class PauseSubState extends MusicBeatSubstate
 			}
 		}
 
-		if (virtualPad == null) //sometimes it dosent add the vpad, hopefully this fixes it
+		if (touchPad == null) //sometimes it dosent add the vpad, hopefully this fixes it
 		{
-			addVirtualPad(PlayState.chartingMode ? 'LEFT_FULL' : 'UP_DOWN', 'A');
-			addVirtualPadCamera(false);
+			addTouchPad(PlayState.chartingMode ? 'LEFT_FULL' : 'UP_DOWN', 'A');
+			addTouchPadCamera(false);
 		}
 	}
 

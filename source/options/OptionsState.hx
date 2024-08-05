@@ -28,7 +28,7 @@ class OptionsState extends MusicBeatState
 
 	function openSelectedSubstate(label:String) {
 		if (label != "Adjust Delay and Combo"){
-			removeVirtualPad();
+			removeTouchPad();
 			persistentUpdate = false;
 		}
 		switch(label)
@@ -96,7 +96,7 @@ class OptionsState extends MusicBeatState
 		changeSelection();
 		ClientPrefs.saveSettings();
 
-		addVirtualPad('UP_DOWN', 'A_B');
+		addTouchPad('UP_DOWN', 'A_B');
 
 		#if (target.threaded)
 		Thread.create(()->{
@@ -123,8 +123,8 @@ class OptionsState extends MusicBeatState
 		DiscordClient.changePresence("Options Menu", null);
 		#end
 		controls.isInSubstate = false;
-        removeVirtualPad();
-		addVirtualPad('UP_DOWN', 'A_B');
+        removeTouchPad();
+		addTouchPad('UP_DOWN', 'A_B');
 		persistentUpdate = true;
 	}
 

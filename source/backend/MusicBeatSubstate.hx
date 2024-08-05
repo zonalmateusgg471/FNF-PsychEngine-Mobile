@@ -28,7 +28,7 @@ class MusicBeatSubstate extends FlxSubState
 	inline function get_controls():Controls
 		return Controls.instance;
 
-	public var virtualPad:FlxVirtualPad;
+	public var touchPad:TouchPad;
 	public var mobileControls:MobileControls;
 
 	public function addMobileControls(DefaultDrawTarget:Bool = true):Void
@@ -50,26 +50,26 @@ class MusicBeatSubstate extends FlxSubState
 				remove(mobileControls);
 		}
 
-	public function addVirtualPad(DPad:String, Action:String)
+	public function addTouchPad(DPad:String, Action:String)
 	{
-		virtualPad = new FlxVirtualPad(DPad, Action);
-		add(virtualPad);
+		touchPad = new TouchPad(DPad, Action);
+		add(touchPad);
 	}
 
-	public function removeVirtualPad()
+	public function removeTouchPad()
 	{
-		if (virtualPad != null)
-			remove(virtualPad);
+		if (touchPad != null)
+			remove(touchPad);
 	}
 
-	public function addVirtualPadCamera(DefaultDrawTarget:Bool = true):Void
+	public function addTouchPadCamera(DefaultDrawTarget:Bool = true):Void
 	{
-		if (virtualPad != null)
+		if (touchPad != null)
 		{
 			var camControls:FlxCamera = new FlxCamera();
 			camControls.bgColor.alpha = 0;
 			FlxG.cameras.add(camControls, DefaultDrawTarget);
-			virtualPad.cameras = [camControls];
+			touchPad.cameras = [camControls];
 		}
 	}
 
@@ -78,10 +78,10 @@ class MusicBeatSubstate extends FlxSubState
 		super.destroy();
 
 		controls.isInSubstate = false;
-		if (virtualPad != null)
+		if (touchPad != null)
 		{
-			virtualPad = FlxDestroyUtil.destroy(virtualPad);
-			virtualPad = null;
+			touchPad = FlxDestroyUtil.destroy(touchPad);
+			touchPad = null;
 		}
 		if (mobileControls != null)
 		{

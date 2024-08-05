@@ -186,11 +186,11 @@ class NotesSubState extends MusicBeatSubstate
 		controllerPointer.visible = controls.controllerMode;
 		_lastControllerMode = controls.controllerMode;
 
-		addVirtualPad('NONE', 'B_C');
+		addTouchPad('NONE', 'B_C');
 		controls.isInSubstate = true;
-		virtualPad.buttonB.x = FlxG.width - 132;
-		virtualPad.buttonC.x = 0;
-		virtualPad.buttonC.y = FlxG.height - 135;
+		touchPad.buttonB.x = FlxG.width - 132;
+		touchPad.buttonC.x = 0;
+		touchPad.buttonC.y = FlxG.height - 135;
 	}
 
 	function updateTip()
@@ -493,7 +493,7 @@ class NotesSubState extends MusicBeatSubstate
 				}
 			} 
 		}
-		else if(virtualPad.buttonC.justPressed || controls.RESET && hexTypeNum < 0)
+		else if(touchPad.buttonC.justPressed || controls.RESET && hexTypeNum < 0)
 		{
 			if(FlxG.keys.pressed.SHIFT || FlxG.gamepads.anyPressed(LEFT_SHOULDER))
 			{

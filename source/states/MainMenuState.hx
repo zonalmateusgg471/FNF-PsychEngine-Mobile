@@ -112,7 +112,7 @@ class MainMenuState extends MusicBeatState
 		#end
 		#end
 
-		addVirtualPad('NONE', 'E');
+		addTouchPad('NONE', 'E');
 
 		super.create();
 
@@ -327,7 +327,7 @@ class MainMenuState extends MusicBeatState
 				}
 				else CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
 			}
-			else if (controls.justPressed('debug_1') || virtualPad.buttonE.justPressed)
+			else if (controls.justPressed('debug_1') || touchPad.buttonE.justPressed)
 			{
 				selectedSomethin = true;
 				FlxG.mouse.visible = false;

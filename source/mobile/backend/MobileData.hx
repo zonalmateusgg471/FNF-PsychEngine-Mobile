@@ -7,8 +7,8 @@ import openfl.utils.Assets;
 
 class MobileData
 {
-	public static var actionModes:Map<String, VirtualPadButtonsData> = new Map();
-	public static var dpadModes:Map<String, VirtualPadButtonsData> = new Map();
+	public static var actionModes:Map<String, TouchPadButtonsData> = new Map();
+	public static var dpadModes:Map<String, TouchPadButtonsData> = new Map();
 	public static var extraActions:Map<String, ExtraActions> = new Map();
 
 	public static function init()
@@ -37,7 +37,7 @@ class MobileData
 				{
 				 	#if MODS_ALLOWED file = Path.join([folder, Path.withoutDirectory(file)]); #end
 					var str = #if MODS_ALLOWED File.getContent(file) #else Assets.getText(file) #end;
-					var json:VirtualPadButtonsData = cast Json.parse(str);
+					var json:TouchPadButtonsData = cast Json.parse(str);
 					var mapKey:String = Path.withoutDirectory(Path.withoutExtension(fileWithNoLib));
 					map.set(mapKey, json);
 				}
@@ -45,15 +45,15 @@ class MobileData
 	}
 }
 
-typedef VirtualPadButtonsData =
+typedef TouchPadButtonsData =
 {
 	buttons:Array<ButtonsData>
 }
 
 typedef ButtonsData =
 {
-	button:String, // what FlxButton should be used, must be a valid FlxButton var from FlxVirtualPad as a string.
-	graphic:String, // the graphic of the button, usually can be located in the VirtualPad xml .
+	button:String, // what TouchButton should be used, must be a valid TouchButton var from TouchPad as a string.
+	graphic:String, // the graphic of the button, usually can be located in the TouchPad xml .
 	x:Float, // the button's X position on screen.
 	y:Float, // the button's Y position on screen.
 	color:String // the button color, default color is white.

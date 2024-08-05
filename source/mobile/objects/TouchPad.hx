@@ -1,9 +1,9 @@
-package mobile.flixel;
+package mobile.objects;
 
 import mobile.objects.TouchButton;
 import haxe.io.Path;
 import flixel.graphics.frames.FlxTileFrames;
-import mobile.flixel.input.FlxMobileInputManager;
+import mobile.input.MobileInputManager;
 import flixel.math.FlxPoint;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.FlxGraphic;
@@ -11,47 +11,41 @@ import openfl.utils.Assets;
 import openfl.utils.AssetType;
 import openfl.display.BitmapData;
 
-/**
- * A gamepad.
- * It's easy to customize the layout.
- *
- * @author Ka Wing Chin, Mihai Alexandru and Karim Akra
- */
-class FlxVirtualPad extends FlxMobileInputManager<TouchPadButton> {
-	public var buttonLeft:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.LEFT, FlxMobileInputID.noteLEFT]);
-	public var buttonUp:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.UP, FlxMobileInputID.noteUP]);
-	public var buttonRight:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.RIGHT, FlxMobileInputID.noteRIGHT]);
-	public var buttonDown:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.DOWN, FlxMobileInputID.noteDOWN]);
-	public var buttonLeft2:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.LEFT2, FlxMobileInputID.noteLEFT]);
-	public var buttonUp2:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.UP2, FlxMobileInputID.noteUP]);
-	public var buttonRight2:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.RIGHT2, FlxMobileInputID.noteRIGHT]);
-	public var buttonDown2:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.DOWN2, FlxMobileInputID.noteDOWN]);
-	public var buttonA:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.A]);
-	public var buttonB:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.B]);
-	public var buttonC:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.C]);
-	public var buttonD:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.D]);
-	public var buttonE:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.E]);
-	public var buttonF:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.F]);
-	public var buttonG:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.G]);
-	public var buttonH:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.H]);
-	public var buttonI:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.I]);
-	public var buttonJ:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.J]);
-	public var buttonK:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.K]);
-	public var buttonL:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.L]);
-	public var buttonM:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.M]);
-	public var buttonN:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.N]);
-	public var buttonO:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.O]);
-	public var buttonP:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.P]);
-	public var buttonQ:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.Q]);
-	public var buttonR:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.R]);
-	public var buttonS:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.S]);
-	public var buttonT:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.T]);
-	public var buttonU:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.U]);
-	public var buttonV:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.V]);
-	public var buttonW:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.W]);
-	public var buttonX:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.X]);
-	public var buttonY:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.Y]);
-	public var buttonZ:TouchPadButton = new TouchPadButton(0, 0, [FlxMobileInputID.Z]);
+class TouchPad extends MobileInputManager<TouchPadButton> {
+	public var buttonLeft:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.LEFT, MobileInputID.noteLEFT]);
+	public var buttonUp:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.UP, MobileInputID.noteUP]);
+	public var buttonRight:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.RIGHT, MobileInputID.noteRIGHT]);
+	public var buttonDown:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.DOWN, MobileInputID.noteDOWN]);
+	public var buttonLeft2:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.LEFT2, MobileInputID.noteLEFT]);
+	public var buttonUp2:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.UP2, MobileInputID.noteUP]);
+	public var buttonRight2:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.RIGHT2, MobileInputID.noteRIGHT]);
+	public var buttonDown2:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.DOWN2, MobileInputID.noteDOWN]);
+	public var buttonA:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.A]);
+	public var buttonB:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.B]);
+	public var buttonC:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.C]);
+	public var buttonD:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.D]);
+	public var buttonE:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.E]);
+	public var buttonF:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.F]);
+	public var buttonG:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.G]);
+	public var buttonH:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.H]);
+	public var buttonI:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.I]);
+	public var buttonJ:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.J]);
+	public var buttonK:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.K]);
+	public var buttonL:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.L]);
+	public var buttonM:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.M]);
+	public var buttonN:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.N]);
+	public var buttonO:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.O]);
+	public var buttonP:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.P]);
+	public var buttonQ:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.Q]);
+	public var buttonR:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.R]);
+	public var buttonS:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.S]);
+	public var buttonT:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.T]);
+	public var buttonU:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.U]);
+	public var buttonV:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.V]);
+	public var buttonW:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.W]);
+	public var buttonX:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.X]);
+	public var buttonY:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.Y]);
+	public var buttonZ:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.Z]);
 	public var buttonExtra:TouchPadButton = new TouchPadButton(0, 0);
 	public var buttonExtra2:TouchPadButton = new TouchPadButton(0, 0);
 
@@ -66,7 +60,7 @@ class FlxVirtualPad extends FlxMobileInputManager<TouchPadButton> {
 
 		if (DPad != "NONE") {
 			if (!MobileData.dpadModes.exists(DPad))
-				throw 'The virtualPad dpadMode "$DPad" doesn\'t exists.';
+				throw 'The touchPad dpadMode "$DPad" doesn\'t exists.';
 			for (buttonData in MobileData.dpadModes.get(DPad).buttons) {
 				Reflect.setField(this, buttonData.button,
 					createButton(buttonData.x, buttonData.y, buttonData.graphic, CoolUtil.colorFromString(buttonData.color),
@@ -77,7 +71,7 @@ class FlxVirtualPad extends FlxMobileInputManager<TouchPadButton> {
 
 		if (Action != "NONE") {
 			if (!MobileData.actionModes.exists(Action))
-				throw 'The virtualPad actionMode "$Action" doesn\'t exists.';
+				throw 'The touchPad actionMode "$Action" doesn\'t exists.';
 			for (buttonData in MobileData.actionModes.get(Action).buttons) {
 				Reflect.setField(this, buttonData.button,
 					createButton(buttonData.x, buttonData.y, buttonData.graphic, CoolUtil.colorFromString(buttonData.color),
@@ -166,7 +160,7 @@ class FlxVirtualPad extends FlxMobileInputManager<TouchPadButton> {
 		}
 	}
 
-	private function createButton(X:Float, Y:Float, Graphic:String, ?Color:FlxColor = 0xFFFFFF, ?IDs:Array<FlxMobileInputID>):TouchPadButton {
+	private function createButton(X:Float, Y:Float, Graphic:String, ?Color:FlxColor = 0xFFFFFF, ?IDs:Array<MobileInputID>):TouchPadButton {
 		var button = new TouchPadButton(X, Y, IDs, Graphic.toUpperCase());
 		button.bounds.makeGraphic(Std.int(button.width - 50), Std.int(button.height - 50), FlxColor.TRANSPARENT);
 		button.centerBounds();
@@ -186,7 +180,7 @@ class FlxVirtualPad extends FlxMobileInputManager<TouchPadButton> {
 
 class TouchPadButton extends TouchButton
 {
-	public function new(X:Float = 0, Y:Float = 0, ?IDs:Array<FlxMobileInputID>, ?labelGraphic:String){
+	public function new(X:Float = 0, Y:Float = 0, ?IDs:Array<MobileInputID>, ?labelGraphic:String){
 		super(X, Y, IDs);
 		if(labelGraphic != null){
 			label = new FlxSprite();

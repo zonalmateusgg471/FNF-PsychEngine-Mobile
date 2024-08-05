@@ -1,6 +1,6 @@
-package mobile.flixel;
+package mobile.objects;
 
-import mobile.flixel.input.FlxMobileInputManager;
+import mobile.input.MobileInputManager;
 import openfl.display.BitmapData;
 import mobile.objects.TouchButton;
 import openfl.display.Shape;
@@ -13,19 +13,19 @@ import flixel.graphics.FlxGraphic;
  *
  * @author: Mihai Alexandru and Karim Akra
  */
-class FlxHitbox extends FlxMobileInputManager<HitboxButton>
+class Hitbox extends MobileInputManager<HitboxButton>
 {
 	final offsetFir:Int = (ClientPrefs.data.hitbox2 ? Std.int(FlxG.height / 4) * 3 : 0);
 	final offsetSec:Int = (ClientPrefs.data.hitbox2 ? 0 : Std.int(FlxG.height / 4));
 
-	public var buttonLeft:HitboxButton = new HitboxButton(0, 0, [FlxMobileInputID.hitboxLEFT, FlxMobileInputID.noteLEFT]);
-	public var buttonDown:HitboxButton = new HitboxButton(0, 0, [FlxMobileInputID.hitboxDOWN, FlxMobileInputID.noteDOWN]);
-	public var buttonUp:HitboxButton = new HitboxButton(0, 0, [FlxMobileInputID.hitboxUP, FlxMobileInputID.noteUP]);
-	public var buttonRight:HitboxButton = new HitboxButton(0, 0, [FlxMobileInputID.hitboxRIGHT, FlxMobileInputID.noteRIGHT]);
+	public var buttonLeft:HitboxButton = new HitboxButton(0, 0, [MobileInputID.hitboxLEFT, MobileInputID.noteLEFT]);
+	public var buttonDown:HitboxButton = new HitboxButton(0, 0, [MobileInputID.hitboxDOWN, MobileInputID.noteDOWN]);
+	public var buttonUp:HitboxButton = new HitboxButton(0, 0, [MobileInputID.hitboxUP, MobileInputID.noteUP]);
+	public var buttonRight:HitboxButton = new HitboxButton(0, 0, [MobileInputID.hitboxRIGHT, MobileInputID.noteRIGHT]);
 	public var buttonExtra:HitboxButton = new HitboxButton(0, 0);
 	public var buttonExtra2:HitboxButton = new HitboxButton(0, 0);
 
-	var storedButtonsIDs:Map<String, Array<FlxMobileInputID>> = new Map<String, Array<FlxMobileInputID>>();
+	var storedButtonsIDs:Map<String, Array<MobileInputID>> = new Map<String, Array<MobileInputID>>();
 
 	/**
 	 * Create the zone.
@@ -103,7 +103,7 @@ class HitboxButton extends TouchButton
 {
 	public static var hitboxesGraphics:Int = -1;
 
-	public function new(x:Float, y:Float, ?IDs:Array<FlxMobileInputID>, ?width:Int, ?height:Int){
+	public function new(x:Float, y:Float, ?IDs:Array<MobileInputID>, ?width:Int, ?height:Int){
 		super(x, y, IDs);
 		statusAlphas = [];
 		statusIndicatorType = NONE;

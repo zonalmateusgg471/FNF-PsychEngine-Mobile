@@ -5,7 +5,6 @@ import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.util.FlxGradient;
 import mobile.backend.TouchFunctions;
-import mobile.flixel.FlxButton;
 import flixel.input.touch.FlxTouch;
 import flixel.ui.FlxButton as UIButton;
 
@@ -97,7 +96,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 		var exit = new UIButton(0, itemText.y - 25, "Exit & Save", () ->
 		{
 			if(options[curOption].toLowerCase().contains('pad'))
-				control.virtualPad.setExtrasDefaultPos();
+				control.touchPad.setExtrasDefaultPos();
 			if (options[curOption] == 'Pad-Extra')
 			{
 				var nuhuh = new FlxText(0, 0, FlxG.width / 2, 'Pad-Extra Is Just A Binding Option\nPlease Select A Different Option To Exit.');
@@ -117,7 +116,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 			}
 			MobileControls.mode = curOption;
 			if (options[curOption] == 'Pad-Custom')
-				MobileControls.setCustomMode(control.virtualPad);
+				MobileControls.setCustomMode(control.touchPad);
 			controls.isInSubstate = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			close();
@@ -177,13 +176,13 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 			}
 			else
 			{
-				control.virtualPad.forEachAlive((button:TouchPadButton) ->
+				control.touchPad.forEachAlive((button:TouchPadButton) ->
 				{
 					if (button.justPressed)
 						moveButton(TouchFunctions.touch, button);
 				});
 			}
-		control.virtualPad.forEachAlive((button:TouchPadButton) -> {
+		control.touchPad.forEachAlive((button:TouchPadButton) -> {
 			if(button != bindButton && buttonBinded){
 				bindButton.centerBounds();
 				button.bounds.immovable = true;
@@ -268,7 +267,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 				reset.visible = true;
 				keyboardText.kill();
 				changeControls(0, true);
-				control.virtualPad.forEachAlive((button:TouchPadButton) ->
+				control.touchPad.forEachAlive((button:TouchPadButton) ->
 				{
 					var ignore = ['G', 'S'];
 					if (!ignore.contains(button.tag.toUpperCase()))
@@ -295,11 +294,11 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 			positionText.visible = positionTextBg.visible = true;
 			if (optionName == 'Pad-Custom')
 			{
-				positionText.text = 'LEFT X: ${control.virtualPad.buttonLeft.x} - Y: ${control.virtualPad.buttonLeft.y}\nDOWN X: ${control.virtualPad.buttonDown.x} - Y: ${control.virtualPad.buttonDown.y}\n\nUP X: ${control.virtualPad.buttonUp.x} - Y: ${control.virtualPad.buttonUp.y}\nRIGHT X: ${control.virtualPad.buttonRight.x} - Y: ${control.virtualPad.buttonRight.y}';
+				positionText.text = 'LEFT X: ${control.touchPad.buttonLeft.x} - Y: ${control.touchPad.buttonLeft.y}\nDOWN X: ${control.touchPad.buttonDown.x} - Y: ${control.touchPad.buttonDown.y}\n\nUP X: ${control.touchPad.buttonUp.x} - Y: ${control.touchPad.buttonUp.y}\nRIGHT X: ${control.touchPad.buttonRight.x} - Y: ${control.touchPad.buttonRight.y}';
 			}
 			else
 			{
-				positionText.text = 'S X: ${control.virtualPad.buttonExtra.x} - Y: ${control.virtualPad.buttonExtra.y}\n\n\n\nG X: ${control.virtualPad.buttonExtra2.x} - Y: ${control.virtualPad.buttonExtra2.y}';
+				positionText.text = 'S X: ${control.touchPad.buttonExtra.x} - Y: ${control.touchPad.buttonExtra.y}\n\n\n\nG X: ${control.touchPad.buttonExtra2.x} - Y: ${control.touchPad.buttonExtra2.y}';
 			}
 			positionText.setPosition(0, (((positionTextBg.height - positionText.height) / 2) + positionTextBg.y));
 		}
@@ -315,8 +314,8 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 				button.animation.play('press');
 			if (TouchFunctions.touchJustPressed)
 			{
-				if (options[curOption] == "Pad-Extra" && control.virtualPad != null)
-					control.virtualPad.setExtrasDefaultPos();
+				if (options[curOption] == "Pad-Extra" && control.touchPad != null)
+					control.touchPad.setExtrasDefaultPos();
 				func();
 			}
 		}

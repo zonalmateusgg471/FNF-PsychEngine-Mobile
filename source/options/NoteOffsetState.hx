@@ -346,7 +346,7 @@ class NoteOffsetState extends MusicBeatState
 				}
 			}
 
-			if(controls.RESET || virtualPad.buttonC.justPressed)
+			if(controls.RESET || touchPad.buttonC.justPressed)
 			{
 				for (i in 0...ClientPrefs.data.comboOffset.length)
 				{
@@ -384,7 +384,7 @@ class NoteOffsetState extends MusicBeatState
 				updateNoteDelay();
 			}
 
-			if(controls.RESET || virtualPad.buttonC.justPressed)
+			if(controls.RESET || touchPad.buttonC.justPressed)
 			{
 				holdTime = 0;
 				barPercent = 0;
@@ -531,18 +531,18 @@ class NoteOffsetState extends MusicBeatState
 			controllerPointer.visible = controls.controllerMode;
 		}
 
-        removeVirtualPad();
+        removeTouchPad();
 
 		var str:String;
 		var str2:String;
 		if(onComboMenu){
 			str = Language.getPhrase('combo_offset', 'Combo Offset');
-			addVirtualPad('NONE', 'A_B_C');
-			addVirtualPadCamera(false);
+			addTouchPad('NONE', 'A_B_C');
+			addTouchPadCamera(false);
 		} else {
 			str = Language.getPhrase('note_delay', 'Note/Beat Delay');
-			addVirtualPad('LEFT_FULL', 'A_B_C');
-			addVirtualPadCamera(false);
+			addTouchPad('LEFT_FULL', 'A_B_C');
+			addTouchPadCamera(false);
 		}
 
 		if(controls.mobileC)

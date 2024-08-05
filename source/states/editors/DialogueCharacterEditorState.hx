@@ -154,8 +154,8 @@ class DialogueCharacterEditorState extends MusicBeatState implements PsychUIEven
 		FlxG.mouse.visible = true;
 		updateCharTypeBox();
 		
-		addVirtualPad('DIALOGUE_PORTRAIT', 'DIALOGUE_PORTRAIT');
-		addVirtualPadCamera();
+		addTouchPad('DIALOGUE_PORTRAIT', 'DIALOGUE_PORTRAIT');
+		addTouchPadCamera();
 		
 		super.create();
 	}
@@ -478,7 +478,7 @@ class DialogueCharacterEditorState extends MusicBeatState implements PsychUIEven
 		if(PsychUIInputText.focusOn == null)
 		{
 			ClientPrefs.toggleVolumeKeys(true);
-			if((FlxG.keys.justPressed.SPACE || virtualPad.buttonA.justPressed) && UI_mainbox.selectedName == 'Character') {
+			if((FlxG.keys.justPressed.SPACE || touchPad.buttonA.justPressed) && UI_mainbox.selectedName == 'Character') {
 				character.playAnim(character.jsonFile.animations[curAnim].anim);
 				daText.resetDialogue();
 				updateTextBox();
@@ -487,7 +487,7 @@ class DialogueCharacterEditorState extends MusicBeatState implements PsychUIEven
 			//lots of Ifs lol get trolled
 			var offsetAdd:Int = 1;
 			var speed:Float = 300;
-			if(FlxG.keys.pressed.SHIFT || virtualPad.buttonZ.pressed) {
+			if(FlxG.keys.pressed.SHIFT || touchPad.buttonZ.pressed) {
 				speed = 1200;
 				offsetAdd = 10;
 			}
@@ -507,8 +507,8 @@ class DialogueCharacterEditorState extends MusicBeatState implements PsychUIEven
 			if(UI_mainbox.selectedName == 'Animations' && curSelectedAnim != null && character.dialogueAnimations.exists(curSelectedAnim)) {
 				var moved:Bool = false;
 				var animShit:DialogueAnimArray = character.dialogueAnimations.get(curSelectedAnim);
-				var controlArrayLoop:Array<Bool> = [FlxG.keys.justPressed.A || virtualPad.buttonLeft2.justPressed, FlxG.keys.justPressed.W || virtualPad.buttonUp2.justPressed, FlxG.keys.justPressed.D || virtualPad.buttonRight2.justPressed, FlxG.keys.justPressed.S || virtualPad.buttonDown2.justPressed];
-				var controlArrayIdle:Array<Bool> = [FlxG.keys.justPressed.LEFT || virtualPad.buttonLeft.justPressed, FlxG.keys.justPressed.UP || virtualPad.buttonUp.justPressed, FlxG.keys.justPressed.RIGHT || virtualPad.buttonRight.justPressed, FlxG.keys.justPressed.DOWN || virtualPad.buttonDown.justPressed];
+				var controlArrayLoop:Array<Bool> = [FlxG.keys.justPressed.A || touchPad.buttonLeft2.justPressed, FlxG.keys.justPressed.W || touchPad.buttonUp2.justPressed, FlxG.keys.justPressed.D || touchPad.buttonRight2.justPressed, FlxG.keys.justPressed.S || touchPad.buttonDown2.justPressed];
+				var controlArrayIdle:Array<Bool> = [FlxG.keys.justPressed.LEFT || touchPad.buttonLeft.justPressed, FlxG.keys.justPressed.UP || touchPad.buttonUp.justPressed, FlxG.keys.justPressed.RIGHT || touchPad.buttonRight.justPressed, FlxG.keys.justPressed.DOWN || touchPad.buttonDown.justPressed];
 				for (i in 0...controlArrayLoop.length) {
 					if(controlArrayLoop[i]) {
 						if(i % 2 == 1) {
@@ -546,7 +546,7 @@ class DialogueCharacterEditorState extends MusicBeatState implements PsychUIEven
 				camGame.zoom += elapsed * camGame.zoom;
 				if(camGame.zoom > 1) camGame.zoom = 1;
 			}
-			if(FlxG.keys.justPressed.H || virtualPad.buttonY.justPressed) {
+			if(FlxG.keys.justPressed.H || touchPad.buttonY.justPressed) {
 				if(UI_mainbox.selectedName == 'Animations') {
 					currentGhosts++;
 					if(currentGhosts > 2) currentGhosts = 0;
@@ -559,7 +559,7 @@ class DialogueCharacterEditorState extends MusicBeatState implements PsychUIEven
 					hudGroup.visible = !hudGroup.visible;
 				}
 			}
-			if(FlxG.keys.justPressed.R || virtualPad.buttonX.justPressed) {
+			if(FlxG.keys.justPressed.R || touchPad.buttonX.justPressed) {
 				camGame.zoom = 1;
 				mainGroup.setPosition(0, 0);
 				hudGroup.visible = true;
@@ -621,7 +621,7 @@ class DialogueCharacterEditorState extends MusicBeatState implements PsychUIEven
 				}
 			}
 
-			if(FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justPressed.BACK #end || virtualPad.buttonB.justPressed) {
+			if(FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justPressed.BACK #end || touchPad.buttonB.justPressed) {
 				if(!unsavedProgress)
 				{
 					MusicBeatState.switchState(new states.editors.MasterEditorMenu());

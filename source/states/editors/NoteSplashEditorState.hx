@@ -84,7 +84,7 @@ class NoteSplashEditorState extends MusicBeatState
 
         var tipText:FlxText = new FlxText();
         tipText.setFormat(null, 32);
-        tipText.text = 'Press $buttınF1 for Help';
+        tipText.text = 'Press $buttonF1 for Help';
         tipText.setPosition(properUI.x - properUI.width - 60, UI.y);
         add(tipText);
 
@@ -128,7 +128,7 @@ class NoteSplashEditorState extends MusicBeatState
         curText.x += 5;
         add(curText);
 
-        addVirtualPad('LEFT_FULL', 'NOTE_SPLASH_EDITOR');
+        addTouchPad('LEFT_FULL', 'NOTE_SPLASH_EDITOR');
 
         super.create();
     }
@@ -813,11 +813,15 @@ class NoteSplashEditorState extends MusicBeatState
         var data:String = Json.stringify(config, "\t");
         if (data.length > 0)
         {
+            #if mobile
+            SUtil.saveContent(imageSkin, ".json", data);
+            #else
             _file = new FileReference();
 			_file.addEventListener(Event.COMPLETE, onSaveComplete);
 			_file.addEventListener(Event.CANCEL, onSaveCancel);
 			_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
 			_file.save(data, imageSkin + ".json");
+            #end
         }
     }
 
@@ -1012,7 +1016,7 @@ class NoteSplashEditorHelpSubState extends MusicBeatSubstate
 
         final click:String = controls.mobileC ? "Touch" : "Click";
         final buttonShift:String = controls.mobileC ? "Z" : "SHIFT";
-        final buttonCTRLCV:String = controls.mobileC ? "C/V" : "CTRL C/V"
+        final buttonCTRLCV:String = controls.mobileC ? "C/V" : "CTRL C/V";
 
         var text:FlxText = new FlxText();
         text.setFormat(null, 32, FlxColor.WHITE, CENTER, OUTLINE_FAST, FlxColor.BLACK);

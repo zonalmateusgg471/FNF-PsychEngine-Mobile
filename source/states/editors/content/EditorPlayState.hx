@@ -156,8 +156,8 @@ class EditorPlayState extends MusicBeatSubstate
 		cachePopUpScore();
 
 		#if !android
-		addVirtualPad('NONE', 'P');
-		addVirtualPadCamera(false);
+		addTouchPad('NONE', 'P');
+		addTouchPadCamera(false);
 		#end
 
 		addMobileControls(false);
@@ -170,7 +170,7 @@ class EditorPlayState extends MusicBeatSubstate
 
 	override function update(elapsed:Float)
 	{
-		if(#if android FlxG.android.justReleased.BACK #else virtualPad.buttonP.justPressed #end || controls.BACK || FlxG.keys.justPressed.ESCAPE || FlxG.keys.justPressed.F12)
+		if(#if android FlxG.android.justReleased.BACK #else touchPad.buttonP.justPressed #end || controls.BACK || FlxG.keys.justPressed.ESCAPE || FlxG.keys.justPressed.F12)
 		{
 			mobileControls.visible = false;
 			endSong();

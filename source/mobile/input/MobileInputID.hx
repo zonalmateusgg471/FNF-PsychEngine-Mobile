@@ -1,4 +1,4 @@
-package mobile.flixel.input;
+package mobile.input;
 
 import flixel.system.macros.FlxMacroUtil;
 
@@ -8,9 +8,9 @@ import flixel.system.macros.FlxMacroUtil;
  * @author Karim Akra
  */
 @:runtimeValue
-enum abstract FlxMobileInputID(Int) from Int to Int {
-	public static var fromStringMap(default, null):Map<String, FlxMobileInputID> = FlxMacroUtil.buildMap("mobile.flixel.input.FlxMobileInputID");
-	public static var toStringMap(default, null):Map<FlxMobileInputID, String> = FlxMacroUtil.buildMap("mobile.flixel.input.FlxMobileInputID", true);
+enum abstract MobileInputID(Int) from Int to Int {
+	public static var fromStringMap(default, null):Map<String, MobileInputID> = FlxMacroUtil.buildMap("mobile.input.MobileInputID");
+	public static var toStringMap(default, null):Map<MobileInputID, String> = FlxMacroUtil.buildMap("mobile.input.MobileInputID", true);
 	// Nothing & Anything
 	var ANY = -2;
 	var NONE = -1;

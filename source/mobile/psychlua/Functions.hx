@@ -70,58 +70,58 @@ class MobileFunctions
 			return Haptic.vibrate(period, duration);
 		});
 
-		funk.set("addVirtualPad", (DPadMode:String, ActionMode:String, ?addToCustomSubstate:Bool = false, ?posAtCustomSubstate:Int = -1) ->
+		funk.set("addTouchPad", (DPadMode:String, ActionMode:String, ?addToCustomSubstate:Bool = false, ?posAtCustomSubstate:Int = -1) ->
 		{
-			PlayState.instance.makeLuaVirtualPad(DPadMode, ActionMode);
+			PlayState.instance.makeLuaTouchPad(DPadMode, ActionMode);
 			if (addToCustomSubstate)
 			{
-				if (PlayState.instance.luaVirtualPad != null || !PlayState.instance.members.contains(PlayState.instance.luaVirtualPad))
+				if (PlayState.instance.luaTouchPad != null || !PlayState.instance.members.contains(PlayState.instance.luaTouchPad))
 					CustomSubstate.insertLuaVpad(posAtCustomSubstate);
 			}
 			else
-				PlayState.instance.addLuaVirtualPad();
+				PlayState.instance.addLuaTouchPad();
 		});
 
-		funk.set("removeVirtualPad", () ->
+		funk.set("removeTouchPad", () ->
 		{
-			PlayState.instance.removeLuaVirtualPad();
+			PlayState.instance.removeLuaTouchPad();
 		});
 
-		funk.set("addVirtualPadCamera", () ->
+		funk.set("addTouchPadCamera", () ->
 		{
-			if (PlayState.instance.luaVirtualPad == null)
+			if (PlayState.instance.luaTouchPad == null)
 			{
-				FunkinLua.luaTrace('addVirtualPadCamera: Virtual Pad does not exist.');
+				FunkinLua.luaTrace('addTouchPadCamera: Virtual Pad does not exist.');
 				return;
 			}
-			PlayState.instance.addLuaVirtualPadCamera();
+			PlayState.instance.addLuaTouchPadCamera();
 		});
 
-		funk.set("virtualPadJustPressed", function(button:Dynamic):Bool
+		funk.set("touchPadJustPressed", function(button:Dynamic):Bool
 		{
-			if (PlayState.instance.luaVirtualPad == null)
+			if (PlayState.instance.luaTouchPad == null)
 			{
 				return false;
 			}
-			return PlayState.instance.luaVirtualPadJustPressed(button);
+			return PlayState.instance.luaTouchPadJustPressed(button);
 		});
 
-		funk.set("virtualPadPressed", function(button:Dynamic):Bool
+		funk.set("touchPadPressed", function(button:Dynamic):Bool
 		{
-			if (PlayState.instance.luaVirtualPad == null)
+			if (PlayState.instance.luaTouchPad == null)
 			{
 				return false;
 			}
-			return PlayState.instance.luaVirtualPadPressed(button);
+			return PlayState.instance.luaTouchPadPressed(button);
 		});
 
-		funk.set("virtualPadJustReleased", function(button:Dynamic):Bool
+		funk.set("touchPadJustReleased", function(button:Dynamic):Bool
 		{
-			if (PlayState.instance.luaVirtualPad == null)
+			if (PlayState.instance.luaTouchPad == null)
 			{
 				return false;
 			}
-			return PlayState.instance.luaVirtualPadJustReleased(button);
+			return PlayState.instance.luaTouchPadJustReleased(button);
 		});
 
 		funk.set("touchJustPressed", TouchFunctions.touchJustPressed);

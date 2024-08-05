@@ -35,9 +35,9 @@ class TouchButton extends TypedTouchButton<FlxSprite>
 	**/
 	public var tag:String;
 	/**
-	 * The `FlxMobileInputID` that are assigned to this button.
+	 * The `MobileInputID` that are assigned to this button.
 	**/
-	public var IDs:Array<FlxMobileInputID> = [];
+	public var IDs:Array<MobileInputID> = [];
 	/**
 	 * A Small invisible bounds used for colision
 	**/
@@ -51,7 +51,7 @@ class TouchButton extends TypedTouchButton<FlxSprite>
 	 * @param   Y         The y position of the button.
 	 * @param   IDs        The button's IDs(used for input handling so be careful).
 	 */
-	public function new(X:Float = 0, Y:Float = 0, ?IDs:Array<FlxMobileInputID> = null):Void
+	public function new(X:Float = 0, Y:Float = 0, ?IDs:Array<MobileInputID> = null):Void
 	{
 		super(X, Y);
 
@@ -142,7 +142,7 @@ class TypedTouchButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	public var labelStatusDiff:Float = 0.05;
 
 	/**
-	 * IF YOU'RE USING SPRITE GROUPS YOU MUST SET THIS TO THE GROUP'S ALPHA LIKE IN FLXVIRTUALPAD.
+	 * IF YOU'RE USING SPRITE GROUPS YOU MUST SET THIS TO THE GROUP'S ALPHA LIKE IN TouchPad.
 	**/
 	public var parentAlpha(default, set):Float = 1;
 

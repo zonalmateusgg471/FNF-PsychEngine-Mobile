@@ -21,21 +21,21 @@ class MusicBeatState extends FlxState
 		return Controls.instance;
 	}
 
-	public var virtualPad:FlxVirtualPad;
+	public var touchPad:TouchPad;
 	public var mobileControls:MobileControls;
 	public var camControls:FlxCamera;
 	public var vpadCam:FlxCamera;
 
-	public function addVirtualPad(DPad:String, Action:String)
+	public function addTouchPad(DPad:String, Action:String)
 	{
-		virtualPad = new FlxVirtualPad(DPad, Action);
-		add(virtualPad);
+		touchPad = new TouchPad(DPad, Action);
+		add(touchPad);
 	}
 
-	public function removeVirtualPad()
+	public function removeTouchPad()
 	{
-		if (virtualPad != null)
-			remove(virtualPad);
+		if (touchPad != null)
+			remove(touchPad);
 	}
 
 	public function addMobileControls(DefaultDrawTarget:Bool = true):Void
@@ -57,14 +57,14 @@ class MusicBeatState extends FlxState
 			remove(mobileControls);
 	}
 
-	public function addVirtualPadCamera(DefaultDrawTarget:Bool = true):Void
+	public function addTouchPadCamera(DefaultDrawTarget:Bool = true):Void
 	{
-		if (virtualPad != null)
+		if (touchPad != null)
 		{
 			vpadCam = new FlxCamera();
 			vpadCam.bgColor.alpha = 0;
 			FlxG.cameras.add(vpadCam, DefaultDrawTarget);
-			virtualPad.cameras = [vpadCam];
+			touchPad.cameras = [vpadCam];
 		}
 	}
 
@@ -72,10 +72,10 @@ class MusicBeatState extends FlxState
 	{
 		super.destroy();
 
-		if (virtualPad != null)
+		if (touchPad != null)
 		{
-			virtualPad = FlxDestroyUtil.destroy(virtualPad);
-			virtualPad = null;
+			touchPad = FlxDestroyUtil.destroy(touchPad);
+			touchPad = null;
 		}
 
 		if (mobileControls != null)
