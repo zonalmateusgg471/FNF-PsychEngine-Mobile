@@ -80,9 +80,11 @@ class NoteSplashEditorState extends MusicBeatState
         shaderUI.y = UI.y + UI.height + 10;
         add(shaderUI);
 
+        final buttonF1:String = controls.mobileC ? "F" : "F1";
+
         var tipText:FlxText = new FlxText();
         tipText.setFormat(null, 32);
-        tipText.text = "Press F1 for Help";
+        tipText.text = 'Press $buttınF1 for Help';
         tipText.setPosition(properUI.x - properUI.width - 60, UI.y);
         add(tipText);
 
@@ -125,6 +127,8 @@ class NoteSplashEditorState extends MusicBeatState
         curText.y = FlxG.height - curText.height;
         curText.x += 5;
         add(curText);
+
+        addVirtualPad('LEFT_FULL', 'NOTE_SPLASH_EDITOR');
 
         super.create();
     }
@@ -1006,12 +1010,16 @@ class NoteSplashEditorHelpSubState extends MusicBeatSubstate
         bg.alpha = 0.6;
         add(bg);
 
+        final click:String = controls.mobileC ? "Touch" : "Click";
+        final buttonShift:String = controls.mobileC ? "Z" : "SHIFT";
+        final buttonCTRLCV:String = controls.mobileC ? "C/V" : "CTRL C/V"
+
         var text:FlxText = new FlxText();
         text.setFormat(null, 32, FlxColor.WHITE, CENTER, OUTLINE_FAST, FlxColor.BLACK);
-        text.text = "CLICK on strums to SPLASH them";
+        text.text = '$click on strums to SPLASH them';
         text.text += "\n\nARROW KEYS - Move Offset";
-        text.text += "\nHOLD SHIFT - Move Offset 10x faster";
-        text.text += "\n\nCTRL C/V - Copy or Paste Offsets";
+        text.text += '\nHOLD $buttonShift - Move Offset 10x faster';
+        text.text += '\n\n$buttonCTRLCV - Copy or Paste Offsets';
         text.screenCenter();
 
         var noteDataText:FlxText = new FlxText();
