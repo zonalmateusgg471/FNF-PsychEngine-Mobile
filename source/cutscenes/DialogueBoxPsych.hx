@@ -171,7 +171,7 @@ class DialogueBoxPsych extends FlxSpriteGroup
 				if (touch.justPressed)
 					justTouched = true;
 
-			var back:Bool = Controls.instance.BACK;
+			var back:Bool = #if android FlxG.android.justReleased.BACK || #end Controls.instance.BACK;
 			if(Controls.instance.ACCEPT || back || justTouched) {
 				if(!daText.finishedText && !back)
 				{
