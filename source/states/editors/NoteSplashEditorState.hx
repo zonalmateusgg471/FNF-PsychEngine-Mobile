@@ -814,7 +814,7 @@ class NoteSplashEditorState extends MusicBeatState
         if (data.length > 0)
         {
             #if mobile
-            SUtil.saveContent(imageSkin, ".json", data);
+            StorageUtil.saveContent('$imageSkin.json', data);
             #else
             _file = new FileReference();
 			_file.addEventListener(Event.COMPLETE, onSaveComplete);

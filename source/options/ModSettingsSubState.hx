@@ -142,7 +142,7 @@ class ModSettingsSubState extends BaseOptionsMenu
 		{
 			var errorTitle = 'Mod name: ' + folder;
 			var errorMsg = 'An error occurred: $e';
-			SUtil.showPopUp(errorMsg, errorTitle);
+			CoolUtil.showPopUp(errorMsg, errorTitle);
 			_crashed = true;
 			close();
 			return;

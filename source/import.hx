@@ -20,7 +20,7 @@ import mobile.objects.Hitbox;
 import mobile.objects.TouchPad;
 import mobile.input.MobileInputID;
 import mobile.backend.MobileData;
-import mobile.backend.SUtil;
+import mobile.backend.StorageUtil;
 import mobile.backend.SwipeUtil;
 
 //Android

@@ -12,7 +12,7 @@ import android.callback.CallBack;
  * A storage class for mobile.
  * @author Mihai Alexandru (M.A. Jigsaw)
  */
-class SUtil
+class StorageUtil
 {
 	#if sys
 	// root directory, used for handling the saved storage type and path
@@ -34,13 +34,13 @@ class SUtil
 		return daPath;
 	}
 
-	public static function mkDirs(directory:String):Void
+	public static function createDirectories(directory:String):Void
 	{
 		try {
 			if (FileSystem.exists(directory) && FileSystem.isDirectory(directory))
 				return;
 		} catch (e:haxe.Exception) {
-			trace('Something went wrong while looking at folder. (${e.message})');
+			trace('Something went wrong while looking at directory. (${e.message})');
 		}
 
 		var total:String = '';
@@ -66,35 +66,34 @@ class SUtil
 						FileSystem.createDirectory(total);
 				}
 				catch (e:Exception)
-					trace('Error while creating folder. (${e.message}');
+					trace('Error while creating directory. (${e.message}');
 			}
 		}
 	}
 
-	public static function saveContent(fileName:String = 'file', fileExtension:String = '.json',
-			fileData:String = 'You forgor to add somethin\' in yo code :3'):Void
+	public static function saveContent(fileName:String = 'file', fileData:String = 'You forgor to add somethin\' in yo code :3'):Void
 	{
 		try
 		{
 			if (!FileSystem.exists('saves'))
 				FileSystem.createDirectory('saves');
 
-			File.saveContent('saves/' + fileName + fileExtension, fileData);
-			showPopUp(fileName + " file has been saved.", "Success!");
+			File.saveContent('saves/' + fileName, fileData);
+			CoolUtil.showPopUp(fileName + " file has been saved.", "Success!");
 		}
 		catch (e:Exception)
 			trace('File couldn\'t be saved. (${e.message})');
 	}
 
 	#if android
-	public static function doPermissionsShit():Void
+	public static function requestPermissions():Void
 	{
 		if (!AndroidPermissions.getGrantedPermissions().contains('android.permission.READ_EXTERNAL_STORAGE')
 			&& !AndroidPermissions.getGrantedPermissions().contains('android.permission.WRITE_EXTERNAL_STORAGE'))
 		{
 			AndroidPermissions.requestPermission('READ_EXTERNAL_STORAGE');
 			AndroidPermissions.requestPermission('WRITE_EXTERNAL_STORAGE');
-			showPopUp('If you accepted the permissions you are all good!' + '\nIf you didn\'t then expect a crash' + '\nPress Ok to see what happens',
+			CoolUtil.showPopUp('If you accepted the permissions you are all good!' + '\nIf you didn\'t then expect a crash' + '\nPress Ok to see what happens',
 				'Notice!');
 			if (!AndroidEnvironment.isExternalStorageManager())
 				AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
@@ -103,12 +102,12 @@ class SUtil
 		{
 			try
 			{
-				if (!FileSystem.exists(SUtil.getStorageDirectory()))
-					FileSystem.createDirectory(SUtil.getStorageDirectory());
+				if (!FileSystem.exists(StorageUtil.getStorageDirectory()))
+					FileSystem.createDirectory(StorageUtil.getStorageDirectory());
 			}
 			catch (e:Dynamic)
 			{
-				showPopUp('Please create folder to\n' + SUtil.getStorageDirectory(true) + '\nPress OK to close the game', 'Error!');
+				CoolUtil.showPopUp('Please create directory to\n' + StorageUtil.getStorageDirectory(true) + '\nPress OK to close the game', 'Error!');
 				LimeSystem.exit(1);
 			}
 		}
@@ -129,26 +128,8 @@ class SUtil
 		daPath = haxe.io.Path.addTrailingSlash(daPath.endsWith("\n") ? daPath.substr(0, daPath.length - 1) : daPath);
 		return daPath;
 	}
-
-	@:noCompletion
-	public static function get_selectedDir():Null<String>
-	{
-		var saveFilePath = rootDir + 'curCWD.txt';
-		if(!FileSystem.exists(saveFilePath)) return null;
-		return File.getContent(saveFilePath);
-	}
 	#end
 	#end
-	public static function showPopUp(message:String, title:String):Void
-	{
-		#if android
-		AndroidTools.showAlertDialog(title, message, {name: "OK", func: null}, null);
-		#elseif (!ios || !iphonesim)
-		lime.app.Application.current.window.alert(message, title);
-		#else
-		trace('$title - $message');
-		#end
-	}
 }
 
 #if android
@@ -177,7 +158,7 @@ enum abstract StorageType(String) from String to String
 			case "EXTERNAL_OBB": EXTERNAL_OBB;
 			case "EXTERNAL_MEDIA": EXTERNAL_MEDIA;
 			case "EXTERNAL": EXTERNAL;
-			default: SUtil.getExternalDirectory(str) + '.' + fileLocal;
+			default: StorageUtil.getExternalDirectory(str) + '.' + fileLocal;
 		}
 	}
 
@@ -194,7 +175,7 @@ enum abstract StorageType(String) from String to String
 			case "EXTERNAL_OBB": EXTERNAL_OBB;
 			case "EXTERNAL_MEDIA": EXTERNAL_MEDIA;
 			case "EXTERNAL": EXTERNAL;
-			default: SUtil.getExternalDirectory(str) + '.' + fileLocal;
+			default: StorageUtil.getExternalDirectory(str) + '.' + fileLocal;
 		}
 	}
 }

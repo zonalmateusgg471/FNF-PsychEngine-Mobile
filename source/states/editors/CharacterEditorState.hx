@@ -1347,7 +1347,7 @@ class CharacterEditorState extends MusicBeatState implements PsychUIEventHandler
 		{
 			#if mobile
 			unsavedProgress = false;
-			SUtil.saveContent('$_char', ".json", data);
+			StorageUtil.saveContent('$_char.json', data);
 			#else
 			_file = new FileReference();
 			_file.addEventListener(#if desktop Event.SELECT #else Event.COMPLETE #end, onSaveComplete);

@@ -1572,7 +1572,7 @@ class FunkinLua {
 			if(resultStr != null && result != 0) {
 				trace(resultStr);
 				#if (windows || android || js || wasm)
-				SUtil.showPopUp(resultStr, 'Error on lua script!');
+				CoolUtil.showPopUp(resultStr, 'Error on lua script!');
 				#else
 				luaTrace('$scriptName\n$resultStr', true, false, FlxColor.RED);
 				#end

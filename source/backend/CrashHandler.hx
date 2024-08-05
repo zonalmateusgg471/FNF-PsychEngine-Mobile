@@ -1,4 +1,4 @@
-package mobile.backend;
+package backend;
 
 import openfl.events.UncaughtErrorEvent;
 import openfl.events.ErrorEvent;
@@ -75,7 +75,7 @@ class CrashHandler
 			trace('Couldn\'t save error message. (${e.message})');
 		#end
 
-		mobile.backend.SUtil.showPopUp('$m\n$stackLabel', "Error!");
+		CoolUtil.showPopUp('$m\n$stackLabel', "Error!");
 
 		#if html5
 		if (flixel.FlxG.sound.music != null)

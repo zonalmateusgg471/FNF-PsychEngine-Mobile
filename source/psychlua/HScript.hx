@@ -97,7 +97,7 @@ class HScript extends SScript
 		set('Countdown', backend.BaseStage.Countdown);
 		set('PlayState', PlayState);
 		set('Paths', Paths);
-		set('SUtil', SUtil);
+		set('StorageUtil', StorageUtil);
 		set('MobileControls', mobile.objects.MobileControls);
 		set('Conductor', Conductor);
 		set('ClientPrefs', ClientPrefs);

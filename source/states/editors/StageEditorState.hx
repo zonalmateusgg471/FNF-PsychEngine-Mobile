@@ -1554,7 +1554,7 @@ class StageEditorState extends MusicBeatState implements PsychUIEventHandler.Psy
 		var data = haxe.Json.stringify(stageJson, '\t');
 		#if mobile
 		unsavedProgress = false;
-		SUtil.saveContent(lastLoadedStage, '.json', data);
+		StorageUtil.saveContent('$lastLoadedStage.json', data);
 		#else
 		if (data.length > 0)
 		{
