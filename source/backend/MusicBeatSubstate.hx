@@ -31,13 +31,13 @@ class MusicBeatSubstate extends FlxSubState
 	public var touchPad:TouchPad;
 	public var mobileControls:MobileControls;
 
-	public function addMobileControls(DefaultDrawTarget:Bool = true):Void
+	public function addMobileControls(defaultDrawTarget:Bool = true):Void
 		{
 			mobileControls = new MobileControls();
 	
 			var camControls = new flixel.FlxCamera();
 			camControls.bgColor.alpha = 0;
-			FlxG.cameras.add(camControls, DefaultDrawTarget);
+			FlxG.cameras.add(camControls, defaultDrawTarget);
 	
 			mobileControls.cameras = [camControls];
 			mobileControls.visible = false;
@@ -62,13 +62,13 @@ class MusicBeatSubstate extends FlxSubState
 			remove(touchPad);
 	}
 
-	public function addTouchPadCamera(DefaultDrawTarget:Bool = true):Void
+	public function addTouchPadCamera(defaultDrawTarget:Bool = true):Void
 	{
 		if (touchPad != null)
 		{
 			var camControls:FlxCamera = new FlxCamera();
 			camControls.bgColor.alpha = 0;
-			FlxG.cameras.add(camControls, DefaultDrawTarget);
+			FlxG.cameras.add(camControls, defaultDrawTarget);
 			touchPad.cameras = [camControls];
 		}
 	}

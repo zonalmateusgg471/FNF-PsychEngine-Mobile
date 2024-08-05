@@ -368,8 +368,10 @@ class NoteSplashEditorState extends MusicBeatState
         templateButton = new PsychUIButton(20, 155, "Template");
         ui.add(templateButton);
 
+        #if !mobile
         var loadButton:PsychUIButton = new PsychUIButton(180, 155, "Convert TXT", loadTxt);
         ui.add(loadButton);
+        #end
 
         if (config != null && config.scale != null)
         {

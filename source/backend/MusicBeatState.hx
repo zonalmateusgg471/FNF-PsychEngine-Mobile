@@ -38,13 +38,13 @@ class MusicBeatState extends FlxState
 			remove(touchPad);
 	}
 
-	public function addMobileControls(DefaultDrawTarget:Bool = true):Void
+	public function addMobileControls(defaultDrawTarget:Bool = true):Void
 	{
 		mobileControls = new MobileControls();
 
 		camControls = new FlxCamera();
 		camControls.bgColor.alpha = 0;
-		FlxG.cameras.add(camControls, DefaultDrawTarget);
+		FlxG.cameras.add(camControls, defaultDrawTarget);
 
 		mobileControls.cameras = [camControls];
 		mobileControls.visible = false;
@@ -57,13 +57,13 @@ class MusicBeatState extends FlxState
 			remove(mobileControls);
 	}
 
-	public function addTouchPadCamera(DefaultDrawTarget:Bool = true):Void
+	public function addTouchPadCamera(defaultDrawTarget:Bool = true):Void
 	{
 		if (touchPad != null)
 		{
 			vpadCam = new FlxCamera();
 			vpadCam.bgColor.alpha = 0;
-			FlxG.cameras.add(vpadCam, DefaultDrawTarget);
+			FlxG.cameras.add(vpadCam, defaultDrawTarget);
 			touchPad.cameras = [vpadCam];
 		}
 	}
@@ -112,7 +112,7 @@ class MusicBeatState extends FlxState
 	{
 		var camera = new PsychCamera();
 		FlxG.cameras.reset(camera);
-		FlxG.cameras.setDefaultDrawTarget(camera, true);
+		FlxG.cameras.setdefaultDrawTarget(camera, true);
 		_psychCameraInitialized = true;
 		//trace('initialized psych camera ' + Sys.cpuTime());
 		return camera;
