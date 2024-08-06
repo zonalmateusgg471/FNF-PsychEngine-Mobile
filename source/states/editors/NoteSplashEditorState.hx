@@ -49,10 +49,10 @@ class NoteSplashEditorState extends MusicBeatState
         FlxG.sound.volumeUpKeys = [];
         FlxG.sound.volumeDownKeys = [];
         FlxG.sound.muteKeys = [];
-
-	#if DISCORD_ALLOWED
+        
+        #if DISCORD_ALLOWED
         DiscordClient.changePresence("In the Note Splash Editor Menu");
-	#end
+        #end
 
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set();
@@ -537,14 +537,14 @@ class NoteSplashEditorState extends MusicBeatState
             config.scale[1] = scaleYNumericStepper.value;
         }
 
-        if (FlxG.keys.pressed.CONTROL)
+        if (controls.mobileC || FlxG.keys.pressed.CONTROL)
         {
-            if (FlxG.keys.justPressed.C)
+            if (touchPad.buttonC.justPressed || FlxG.keys.justPressed.C)
             {
                 if (config.animations.get(curAnim) != null)
                     copiedOffset = config.animations.get(curAnim).offsets.copy();
             }
-            else if (FlxG.keys.justPressed.V)
+            else if (touchPad.buttonV.justPressed || FlxG.keys.justPressed.V)
             {
                 if (config.animations.get(curAnim) != null)
                 {
@@ -568,24 +568,24 @@ class NoteSplashEditorState extends MusicBeatState
                 }
             }
 
-            var multiplier:Int = FlxG.keys.pressed.SHIFT ? 10 : 1;
+            var multiplier:Int = touchPad.buttonZ.pressed || FlxG.keys.pressed.SHIFT ? 10 : 1;
 
-            if (FlxG.keys.justPressed.LEFT)
+            if (touchPad.buttonLeft.justPressed || FlxG.keys.justPressed.LEFT)
             {
                 config.animations[curAnim].offsets[0] += multiplier;
                 splash();
             }
-            else if (FlxG.keys.justPressed.RIGHT)
+            else if (touchPad.buttonRight.justPressed || FlxG.keys.justPressed.RIGHT)
             {
                 config.animations[curAnim].offsets[0] -= multiplier;
                 splash();
             }
-            else if (FlxG.keys.justPressed.UP)
+            else if (touchPad.buttonUp.justPressed || FlxG.keys.justPressed.UP)
             {
                 config.animations[curAnim].offsets[1] += multiplier;
                 splash();
             }
-            else if (FlxG.keys.justPressed.DOWN)
+            else if (touchPad.buttonDown.justPressed || FlxG.keys.justPressed.DOWN)
             {
                 config.animations[curAnim].offsets[1] -= multiplier;
                 splash();
@@ -596,8 +596,11 @@ class NoteSplashEditorState extends MusicBeatState
         {
             if (controls.BACK)
                 MusicBeatState.switchState(new MasterEditorMenu());
-            if (FlxG.keys.justPressed.F1)
+            if (touchPad.buttonF.justPressed || FlxG.keys.justPressed.F1)
+            {
+                removeTouchPad();
                 openSubState(new NoteSplashEditorHelpSubState());
+            }
         }
 
         if (FlxG.mouse.overlaps(strums))
@@ -667,6 +670,12 @@ class NoteSplashEditorState extends MusicBeatState
                 strum.playAnim('static');
         }
     }
+
+    override function closeSubState()
+	{
+		super.closeSubState();
+		addTouchPad('LEFT_FULL', 'NOTE_SPLASH_EDITOR');
+	}
 
     function playStrumAnim(?name:String, noteData:Int)
     {
@@ -1036,6 +1045,9 @@ class NoteSplashEditorHelpSubState extends MusicBeatSubstate
         
         add(text);
         add(noteDataText);
+
+        addTouchPad('NONE', 'B');
+        touchPad.y -= 205;
     }
 
     override function update(elapsed:Float)
@@ -1043,6 +1055,9 @@ class NoteSplashEditorHelpSubState extends MusicBeatSubstate
         super.update(elapsed);
 
         if (controls.BACK || FlxG.keys.justPressed.F1)
+        {
+            removeTouchPad();
             close();
+        }
     }
 }
