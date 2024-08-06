@@ -194,7 +194,7 @@ class MobileFunctions
 #if android
 class AndroidFunctions
 {
-	static var spicyPillow:AndroidBatteryManager = new AndroidBatteryManager();
+	//static var spicyPillow:AndroidBatteryManager = new AndroidBatteryManager();
 	public static function implement(funk:FunkinLua)
 	{
 		//funk.set("isRooted", AndroidTools.isRooted());
@@ -203,6 +203,7 @@ class AndroidFunctions
 		funk.set("isTablet", AndroidTools.isTablet());
 		funk.set("isChromebook", AndroidTools.isChromebook());
 		funk.set("isDeXMode", AndroidTools.isDeXMode());
+		//funk.set("isCharging", spicyPillow.isCharging());
 
 		funk.set("backJustPressed", FlxG.android.justPressed.BACK);
 		funk.set("backPressed", FlxG.android.pressed.BACK);
@@ -211,8 +212,8 @@ class AndroidFunctions
 		funk.set("menuJustPressed", FlxG.android.justPressed.MENU);
 		funk.set("menuPressed", FlxG.android.pressed.MENU);
 		funk.set("menuJustReleased", FlxG.android.justReleased.MENU);
-		funk.set("getCurrentOrientation", () -> PsychJNI.getCurrentOrientationAsString());
 
+		funk.set("getCurrentOrientation", () -> PsychJNI.getCurrentOrientationAsString());
 		funk.set("setOrientation", function(hint:Null<String>):Void
 		{
 			switch (hint.toLowerCase())
@@ -234,6 +235,7 @@ class AndroidFunctions
 		});
 
 		funk.set("minimizeWindow", () -> AndroidTools.minimizeWindow());
+
 		funk.set("showToast", function(text:String, duration:Null<Int>, ?xOffset:Null<Int>, ?yOffset:Null<Int>) //, ?gravity:Null<Int>
 		{
 			if (text == null)
@@ -249,7 +251,23 @@ class AndroidFunctions
 			AndroidToast.makeText(text, duration, -1, xOffset, yOffset);
 		});
 
-		funk.set("isCharging", spicyPillow.isCharging());
+		funk.set("isScreenKeyboardShown", () -> PsychJNI.isScreenKeyboardShown());
+
+		funk.set("clipboardHasText", () -> PsychJNI.clipboardHasText());
+		funk.set("clipboardGetText", () -> PsychJNI.clipboardGetText());
+		funk.set("clipboardSetText", function(text:Null<String>):Void
+		{
+			if (text != null) return FunkinLua.luaTrace('clipboardSetText: No text specified.');
+			PsychJNI.clipboardSetText(text);
+		});
+
+		funk.set("manualBackButton", () -> PsychJNI.manualBackButton());
+
+		funk.set("setActivityTitle", function(text:Null<String>):Void
+		{
+			if (text != null) return FunkinLua.luaTrace('setActivityTitle: No text specified.');
+			PsychJNI.setActivityTitle(text);
+		});
 	}
 }
 #end
