@@ -49,9 +49,9 @@ class NoteSplashEditorState extends MusicBeatState
         FlxG.sound.volumeUpKeys = [];
         FlxG.sound.volumeDownKeys = [];
         FlxG.sound.muteKeys = [];
-        
+
         #if DISCORD_ALLOWED
-        DiscordClient.changePresence("In the Note Splash Editor Menu");
+        DiscordClient.changePresence('Note Splash Editor');
         #end
 
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));

@@ -36,6 +36,7 @@ class HScript extends SScript
 		}
 		else
 		{
+			hs.varsToBring = varsToBring;
 			hs.doString(code);
 			@:privateAccess
 			if(hs.parsingException != null)
@@ -51,8 +52,6 @@ class HScript extends SScript
 	{
 		if (file == null)
 			file = '';
-
-		this.varsToBring = varsToBring;
 	
 		super(file, false, false);
 
@@ -75,11 +74,13 @@ class HScript extends SScript
 			#end
 		}
 
+		this.varsToBring = varsToBring;
+
 		preset();
 		execute();
 	}
 
-	var varsToBring:Any = null;
+	var varsToBring(default, set):Any = null;
 	override function preset() {
 		super.preset();
 
@@ -480,6 +481,23 @@ class HScript extends SScript
 		#if LUA_ALLOWED parentLua = null; #end
 
 		super.destroy();
+	}
+
+	function set_varsToBring(values:Any) {
+		if (varsToBring != null) {
+			for (key in Reflect.fields(varsToBring)) {
+				unset(key.trim());
+			}
+		}
+
+		if (values != null) {
+			for (key in Reflect.fields(values)) {
+				key = key.trim();
+				set(key, Reflect.field(values, key));
+			}
+		}
+
+		return varsToBring = values;
 	}
 }
 
