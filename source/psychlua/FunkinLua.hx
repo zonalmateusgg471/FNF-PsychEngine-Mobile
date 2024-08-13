@@ -696,7 +696,7 @@ class FunkinLua {
 		set("getMisses", function() return game.songMisses);
 		set("getHits", function() return game.songHits);
 
-		set("setHealth", function(value:Float = 0) game.health = value);
+		set("setHealth", function(value:Float = 1) game.health = value);
 		set("addHealth", function(value:Float = 0) game.health += value);
 		set("getHealth", function() return game.health);
 
@@ -842,11 +842,11 @@ class FunkinLua {
 		set("setRatingFC", function(value:String) {
 			game.ratingFC = value;
 		});
-		set("getMouseX", function(camera:String) {
+		set("getMouseX", function(camera:String = 'game') {
 			var cam:FlxCamera = LuaUtils.cameraFromString(camera);
 			return FlxG.mouse.getScreenPosition(cam).x;
 		});
-		set("getMouseY", function(camera:String) {
+		set("getMouseY", function(camera:String = 'game') {
 			var cam:FlxCamera = LuaUtils.cameraFromString(camera);
 			return FlxG.mouse.getScreenPosition(cam).y;
 		});
@@ -891,7 +891,7 @@ class FunkinLua {
 
 			return 0;
 		});
-		set("getScreenPositionX", function(variable:String, ?camera:String) {
+		set("getScreenPositionX", function(variable:String, ?camera:String = 'game') {
 			var split:Array<String> = variable.split('.');
 			var obj:FlxSprite = LuaUtils.getObjectDirectly(split[0]);
 			if(split.length > 1) {
@@ -901,7 +901,7 @@ class FunkinLua {
 
 			return 0;
 		});
-		set("getScreenPositionY", function(variable:String, ?camera:String) {
+		set("getScreenPositionY", function(variable:String, ?camera:String = 'game') {
 			var split:Array<String> = variable.split('.');
 			var obj:FlxSprite = LuaUtils.getObjectDirectly(split[0]);
 			if(split.length > 1) {
@@ -1145,7 +1145,7 @@ class FunkinLua {
 			game.timeBar.setColors(left_color, right_color);
 		});
 
-		set("setObjectCamera", function(obj:String, camera:String = '') {
+		set("setObjectCamera", function(obj:String, camera:String = 'game') {
 			var real = game.getLuaObject(obj);
 			if(real!=null){
 				real.cameras = [LuaUtils.cameraFromString(camera)];
