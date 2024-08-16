@@ -80,12 +80,9 @@ class Hitbox extends MobileInputManager<HitboxButton>
 	{
 		super.destroy();
 
-		buttonLeft = FlxDestroyUtil.destroy(buttonLeft);
-		buttonDown = FlxDestroyUtil.destroy(buttonDown);
-		buttonUp = FlxDestroyUtil.destroy(buttonUp);
-		buttonRight = FlxDestroyUtil.destroy(buttonRight);
-		buttonExtra = FlxDestroyUtil.destroy(buttonExtra);
-		buttonExtra2 = FlxDestroyUtil.destroy(buttonExtra2);
+		for (field in Reflect.fields(this))
+			if (Std.isOfType(Reflect.field(this, field), HitboxButton))
+				Reflect.setField(this, field, FlxDestroyUtil.destroy(Reflect.field(this, field)));
 	}
 
 	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):HitboxButton
