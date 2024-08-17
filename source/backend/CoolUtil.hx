@@ -164,10 +164,8 @@ class CoolUtil
 	{
 		#if android
 		AndroidTools.showAlertDialog(title, message, {name: "OK", func: null}, null);
-		#elseif (!ios || !iphonesim)
-		lime.app.Application.current.window.alert(message, title);
 		#else
-		trace('$title - $message');
+		FlxG.stage.window.alert(message, title);
 		#end
 	}
 }
