@@ -46,6 +46,8 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 		});
 		add(bg);
 
+		FlxG.mouse.visible = !FlxG.onMobile
+
 		ui = new FlxCamera();
 		ui.bgColor.alpha = 0;
 		ui.alpha = 0;
@@ -109,7 +111,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 			MobileControls.mode = curOption;
 			if (options[curOption] == 'Pad-Custom')
 				MobileControls.setCustomMode(control.touchPad);
-			controls.isInSubstate = false;
+			controls.isInSubstate = FlxG.mouse.visible = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			close();
 		});
