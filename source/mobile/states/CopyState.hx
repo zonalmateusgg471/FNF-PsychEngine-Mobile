@@ -8,6 +8,10 @@ import flixel.addons.util.FlxAsyncLoop;
 import openfl.utils.ByteArray;
 import haxe.io.Path;
 
+/**
+ * ...
+ * @author: Karim Akra
+ */
 class CopyState extends MusicBeatState
 {
 	public static var locatedFiles:Array<String> = [];

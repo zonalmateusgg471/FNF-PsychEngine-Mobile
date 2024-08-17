@@ -10,7 +10,7 @@ import android.callback.CallBack;
 
 /**
  * A storage class for mobile.
- * @author Mihai Alexandru (M.A. Jigsaw)
+ * @author Mihai Alexandru (M.A. Jigsaw), Karim Akra and Lily Ross (mcagabe19)
  */
 class StorageUtil
 {

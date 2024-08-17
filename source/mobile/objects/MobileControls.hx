@@ -10,6 +10,10 @@ import mobile.objects.Hitbox.HitboxButton;
 import mobile.objects.TouchPad.TouchPadButton;
 import flixel.util.typeLimit.OneOfTwo;
 
+/**
+ * ...
+ * @author: Karim Akra
+ */
 class MobileControls extends FlxTypedSpriteGroup<MobileInputManager<Dynamic>>
 {
 	public var touchPad:TouchPad = new TouchPad('NONE', 'NONE', NONE);
@@ -37,7 +41,6 @@ class MobileControls extends FlxTypedSpriteGroup<MobileInputManager<Dynamic>>
 				initControler(2, extra);
 			case 3: // HITBOX
 				initControler(3, extra);
-			case 4: // KEYBOARD
 		}
 		current = new CurrentManager(this);
 		// Options related stuff
@@ -126,7 +129,7 @@ class MobileControls extends FlxTypedSpriteGroup<MobileInputManager<Dynamic>>
 		}
 	}
 
-	static function set_mode(mode:Int = 0)
+	static function set_mode(mode:Int = 3)
 	{
 		save.data.mobileControlsMode = mode;
 		save.flush();
@@ -140,7 +143,7 @@ class MobileControls extends FlxTypedSpriteGroup<MobileInputManager<Dynamic>>
 
 		if (save.data.mobileControlsMode == null)
 		{
-			save.data.mobileControlsMode = 0;
+			save.data.mobileControlsMode = 3;
 			save.flush();
 		}
 

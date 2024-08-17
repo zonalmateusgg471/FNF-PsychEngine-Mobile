@@ -3,6 +3,10 @@ package mobile.backend;
 import flixel.FlxBasic;
 import flixel.input.touch.FlxTouch;
 
+/**
+ * ...
+ * @author: Karim Akra
+ */
 class TouchFunctions
 {
 	public static var touchPressed(get, never):Bool;

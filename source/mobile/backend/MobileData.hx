@@ -5,6 +5,10 @@ import tjson.TJSON as Json;
 import haxe.io.Path;
 import openfl.utils.Assets;
 
+/**
+ * ...
+ * @author: Karim Akra
+ */
 class MobileData
 {
 	public static var actionModes:Map<String, TouchPadButtonsData> = new Map();

@@ -6,7 +6,8 @@ import mobile.objects.TouchButton;
 import haxe.ds.Map;
 
 /**
- * A TouchButton group with functions for input handling 
+ * A TouchButton group with functions for input handling
+ * @author Karim Akra
  */
 class MobileInputManager<T:TouchButton> extends FlxTypedSpriteGroup<T>
 {

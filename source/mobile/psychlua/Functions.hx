@@ -7,6 +7,10 @@ import psychlua.FunkinLua;
 import mobile.backend.TouchFunctions;
 #if android import mobile.backend.PsychJNI; #end
 
+/**
+ * ...
+ * @author: Karim Akra and Lily Ross (mcagabe19)
+ */
 class MobileFunctions
 {
 	public static function implement(funk:FunkinLua)
@@ -184,10 +188,9 @@ class MobileFunctions
 				return 'custom';
 			case 3:
 				return 'hitbox';
-			case 4:
-				return 'none';
+			default:
+				return 'unknown';
 		}
-		return 'unknown';
 	}
 }
 

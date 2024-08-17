@@ -11,6 +11,10 @@ import openfl.utils.Assets;
 import openfl.utils.AssetType;
 import openfl.display.BitmapData;
 
+/**
+ * ...
+ * @author: Karim Akra and Lily Ross (mcagabe19)
+ */
 class TouchPad extends MobileInputManager<TouchPadButton> {
 	public var buttonLeft:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.LEFT, MobileInputID.noteLEFT]);
 	public var buttonUp:TouchPadButton = new TouchPadButton(0, 0, [MobileInputID.UP, MobileInputID.noteUP]);

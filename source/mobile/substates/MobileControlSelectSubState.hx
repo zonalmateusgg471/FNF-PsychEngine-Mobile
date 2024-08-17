@@ -24,7 +24,6 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 	var bindButton:TouchPadButton;
 	var reset:UIButton;
 	var tweenieShit:Float = 0;
-	var keyboardText:FlxText;
 
 	public function new()
 	{
@@ -85,13 +84,6 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 		add(positionTextBg);
 		positionText.cameras = [ui];
 		add(positionText);
-
-		keyboardText = new FlxText(0, 0, FlxG.width, "-- No Controls --", 14);
-		keyboardText.setFormat(Paths.font("vcr.ttf"), 36, FlxColor.WHITE, FlxTextAlign.CENTER);
-		keyboardText.screenCenter();
-		keyboardText.cameras = [ui];
-		add(keyboardText);
-		keyboardText.kill();
 
 		var exit = new UIButton(0, itemText.y - 25, "Exit & Save", () ->
 		{
@@ -221,7 +213,6 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 	}
 
 		tweenieShit += 180 * elapsed;
-		keyboardText.alpha = 1 - Math.sin((Math.PI * tweenieShit) / 180);
 
 		super.update(elapsed);
 	}
@@ -253,19 +244,12 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 		{
 			case 0 | 1 | 3:
 				reset.visible = false;
-				keyboardText.kill();
 				changeControls();
 			case 2:
 				reset.visible = true;
-				keyboardText.kill();
-				changeControls();
-			case 4:
-				reset.visible = false;
-				keyboardText.revive();
 				changeControls();
 			case 5:
 				reset.visible = true;
-				keyboardText.kill();
 				changeControls(0, true);
 				control.touchPad.forEachAlive((button:TouchPadButton) ->
 				{
