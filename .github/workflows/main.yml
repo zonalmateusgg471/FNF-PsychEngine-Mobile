@@ -65,11 +65,27 @@ jobs:
           path: export/release/linux/bin/*
           if-no-files-found: error
 
-      - name: Upload Artifact (macOS)
-        if: startsWith(matrix.os, 'macos')
+      - name: Upload Artifact (macOS 12)
+        if: matrix.os == 'macos-12'
         uses: actions/upload-artifact@main
         with:
-          name: ${{matrix.os}}Build
+          name: macOS12Build
+          path: export/release/macos/bin/*
+          if-no-files-found: error
+
+      - name: Upload Artifact (macOS 13)
+        if: matrix.os == 'macos-13'
+        uses: actions/upload-artifact@main
+        with:
+          name: macOS13Build
+          path: export/release/macos/bin/*
+          if-no-files-found: error
+
+      - name: Upload Artifact (macOS 14)
+        if: matrix.os == 'macos-14'
+        uses: actions/upload-artifact@main
+        with:
+          name: macOS14Build
           path: export/release/macos/bin/*
           if-no-files-found: error
   Mobile:
