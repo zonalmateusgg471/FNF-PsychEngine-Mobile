@@ -46,7 +46,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 		});
 		add(bg);
 
-		FlxG.mouse.visible = !FlxG.onMobile
+		FlxG.mouse.visible = !FlxG.onMobile;
 
 		ui = new FlxCamera();
 		ui.bgColor.alpha = 0;
