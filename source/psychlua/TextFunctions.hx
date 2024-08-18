@@ -4,7 +4,6 @@ class TextFunctions
 {
 	public static function implement(funk:FunkinLua)
 	{
-		var lua = funk.lua;
 		funk.set("makeLuaText", function(tag:String, text:String, width:Int, x:Float, y:Float) {
 			tag = tag.replace('.', '');
 

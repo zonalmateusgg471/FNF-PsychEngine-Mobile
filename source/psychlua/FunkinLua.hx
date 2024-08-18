@@ -1637,7 +1637,9 @@ class FunkinLua {
 	}
 
 	public function set(variable:String, data:Dynamic) {
-		if(lua == null) return;
+		if(lua == null) {
+			return;
+		}
 
 		if (Type.typeof(data) == TFunction) {
 			Lua_helper.add_callback(lua, variable, data);
