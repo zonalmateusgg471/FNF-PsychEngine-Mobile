@@ -2,10 +2,6 @@ package shaders.flixel.system;
 
 import flixel.system.FlxAssets.FlxShader as OriginalFlxShader;
 
-#if ios
-// I think iOS has issues with GLSL Es 300
-typedef FlxShader = OriginalFlxShader;
-#else
 /**
  * A improved FlxShader that allows using GLSL Es 300 on android and GLSL 330 on desktop
  * @author Mihai Alexandru (M.A. Jigsaw)
@@ -73,7 +69,7 @@ class FlxShader extends OriginalFlxShader
 			+ "#endif\n\n";
 		#end
 
-		#if android
+		#if mobile
 		prefix += 'out vec4 output_FragColor;\n';
 		var vertex = prefix
 			+ glVertexSource.replace("attribute", "in")
