@@ -169,4 +169,3 @@ class FlxShader extends OriginalFlxShader
 		}
 	}
 }
-#end
