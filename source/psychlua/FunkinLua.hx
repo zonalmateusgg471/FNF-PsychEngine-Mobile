@@ -1641,11 +1641,6 @@ class FunkinLua {
 			return;
 		}
 
-		if (Type.typeof(data) == TFunction) {
-			Lua_helper.add_callback(lua, variable, data);
-			return;
-		}
-
 		Convert.toLua(lua, data);
 		Lua.setglobal(lua, variable);
 	}
