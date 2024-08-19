@@ -82,6 +82,7 @@ class CrashHandler
 
 		js.Browser.window.location.reload(true);
 		#else
+		#if DISCORD_ALLOWED DiscordClient.shutdown(); #end
 		lime.system.System.exit(1);
 		#end
 	}
