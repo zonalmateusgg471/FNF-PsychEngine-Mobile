@@ -19,7 +19,8 @@ import states.TitleState;
 	#end
 	public var hitboxType:String = "Gradient";
 	public var popUpRating:Bool = true;
-
+	public var vsync:Bool = false;
+	
 	public var downScroll:Bool = false;
 	public var middleScroll:Bool = false;
 	public var opponentStrums:Bool = true;
