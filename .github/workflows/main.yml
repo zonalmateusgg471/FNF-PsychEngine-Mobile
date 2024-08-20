@@ -117,7 +117,7 @@ jobs:
           if [[ "${{ runner.os }}" == "macOS" ]] ; then
             haxelib git linc_luajit https://github.com/superpowers04/linc_luajit 1906c4a96f6bb6df66562b3f24c62f4c5bba14a7 --quiet
           else
-            haxelib git linc_luajit https://github.com/mcagabe19-stuff/linc_luajit-legacy 923a8262a7a8dcd166264dcf22cb7395a11fba65 --quiet --skip-dependencies
+            haxelib git linc_luajit https://github.com/mcagabe19-stuff/linc_luajit-legacy --quiet --skip-dependencies
           fi
           haxelib git hxdiscord_rpc https://github.com/MAJigsaw77/hxdiscord_rpc 3538a1c2bb07b04208cd014220207f8173acdb21 --quiet --skip-dependencies
           haxelib git hxvlc https://github.com/MAJigsaw77/hxvlc 70e7f5f3e76d526ac6fb8f0e6665efe7dfda589d --quiet --skip-dependencies
