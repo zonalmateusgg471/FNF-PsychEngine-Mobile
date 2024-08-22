@@ -6,7 +6,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-12, macos-13, macos-14]
+        os: [windows-latest, ubuntu-latest, macos-12, macos-14]
     steps:
       - name: Checkout
         uses: actions/checkout@main
@@ -69,15 +69,7 @@ jobs:
         if: matrix.os == 'macos-12'
         uses: actions/upload-artifact@main
         with:
-          name: macOSBuild-12
-          path: export/release/macos/bin/*
-          if-no-files-found: error
-
-      - name: Upload Artifact (macOS 13)
-        if: matrix.os == 'macos-13'
-        uses: actions/upload-artifact@main
-        with:
-          name: macOSBuild-13
+          name: macOSBuild-x86_64
           path: export/release/macos/bin/*
           if-no-files-found: error
 
@@ -85,7 +77,7 @@ jobs:
         if: matrix.os == 'macos-14'
         uses: actions/upload-artifact@main
         with:
-          name: macOSBuild-14
+          name: macOSBuild-arm64
           path: export/release/macos/bin/*
           if-no-files-found: error
   Mobile:
