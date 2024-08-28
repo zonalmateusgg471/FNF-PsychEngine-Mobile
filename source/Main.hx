@@ -28,7 +28,7 @@ import lime.graphics.Image;
 
 class Main extends Sprite
 {
-	var game = {
+	public static var game = {
 		width: 1280, // WINDOW width
 		height: 720, // WINDOW height
 		initialState: TitleState, // initial game state
@@ -47,7 +47,7 @@ class Main extends Sprite
 	public static function main():Void
 	{
 		Lib.current.addChild(new Main());
-		#if cpp
+		#if cpp+
 		cpp.NativeGc.enable(true);
 		#elseif hl
 		hl.Gc.enable(true);
