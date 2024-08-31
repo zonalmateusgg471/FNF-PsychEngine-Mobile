@@ -71,18 +71,18 @@ class StorageUtil
 		}
 	}
 
-	public static function saveContent(fileName:String = 'file', fileData:String = 'You forgor to add somethin\' in yo code :3', ?alert:Bool = true):Void
+	public static function saveContent(fileName:String, fileData:String, ?alert:Bool = true):Void
 	{
 		try
 		{
 			if (!FileSystem.exists('saves'))
 				FileSystem.createDirectory('saves');
 
-			File.saveContent('saves/' + fileName, fileData);
-			if (alert) CoolUtil.showPopUp(fileName + " file has been saved.", "Success!");
+			File.saveContent('saves/$fileName', fileData);
+			if (alert) CoolUtil.showPopUp('$fileName has been saved.', "Success!");
 		}
 		catch (e:Exception)
-			if (alert) CoolUtil.showPopUp(fileName + ' couldn\'t be saved.\n(${e.message})', "Error!") else trace('$fileName couldn\'t be saved. (${e.message})');
+			if (alert) CoolUtil.showPopUp('$fileName couldn\'t be saved.\n(${e.message})', "Error!") else trace('$fileName couldn\'t be saved. (${e.message})');
 	}
 
 	#if android
@@ -120,10 +120,10 @@ class StorageUtil
 		return paths.split(',');
 	}
 
-	public static function getExternalDirectory(external:String):String {
+	public static function getExternalDirectory(externalDir:String):String {
 		var daPath:String = '';
 		for (path in checkExternalPaths())
-			if (path.contains(external)) daPath = path;
+			if (path.contains(externalDir)) daPath = path;
 
 		daPath = haxe.io.Path.addTrailingSlash(daPath.endsWith("\n") ? daPath.substr(0, daPath.length - 1) : daPath);
 		return daPath;
