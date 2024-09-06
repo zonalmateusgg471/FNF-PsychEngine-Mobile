@@ -587,7 +587,7 @@ class PlayState extends MusicBeatState
 			}
 		#end
 		
-		addMobileControls(false);
+		addMobileControls();
 		mobileControls.visible = true;
 
 		startCallback();
@@ -617,7 +617,7 @@ class PlayState extends MusicBeatState
 
 		#if !android
 		addTouchPad('NONE', 'P');
-    	addTouchPadCamera(false);
+    	addTouchPadCamera();
 		#end
 
 		super.create();

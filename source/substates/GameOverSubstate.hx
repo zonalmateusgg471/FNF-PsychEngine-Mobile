@@ -133,7 +133,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		}
 
 		addTouchPad('NONE', 'A_B');
-		addTouchPadCamera(false);
+		addTouchPadCamera();
 
 		super.create();
 	}

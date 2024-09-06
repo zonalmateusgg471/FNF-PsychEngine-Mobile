@@ -31,7 +31,7 @@ class MusicBeatSubstate extends FlxSubState
 	public var touchPad:TouchPad;
 	public var mobileControls:MobileControls;
 
-	public function addMobileControls(defaultDrawTarget:Bool = true):Void
+	public function addMobileControls(defaultDrawTarget:Bool = false):Void
 		{
 			mobileControls = new MobileControls();
 	
@@ -62,7 +62,7 @@ class MusicBeatSubstate extends FlxSubState
 			remove(touchPad);
 	}
 
-	public function addTouchPadCamera(defaultDrawTarget:Bool = true):Void
+	public function addTouchPadCamera(defaultDrawTarget:Bool = false):Void
 	{
 		if (touchPad != null)
 		{

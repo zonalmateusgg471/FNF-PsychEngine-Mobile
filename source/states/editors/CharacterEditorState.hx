@@ -161,7 +161,7 @@ class CharacterEditorState extends MusicBeatState implements PsychUIEventHandler
 		character.finishAnimation();
 
 		addTouchPad('LEFT_FULL', 'CHARACTER_EDITOR');
-		addTouchPadCamera(false);
+		addTouchPadCamera();
 
 		if(ClientPrefs.data.cacheOnGPU) Paths.clearUnusedMemory();
 

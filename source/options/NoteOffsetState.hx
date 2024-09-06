@@ -538,11 +538,11 @@ class NoteOffsetState extends MusicBeatState
 		if(onComboMenu){
 			str = Language.getPhrase('combo_offset', 'Combo Offset');
 			addTouchPad('NONE', 'A_B_C');
-			addTouchPadCamera(false);
+			addTouchPadCamera();
 		} else {
 			str = Language.getPhrase('note_delay', 'Note/Beat Delay');
 			addTouchPad('LEFT_FULL', 'A_B_C');
-			addTouchPadCamera(false);
+			addTouchPadCamera();
 		}
 
 		if(controls.mobileC)

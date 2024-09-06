@@ -138,7 +138,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		}
 
 		addTouchPad('LEFT_FULL', 'A_B_C');
-		addTouchPadCamera(false);
+		addTouchPadCamera();
 
 		changeSelection();
 		reloadCheckboxes();
@@ -312,7 +312,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 		if (touchPad == null) { //sometimes it dosent add the vpad, hopefully this fixes it
 			addTouchPad('LEFT_FULL', 'A_B_C');
-			addTouchPadCamera(false);
+			addTouchPadCamera();
 		}
 		super.update(elapsed);
 	}

@@ -75,7 +75,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 		updateOptions();
 
 		addTouchPad('LEFT_RIGHT', 'A_B');
-		addTouchPadCamera(false);
+		addTouchPadCamera();
 	}
 
 	override function update(elapsed:Float)
@@ -114,7 +114,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 		}
 		if (touchPad == null){ //sometimes it dosent add the vpad, hopefully this fixes it
 		addTouchPad('LEFT_RIGHT', 'A_B');
-		addTouchPadCamera(false);
+		addTouchPadCamera();
 		}
 		super.update(elapsed);
 	}

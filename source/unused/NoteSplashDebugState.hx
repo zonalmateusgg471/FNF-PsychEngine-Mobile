@@ -258,11 +258,7 @@ class NoteSplashDebugState extends MusicBeatState implements PsychUIEventHandler
 
 		if(FlxG.keys.justPressed.ENTER || touchPad.buttonA.justPressed)
 		{
-			if (controls.mobileC) {
-		        savedText.text = 'Press A again to save.';
-			} else {
-		        savedText.text = 'Press ENTER again to save.';
-			}
+		    savedText.text = 'Press ${controls.mobileC ? 'A' : 'ENTER'} again to save.';
 			if(pressEnterToSave > 0) //save
 			{
 				saveFile();
@@ -417,13 +413,8 @@ class NoteSplashDebugState extends MusicBeatState implements PsychUIEventHandler
 			curAnim += change;
 			if(curAnim > maxAnims) curAnim = 1;
 			else if(curAnim < 1) curAnim = maxAnims;
-			if (controls.mobileC) {
-			curAnimText.text = 'Current Animation: $curAnim / $maxAnims\n(Press Top UP/DOWN to change)';
-			curFrameText.text = 'Force Frame Disabled\n(Press X/E to change)';
-			} else {
-			curAnimText.text = 'Current Animation: $curAnim / $maxAnims\n(Press W/S to change)';
-			curFrameText.text = 'Force Frame Disabled\n(Press Q/E to change)';
-			}
+			curAnimText.text = 'Current Animation: $curAnim / $maxAnims\n(Press ${controls.mobileC ? 'Top UP/DOWN' : 'W/S'} to change)';
+			curFrameText.text = 'Force Frame Disabled\n(Press ${controls.mobileC ? 'Q/E' : 'X/E'} to change)';
 
 			for (i in 0...maxNotes)
 			{

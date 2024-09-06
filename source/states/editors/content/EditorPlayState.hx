@@ -129,13 +129,7 @@ class EditorPlayState extends MusicBeatSubstate
 		dataTxt.borderSize = 1.25;
 		add(dataTxt);
 
-        var daButton:String;
-	if (controls.mobileC)
-		daButton = #if android "BACK" #else "X" #end;
-        else
-		daButton = "ESC";
-
-    	var tipText:FlxText = new FlxText(10, FlxG.height - 24, 0, 'Press ' + daButton + ' to Go Back to Chart Editor', 16);
+    	var tipText:FlxText = new FlxText(10, FlxG.height - 24, 0, 'Press ${controls.mobileC ? #if android 'BACK' #else 'X' #end : 'ESC'} to Go Back to Chart Editor', 16);
 		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		tipText.borderSize = 2;
 		tipText.scrollFactor.set();
@@ -157,10 +151,10 @@ class EditorPlayState extends MusicBeatSubstate
 
 		#if !android
 		addTouchPad('NONE', 'P');
-		addTouchPadCamera(false);
+		addTouchPadCamera();
 		#end
 
-		addMobileControls(false);
+		addMobileControls();
 		mobileControls.visible = true;
 
 		super.create();
@@ -172,7 +166,6 @@ class EditorPlayState extends MusicBeatSubstate
 	{
 		if(#if android FlxG.android.justReleased.BACK #else touchPad.buttonP.justPressed #end || controls.BACK || FlxG.keys.justPressed.ESCAPE || FlxG.keys.justPressed.F12)
 		{
-			mobileControls.visible = false;
 			endSong();
 			super.update(elapsed);
 			return;
@@ -471,6 +464,9 @@ class EditorPlayState extends MusicBeatSubstate
 			finishTimer.destroy();
 
 		Conductor.songPosition = FlxG.sound.music.time = vocals.time = opponentVocals.time = startPos - Conductor.offset;
+
+		mobileControls.visible = false;
+
 		close();
 	}
 	
