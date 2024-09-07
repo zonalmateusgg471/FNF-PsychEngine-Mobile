@@ -99,7 +99,7 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: true
           automatic_release_tag: "devbuild-2e5cd1d"
-          title: "Devbuild 2e5cd1d"
+          title: "DevBuild 2e5cd1d"
           files: |
             /home/runner/*.apk
             /home/runner/*.zip
