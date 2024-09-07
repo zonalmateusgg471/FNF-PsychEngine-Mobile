@@ -88,28 +88,43 @@ class StorageUtil
 	#if android
 	public static function requestPermissions():Void
 	{
-		if (!AndroidPermissions.getGrantedPermissions().contains('android.permission.READ_EXTERNAL_STORAGE')
-			&& !AndroidPermissions.getGrantedPermissions().contains('android.permission.WRITE_EXTERNAL_STORAGE'))
-		{
-			AndroidPermissions.requestPermission('READ_EXTERNAL_STORAGE');
-			AndroidPermissions.requestPermission('WRITE_EXTERNAL_STORAGE');
-			CoolUtil.showPopUp('If you accepted the permissions you are all good!' + '\nIf you didn\'t then expect a crash' + '\nPress Ok to see what happens',
-				'Notice!');
-			if (!AndroidEnvironment.isExternalStorageManager())
-				AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
+		if (AndroidVersion.SDK_INT >= AndroidVersionCode.TIRAMISU) {
+			if (!AndroidPermissions.getGrantedPermissions().contains('android.permission.READ_MEDIA_IMAGES'))
+				AndroidPermissions.requestPermission('READ_MEDIA_IMAGES');
+
+			/*if (!AndroidPermissions.getGrantedPermissions().contains('android.permission.READ_MEDIA_VIDEO'))
+				AndroidPermissions.requestPermission('READ_MEDIA_VIDEO');*/
+
+			if (!AndroidPermissions.getGrantedPermissions().contains('android.permission.READ_MEDIA_AUDIO'))
+				AndroidPermissions.requestPermission('READ_MEDIA_AUDIO');
+		} else {
+			if (!AndroidPermissions.getGrantedPermissions().contains('android.permission.WRITE_EXTERNAL_STORAGE'))
+				AndroidPermissions.requestPermission('WRITE_EXTERNAL_STORAGE');
+
+			if (!AndroidPermissions.getGrantedPermissions().contains('android.permission.READ_EXTERNAL_STORAGE'))
+				AndroidPermissions.requestPermission('READ_EXTERNAL_STORAGE');
 		}
-		else
+
+		if (!AndroidEnvironment.isExternalStorageManager())
 		{
-			try
-			{
-				if (!FileSystem.exists(StorageUtil.getStorageDirectory()))
-					FileSystem.createDirectory(StorageUtil.getStorageDirectory());
-			}
-			catch (e:Dynamic)
-			{
-				CoolUtil.showPopUp('Please create directory to\n' + StorageUtil.getStorageDirectory(true) + '\nPress OK to close the game', 'Error!');
-				LimeSystem.exit(1);
-			}
+			if (AndroidVersion.SDK_INT >= AndroidVersionCode.S)
+				AndroidSettings.requestSetting('REQUEST_MANAGE_MEDIA');
+			AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
+		}
+
+		//trace(AndroidPermissions.getGrantedPermissions());
+		if ((AndroidVersion.SDK_INT >= AndroidVersionCode.TIRAMISU && !AndroidPermissions.getGrantedPermissions().contains('android.permission.READ_MEDIA_IMAGES')) || (AndroidVersion.SDK_INT < AndroidVersionCode.TIRAMISU && !AndroidPermissions.getGrantedPermissions().contains('android.permission.READ_EXTERNAL_STORAGE')))
+			CoolUtil.showPopUp('If you accepted the permissions you are all good!' + '\nIf you didn\'t then expect a crash' + '\nPress OK to see what happens', 'Notice!');
+
+		try
+		{
+			if (!FileSystem.exists(StorageUtil.getStorageDirectory()))
+				createDirectories(StorageUtil.getStorageDirectory());
+		}
+		catch (e:Dynamic)
+		{
+			CoolUtil.showPopUp('Please create directory to\n' + StorageUtil.getStorageDirectory(true) + '\nPress OK to close the game', 'Error!');
+			LimeSystem.exit(1);
 		}
 	}
 
