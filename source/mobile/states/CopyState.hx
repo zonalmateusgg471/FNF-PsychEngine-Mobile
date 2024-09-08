@@ -42,7 +42,7 @@ class CopyState extends MusicBeatState
 			return;
 		}
 
-		#if !ios
+		#if (!ios || !iphoneos || !iphonesim)
 		CoolUtil.showPopUp("Seems like you have some missing files that are necessary to run the game\nPress OK to begin the copy process", "Notice!");
 		#end
 		
