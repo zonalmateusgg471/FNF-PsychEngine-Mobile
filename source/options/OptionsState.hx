@@ -2,7 +2,6 @@ package options;
 
 import states.MainMenuState;
 import backend.StageData;
-import mobile.substates.MobileControlSelectSubState;
 #if (target.threaded)
 import sys.thread.Thread;
 import sys.thread.Mutex;
@@ -40,7 +39,7 @@ class OptionsState extends MusicBeatState
 				{
 					case true:
 						persistentUpdate = false;
-						openSubState(new MobileControlSelectSubState());
+						openSubState(new mobile.substates.MobileControlSelectSubState());
 					default: openSubState(new options.ControlsSubState());
 				}
 			case 'Graphics':
