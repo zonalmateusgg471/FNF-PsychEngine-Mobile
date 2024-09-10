@@ -100,7 +100,7 @@ class Hitbox extends MobileInputManager implements IMobileControls
 		var hint = new TouchButton(X, Y);
 		hint.statusAlphas = [];
 		hint.statusIndicatorType = NONE;
-		loadGraphic(createHintGraphic(Width, Height));
+		hint.loadGraphic(createHintGraphic(Width, Height));
 
 		if (ClientPrefs.data.hitboxType != "Hidden")
 		{
@@ -142,11 +142,6 @@ class Hitbox extends MobileInputManager implements IMobileControls
 
 	function createHintGraphic(Width:Int, Height:Int):FlxGraphic
 	{
-		var guh = ClientPrefs.data.controlsAlpha;
-
-		if (guh >= 0.9)
-			guh = guh - 0.1;
-
 		var shape:Shape = new Shape();
 		shape.graphics.beginFill(0xFFFFFF);
 
@@ -157,7 +152,7 @@ class Hitbox extends MobileInputManager implements IMobileControls
 			shape.graphics.lineStyle(0, 0, 0);
 			shape.graphics.drawRect(3, 3, Width - 6, Height - 6);
 			shape.graphics.endFill();
-			shape.graphics.beginGradientFill(RADIAL, [0xFFFFFF, FlxColor.TRANSPARENT], [guh, 0], [0, 255], null, null, null, 0.5);
+			shape.graphics.beginGradientFill(RADIAL, [0xFFFFFF, FlxColor.TRANSPARENT], [1, 0], [0, 255], null, null, null, 0.5);
 			shape.graphics.drawRect(3, 3, Width - 6, Height - 6);
 			shape.graphics.endFill();
 		}
