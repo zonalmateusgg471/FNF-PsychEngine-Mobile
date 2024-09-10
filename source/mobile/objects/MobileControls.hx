@@ -46,19 +46,19 @@ class MobileControls extends FlxTypedSpriteGroup<MobileInputManager>
 		{
 			case 0:
 				touchPad = new TouchPad('RIGHT_FULL', 'NONE', extraAction);
-				touchPad = MobileData.updateButtonsColors(touchPad);
+				touchPad = MobileData.setButtonsColors(touchPad);
 				add(touchPad);
 			case 1:
 				touchPad = new TouchPad('LEFT_FULL', 'NONE', extraAction);
-				touchPad = MobileData.updateButtonsColors(touchPad);
+				touchPad = MobileData.setButtonsColors(touchPad);
 				add(touchPad);
 			case 2:
 				touchPad = MobileData.getTouchPadCustom(new TouchPad('RIGHT_FULL', 'NONE', extraAction));
-				touchPad = MobileData.updateButtonsColors(touchPad);
+				touchPad = MobileData.setButtonsColors(touchPad);
 				add(touchPad);
 			case 3:
 				hitbox = new Hitbox(extraAction);
-				hitbox = MobileData.updateButtonsColors(hitbox);
+				hitbox = MobileData.setButtonsColors(hitbox);
 				add(hitbox);
 		}
 	}
