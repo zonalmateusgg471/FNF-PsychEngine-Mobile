@@ -20,14 +20,14 @@ class MobileFunctions
 		funk.set("extraButtonPressed", (button:String) ->
 		{
 			button = button.toLowerCase();
-			if (MusicBeatState.instance.mobileControls != null)
+			if (MusicBeatState.getState().mobileControls != null)
 			{
 				switch (button)
 				{
 					case 'second':
-						return MusicBeatState.instance.mobileControls.current.buttonExtra2.pressed;
+						return MusicBeatState.getState().mobileControls.buttonExtra2.pressed;
 					default:
-						return MusicBeatState.instance.mobileControls.current.buttonExtra.pressed;
+						return MusicBeatState.getState().mobileControls.buttonExtra.pressed;
 				}
 			}
 			return false;
@@ -36,14 +36,14 @@ class MobileFunctions
 		funk.set("extraButtonJustPressed", (button:String) ->
 		{
 			button = button.toLowerCase();
-			if (MusicBeatState.instance.mobileControls != null)
+			if (MusicBeatState.getState().mobileControls != null)
 			{
 				switch (button)
 				{
 					case 'second':
-						return MusicBeatState.instance.mobileControls.current.buttonExtra2.justPressed;
+						return MusicBeatState.getState().mobileControls.buttonExtra2.justPressed;
 					default:
-						return MusicBeatState.instance.mobileControls.current.buttonExtra.justPressed;
+						return MusicBeatState.getState().mobileControls.buttonExtra.justPressed;
 				}
 			}
 			return false;
@@ -52,14 +52,14 @@ class MobileFunctions
 		funk.set("extraButtonJustReleased", (button:String) ->
 		{
 			button = button.toLowerCase();
-			if (MusicBeatState.instance.mobileControls != null)
+			if (MusicBeatState.getState().mobileControls != null)
 			{
 				switch (button)
 				{
 					case 'second':
-						return MusicBeatState.instance.mobileControls.current.buttonExtra2.justReleased;
+						return MusicBeatState.getState().mobileControls.buttonExtra2.justReleased;
 					default:
-						return MusicBeatState.instance.mobileControls.current.buttonExtra.justReleased;
+						return MusicBeatState.getState().mobileControls.buttonExtra.justReleased;
 				}
 			}
 			return false;
@@ -178,7 +178,7 @@ class MobileFunctions
 
 	public static function getMobileControlsAsString():String
 	{
-		switch (MobileControls.mode)
+		switch (MobileData.mode)
 		{
 			case 0:
 				return 'left';

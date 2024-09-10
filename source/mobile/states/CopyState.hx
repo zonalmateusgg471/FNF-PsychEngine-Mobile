@@ -14,23 +14,22 @@ import haxe.io.Path;
  */
 class CopyState extends MusicBeatState
 {
+	private static final textFilesExtensions:Array<String> = ['ini', 'txt', 'xml', 'hxs', 'hx', 'lua', 'json', 'frag', 'vert'];
+	public static final IGNORE_FOLDER_FILE_NAME:String = "ignore.txt";
+	private static var directoriesToIgnore:Array<String> = [];
 	public static var locatedFiles:Array<String> = [];
 	public static var maxLoopTimes:Int = 0;
-	public static final IGNORE_FOLDER_FILE_NAME:String = "ignore.txt";
 
 	public var loadingImage:FlxSprite;
 	public var bottomBG:FlxSprite;
 	public var loadedText:FlxText;
 	public var copyLoop:FlxAsyncLoop;
 
-	var loopTimes:Int = 0;
-	var failedFiles:Array<String> = [];
 	var failedFilesStack:Array<String> = [];
-	static var directoriesToIgnore:Array<String> = [];
-	var canUpdate:Bool = true;
+	var failedFiles:Array<String> = [];
 	var shouldCopy:Bool = false;
-
-	private static final textFilesExtensions:Array<String> = ['ini', 'txt', 'xml', 'hxs', 'hx', 'lua', 'json', 'frag', 'vert'];
+	var canUpdate:Bool = true;
+	var loopTimes:Int = 0;
 
 	override function create()
 	{

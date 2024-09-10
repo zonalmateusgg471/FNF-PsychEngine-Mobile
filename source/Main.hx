@@ -13,7 +13,6 @@ import states.TitleState;
 import mobile.backend.MobileScaleMode;
 import openfl.events.KeyboardEvent;
 import lime.system.System as LimeSystem;
-import mobile.objects.MobileControls;
 #if mobile
 import mobile.states.CopyState;
 #end
@@ -160,7 +159,7 @@ class Main extends Sprite
 		#if DISCORD_ALLOWED
 		DiscordClient.prepare();
 		#end
-		MobileControls.initSave();
+		MobileData.init();
 
 		#if desktop FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, toggleFullScreen); #end
 

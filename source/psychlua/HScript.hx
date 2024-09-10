@@ -121,7 +121,6 @@ class HScript extends Iris
 		set('PlayState', PlayState);
 		set('Paths', Paths);
 		set('StorageUtil', StorageUtil);
-		set('MobileControls', mobile.objects.MobileControls);
 		set('Conductor', Conductor);
 		set('ClientPrefs', ClientPrefs);
 		#if ACHIEVEMENTS_ALLOWED

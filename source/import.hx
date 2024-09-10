@@ -1,28 +1,25 @@
 #if !macro
-//Discord API
+// Discord API
 #if DISCORD_ALLOWED
 import backend.Discord;
 #end
 
-//Psych
+// LuaJIT
 #if LUA_ALLOWED
 import llua.*;
 import llua.Lua;
 #end
 
-#if ACHIEVEMENTS_ALLOWED
-import backend.Achievements;
-#end
-
-//Mobile Controls
+// Mobile
 import mobile.objects.MobileControls;
+import mobile.objects.IMobileControls;
 import mobile.objects.Hitbox;
 import mobile.objects.TouchPad;
 import mobile.input.MobileInputID;
 import mobile.backend.MobileData;
 import mobile.backend.StorageUtil;
 
-//Android
+// Android
 #if android
 import android.content.Context as AndroidContext;
 import android.widget.Toast as AndroidToast;
@@ -35,6 +32,7 @@ import android.os.Build.VERSION_CODES as AndroidVersionCode;
 import android.os.BatteryManager as AndroidBatteryManager;
 #end
 
+// Sys
 #if sys
 import sys.*;
 import sys.io.*;
@@ -42,6 +40,7 @@ import sys.io.*;
 import js.html.*;
 #end
 
+// Psych
 import backend.Paths;
 import backend.Controls;
 import backend.CoolUtil;
@@ -63,12 +62,16 @@ import objects.BGSprite;
 import states.PlayState;
 import states.LoadingState;
 
+#if ACHIEVEMENTS_ALLOWED
+import backend.Achievements;
+#end
+
 #if flxanimate
 import flxanimate.*;
 import flxanimate.PsychFlxAnimate as FlxAnimate;
 #end
 
-//Flixel
+// Flixel
 import flixel.sound.FlxSound;
 import flixel.FlxG;
 import flixel.FlxSprite;

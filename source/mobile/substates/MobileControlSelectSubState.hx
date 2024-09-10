@@ -19,7 +19,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 	var positionTextBg:FlxSprite;
 	var bg:FlxBackdrop;
 	var ui:FlxCamera;
-	var curOption:Int = MobileControls.mode;
+	var curOption:Int = MobileData.mode;
 	var buttonBinded:Bool = false;
 	var bindButton:TouchPadButton;
 	var reset:UIButton;
@@ -108,11 +108,12 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 				});
 				return;
 			}
-			MobileControls.mode = curOption;
+			MobileData.mode = curOption;
 			if (options[curOption] == 'Pad-Custom')
-				MobileControls.setCustomMode(control.touchPad);
+				MobileData.setTouchPadCustom(control.touchPad);
 			controls.isInSubstate = FlxG.mouse.visible = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
+			MobileData.forcedMode = null;
 			close();
 		});
 		exit.color = FlxColor.LIME;
