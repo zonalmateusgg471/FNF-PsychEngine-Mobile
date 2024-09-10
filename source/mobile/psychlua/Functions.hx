@@ -197,16 +197,16 @@ class MobileFunctions
 #if android
 class AndroidFunctions
 {
-	//static var spicyPillow:AndroidBatteryManager = new AndroidBatteryManager();
+	// static var spicyPillow:AndroidBatteryManager = new AndroidBatteryManager();
 	public static function implement(funk:FunkinLua)
 	{
-		//funk.set("isRooted", AndroidTools.isRooted());
+		// funk.set("isRooted", AndroidTools.isRooted());
 		funk.set("isDolbyAtmos", AndroidTools.isDolbyAtmos());
 		funk.set("isAndroidTV", AndroidTools.isAndroidTV());
 		funk.set("isTablet", AndroidTools.isTablet());
 		funk.set("isChromebook", AndroidTools.isChromebook());
 		funk.set("isDeXMode", AndroidTools.isDeXMode());
-		//funk.set("isCharging", spicyPillow.isCharging());
+		// funk.set("isCharging", spicyPillow.isCharging());
 
 		funk.set("backJustPressed", FlxG.android.justPressed.BACK);
 		funk.set("backPressed", FlxG.android.pressed.BACK);
@@ -239,7 +239,7 @@ class AndroidFunctions
 
 		funk.set("minimizeWindow", () -> AndroidTools.minimizeWindow());
 
-		funk.set("showToast", function(text:String, duration:Null<Int>, ?xOffset:Null<Int>, ?yOffset:Null<Int>) //, ?gravity:Null<Int>
+		funk.set("showToast", function(text:String, duration:Null<Int>, ?xOffset:Null<Int>, ?yOffset:Null<Int>) // , ?gravity:Null<Int>
 		{
 			if (text == null)
 				return FunkinLua.luaTrace('showToast: No text specified.');
@@ -260,7 +260,8 @@ class AndroidFunctions
 		funk.set("clipboardGetText", () -> PsychJNI.clipboardGetText());
 		funk.set("clipboardSetText", function(text:Null<String>):Void
 		{
-			if (text != null) return FunkinLua.luaTrace('clipboardSetText: No text specified.');
+			if (text != null)
+				return FunkinLua.luaTrace('clipboardSetText: No text specified.');
 			PsychJNI.clipboardSetText(text);
 		});
 
@@ -268,7 +269,8 @@ class AndroidFunctions
 
 		funk.set("setActivityTitle", function(text:Null<String>):Void
 		{
-			if (text != null) return FunkinLua.luaTrace('setActivityTitle: No text specified.');
+			if (text != null)
+				return FunkinLua.luaTrace('setActivityTitle: No text specified.');
 			PsychJNI.setActivityTitle(text);
 		});
 	}

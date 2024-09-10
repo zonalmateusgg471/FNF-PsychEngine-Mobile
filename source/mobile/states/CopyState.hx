@@ -45,7 +45,7 @@ class CopyState extends MusicBeatState
 		#if (!ios || !iphoneos || !iphonesim)
 		CoolUtil.showPopUp("Seems like you have some missing files that are necessary to run the game\nPress OK to begin the copy process", "Notice!");
 		#end
-		
+
 		shouldCopy = true;
 
 		add(new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xffcaff4d));
@@ -91,7 +91,8 @@ class CopyState extends MusicBeatState
 					File.saveContent('logs/' + Date.now().toString().replace(' ', '-').replace(':', "'") + '-CopyState' + '.txt', failedFilesStack.join('\n'));
 				}
 				canUpdate = false;
-				FlxG.sound.play(Paths.sound('confirmMenu')).onComplete = () -> {
+				FlxG.sound.play(Paths.sound('confirmMenu')).onComplete = () ->
+				{
 					MusicBeatState.switchState(new TitleState());
 				};
 			}
@@ -169,11 +170,13 @@ class CopyState extends MusicBeatState
 
 	public static function getFile(file:String):String
 	{
-		if(OpenFLAssets.exists(file)) return file;
+		if (OpenFLAssets.exists(file))
+			return file;
 
 		@:privateAccess
-		for(library in LimeAssets.libraries.keys()){
-			if(OpenFLAssets.exists('$library:$file') && library != 'default')
+		for (library in LimeAssets.libraries.keys())
+		{
+			if (OpenFLAssets.exists('$library:$file') && library != 'default')
 				return '$library:$file';
 		}
 
@@ -183,7 +186,7 @@ class CopyState extends MusicBeatState
 	public static function checkExistingFiles():Bool
 	{
 		locatedFiles = OpenFLAssets.list();
-		
+
 		// removes unwanted assets
 		var assets = locatedFiles.filter(folder -> folder.startsWith('assets/'));
 		var mods = locatedFiles.filter(folder -> folder.startsWith('mods/'));
@@ -194,19 +197,19 @@ class CopyState extends MusicBeatState
 
 		for (file in locatedFiles)
 		{
-			if(filesToRemove.contains(file))
+			if (filesToRemove.contains(file))
 				continue;
-			
+
 			var ignoreFile:String = getFile(Path.join([Path.directory(file), IGNORE_FOLDER_FILE_NAME]));
-			if(OpenFLAssets.exists(ignoreFile) && !directoriesToIgnore.contains(ignoreFile))
+			if (OpenFLAssets.exists(ignoreFile) && !directoriesToIgnore.contains(ignoreFile))
 				directoriesToIgnore.push(Path.directory(file));
 
-			if(directoriesToIgnore.length > 0)
+			if (directoriesToIgnore.length > 0)
 			{
-				for(directory in directoriesToIgnore)
+				for (directory in directoriesToIgnore)
 				{
-					if(file.startsWith(directory))
-					   filesToRemove.push(file);
+					if (file.startsWith(directory))
+						filesToRemove.push(file);
 				}
 			}
 			else

@@ -18,11 +18,13 @@ class MobileOptionsSubState extends BaseOptionsMenu
 
 	public function new()
 	{
-		#if android if (!externalPaths.contains('\n')) storageTypes = storageTypes.concat(externalPaths); #end
+		#if android if (!externalPaths.contains('\n'))
+			storageTypes = storageTypes.concat(externalPaths); #end
 		title = 'Mobile Options';
 		rpcTitle = 'Mobile Options Menu'; // for Discord Rich Presence, fuck it
 
-		option = new Option('Extra Controls', 'Select how many extra buttons you prefere to have\nThey can be used for mechanics with LUA or HScript.', 'extraButtons', STRING, exControlTypes);
+		option = new Option('Extra Controls', 'Select how many extra buttons you prefere to have\nThey can be used for mechanics with LUA or HScript.',
+			'extraButtons', STRING, exControlTypes);
 		addOption(option);
 
 		option = new Option('Mobile Controls Opacity',

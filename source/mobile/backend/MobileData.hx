@@ -6,7 +6,6 @@ import haxe.io.Path;
 import openfl.utils.Assets;
 import flixel.util.FlxSave;
 
-
 /**
  * ...
  * @author: Karim Akra
@@ -94,27 +93,27 @@ class MobileData
 		buttonsInstance.buttonDown.color = data.arrowRGB[1][0];
 		buttonsInstance.buttonUp.color = data.arrowRGB[2][0];
 		buttonsInstance.buttonRight.color = data.arrowRGB[3][0];
-		
+
 		return buttonInstance;
 	}
 
 	public static function readDirectory(folder:String, map:Dynamic)
 	{
 		folder = folder.contains(':') ? folder.split(':')[1] : folder;
-		
-		#if MODS_ALLOWED if(FileSystem.exists(folder)) #end
-			for (file in Paths.readDirectory(folder))
+
+		#if MODS_ALLOWED if (FileSystem.exists(folder)) #end
+		for (file in Paths.readDirectory(folder))
+		{
+			var fileWithNoLib:String = file.contains(':') ? file.split(':')[1] : file;
+			if (Path.extension(fileWithNoLib) == 'json')
 			{
-				var fileWithNoLib:String = file.contains(':') ? file.split(':')[1] : file;
-				if (Path.extension(fileWithNoLib) == 'json')
-				{
-				 	#if MODS_ALLOWED file = Path.join([folder, Path.withoutDirectory(file)]); #end
-					var str = #if MODS_ALLOWED File.getContent(file) #else Assets.getText(file) #end;
-					var json:TouchPadButtonsData = cast Json.parse(str);
-					var mapKey:String = Path.withoutDirectory(Path.withoutExtension(fileWithNoLib));
-					map.set(mapKey, json);
-				}
+				#if MODS_ALLOWED file = Path.join([folder, Path.withoutDirectory(file)]); #end
+				var str = #if MODS_ALLOWED File.getContent(file) #else Assets.getText(file) #end;
+				var json:TouchPadButtonsData = cast Json.parse(str);
+				var mapKey:String = Path.withoutDirectory(Path.withoutExtension(fileWithNoLib));
+				map.set(mapKey, json);
 			}
+		}
 	}
 
 	static function set_mode(mode:Int = 3)
