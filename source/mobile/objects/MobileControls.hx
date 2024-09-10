@@ -6,8 +6,6 @@ import mobile.input.MobileInputManager;
 import haxe.extern.EitherType;
 import mobile.objects.TouchButton;
 import flixel.util.FlxSave;
-import mobile.objects.Hitbox.HitboxButton;
-import mobile.objects.TouchPad.TouchPadButton;
 import flixel.util.typeLimit.OneOfTwo;
 
 // I wanted to delete this but i have no idea how i coded MobileControlSelectSubState so idk how to implement IMobileControls into it... yet...
@@ -16,7 +14,7 @@ import flixel.util.typeLimit.OneOfTwo;
  * ...
  * @author: Karim Akra
  */
-class MobileControls extends FlxTypedSpriteGroup<MobileInputManager<Dynamic>>
+class MobileControls extends FlxTypedSpriteGroup<MobileInputManager>
 {
 	public var touchPad:TouchPad = new TouchPad('NONE', 'NONE', NONE);
 	public var hitbox:Hitbox = new Hitbox(NONE);
@@ -60,7 +58,7 @@ class MobileControls extends FlxTypedSpriteGroup<MobileInputManager<Dynamic>>
 				add(touchPad);
 			case 3:
 				hitbox = new Hitbox(extraAction);
-				htibox = MobileData.updateButtonsColors(htibox);
+				hitbox = MobileData.updateButtonsColors(hitbox);
 				add(hitbox);
 		}
 	}

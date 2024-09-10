@@ -273,7 +273,7 @@ class Controls
 	{
 		if (keys != null && requestedMobileC != null)
 		{
-			if (requestedMobileC.anyPressed(keys))
+			if (requestedMobileC.instance.anyPressed(keys))
 			{
 				controllerMode = true;
 				return true;
@@ -286,7 +286,7 @@ class Controls
 	{
 		if (keys != null && requestedMobileC != null)
 		{
-			if (requestedMobileC.anyJustPressed(keys))
+			if (requestedMobileC.instance.anyJustPressed(keys))
 			{
 				controllerMode = true;
 				return true;
@@ -299,7 +299,7 @@ class Controls
 	{
 		if (keys != null && requestedMobileC != null)
 		{
-			if (requestedMobileC.anyJustReleased(keys))
+			if (requestedMobileC.instance.anyJustReleased(keys))
 			{
 				controllerMode = true;
 				return true;

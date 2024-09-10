@@ -769,7 +769,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 				else if(touchPad.buttonF.justPressed || FlxG.keys.justPressed.F1)
 				{
 					if(controls.mobileC){
-						touchPad.forEachAlive(function(button:TouchPadButton){
+						touchPad.forEachAlive(function(button:TouchButton){
 							if(button.tag != 'F')
 								button.visible = !button.visible;
 						});
@@ -781,7 +781,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 				if (touchPad.buttonZ.justPressed)
 				{
 					if(controls.mobileC){
-						touchPad.forEachAlive(function(button:TouchPadButton){
+						touchPad.forEachAlive(function(button:TouchButton){
 							if(button.tag != 'Z' && button.tag != 'LEFT' && button.tag != 'RIGHT' && button.tag != 'UP' && button.tag != 'DOWN')
 								touchPad.buttonUp2.visible = touchPad.buttonDown2.visible = button.visible = !button.visible;
 						});

@@ -70,14 +70,14 @@ class MusicBeatSubstate extends FlxSubState
 				mobileControls = new Hitbox(extraMode);
 		}
 
-		mobileControls = MobileData.setButtonsColors(mobileControls);
+		mobileControls.instance = MobileData.setButtonsColors(mobileControls.instance);
 		camControls = new FlxCamera();
 		camControls.bgColor.alpha = 0;
 		FlxG.cameras.add(camControls, defaultDrawTarget);
 
-		mobileControls.cameras = [camControls];
-		mobileControls.visible = false;
-		add(mobileControls.intance);
+		mobileControls.instance.cameras = [camControls];
+		mobileControls.instance.visible = false;
+		add(mobileControls.instance);
 	}
 
 	public function removeMobileControls()

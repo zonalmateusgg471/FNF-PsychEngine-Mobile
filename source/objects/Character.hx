@@ -321,7 +321,7 @@ class Character extends FlxSprite
 
 	inline public function isAnimationNull():Bool
 	{
-		return !isAnimateAtlas ? (animation.curAnim == null)  #if flxanimate : (atlas.anim.curInstance == null || atlas.anim.curSymbol == null) #end;
+		return #if flxanimate !isAnimateAtlas ? #end (animation.curAnim == null)  #if flxanimate : (atlas.anim.curInstance == null || atlas.anim.curSymbol == null) #end;
 	}
 
 	var _lastPlayedAnimation:String;

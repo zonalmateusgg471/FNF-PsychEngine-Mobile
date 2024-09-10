@@ -588,7 +588,7 @@ class PlayState extends MusicBeatState
 		#end
 		
 		addMobileControls();
-		mobileControls.visible = true;
+		mobileControls.instance.visible = true;
 
 		startCallback();
 		RecalculateRating();
@@ -2341,7 +2341,7 @@ class PlayState extends MusicBeatState
 	public var transitioning = false;
 	public function endSong()
 	{
-		mobileControls.visible = #if !android touchPad.visible = #end false;
+		mobileControls.instance.visible = #if !android touchPad.visible = #end false;
 		//Should kill you if you tried to cheat
 		if(!startingSong)
 		{

@@ -221,7 +221,7 @@ class PsychUIInputText extends FlxSpriteGroup
 			return;
 		}
 
-		static final ignored:Array<FlxKey> = [SHIFT, CONTROL, ESCAPE];
+		final ignored:Array<FlxKey> = [SHIFT, CONTROL, ESCAPE];
 		if(ignored.contains(flxKey)) return;
 
 		var lastAccent = _nextAccent;

@@ -8,6 +8,7 @@ import flixel.math.FlxPoint;
  * ...
  * @author: Karim Akra and Lily Ross (mcagabe19)
  */
+@:access(mobile.objects.TouchButton)
 class TouchPad extends MobileInputManager implements IMobileControls
 {
 	public var buttonLeft:TouchButton = new TouchButton(0, 0, [MobileInputID.LEFT, MobileInputID.noteLEFT]);
@@ -47,7 +48,7 @@ class TouchPad extends MobileInputManager implements IMobileControls
 	public var buttonExtra:TouchButton = new TouchButton(0, 0);
 	public var buttonExtra2:TouchButton = new TouchButton(0, 0);
 
-	public var instance:TouchPad;
+	public var instance:MobileInputManager;
 
 	/**
 	 * Create a gamepad.
@@ -163,10 +164,10 @@ class TouchPad extends MobileInputManager implements IMobileControls
 
 	private function createButton(X:Float, Y:Float, Graphic:String, ?Color:FlxColor = 0xFFFFFF, ?IDs:Array<MobileInputID>):TouchButton
 	{
-		var button = new TouchButton(X, Y, IDs, Graphic.toUpperCase());
+		var button = new TouchButton(X, Y, IDs);
 		button.label = new FlxSprite();
 		button.loadGraphic(Paths.image('touchpad/bg', "mobile"));
-		button.label.loadGraphic(Paths.image('touchpad/$labelGraphic', "mobile"));
+		button.label.loadGraphic(Paths.image('touchpad/${Graphic.toUpperCase()}', "mobile"));
 
 		button.scale.set(0.243, 0.243);
 		button.updateHitbox();
@@ -182,7 +183,7 @@ class TouchPad extends MobileInputManager implements IMobileControls
 		button.immovable = true;
 		button.solid = button.moves = false;
 		button.label.antialiasing = button.antialiasing = ClientPrefs.data.antialiasing;
-		button.tag = labelGraphic.toUpperCase();
+		button.tag = Graphic.toUpperCase();
 		button.color = Color;
 		button.parentAlpha = button.alpha;
 		return button;

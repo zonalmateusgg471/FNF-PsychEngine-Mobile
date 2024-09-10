@@ -12,8 +12,8 @@ import flixel.util.FlxSave;
  */
 class MobileData
 {
-	public static var actionModes:Map<String, TouchPadButtonsData> = new Map();
-	public static var dpadModes:Map<String, TouchPadButtonsData> = new Map();
+	public static var actionModes:Map<String, TouchButtonsData> = new Map();
+	public static var dpadModes:Map<String, TouchButtonsData> = new Map();
 	public static var extraActions:Map<String, ExtraActions> = new Map();
 
 	public static var mode(get, set):Int;
@@ -94,7 +94,7 @@ class MobileData
 		buttonsInstance.buttonUp.color = data.arrowRGB[2][0];
 		buttonsInstance.buttonRight.color = data.arrowRGB[3][0];
 
-		return buttonInstance;
+		return buttonsInstance;
 	}
 
 	public static function readDirectory(folder:String, map:Dynamic)
@@ -109,7 +109,7 @@ class MobileData
 			{
 				#if MODS_ALLOWED file = Path.join([folder, Path.withoutDirectory(file)]); #end
 				var str = #if MODS_ALLOWED File.getContent(file) #else Assets.getText(file) #end;
-				var json:TouchPadButtonsData = cast Json.parse(str);
+				var json:TouchButtonsData = cast Json.parse(str);
 				var mapKey:String = Path.withoutDirectory(Path.withoutExtension(fileWithNoLib));
 				map.set(mapKey, json);
 			}
@@ -138,7 +138,7 @@ class MobileData
 	}
 }
 
-typedef TouchPadButtonsData =
+typedef TouchButtonsData =
 {
 	buttons:Array<ButtonsData>
 }

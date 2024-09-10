@@ -25,7 +25,7 @@ class Hitbox extends MobileInputManager implements IMobileControls
 	public var buttonExtra:TouchButton = new TouchButton(0, 0);
 	public var buttonExtra2:TouchButton = new TouchButton(0, 0);
 
-	public var instance:Hitbox;
+	public var instance:MobileInputManager;
 
 	var storedButtonsIDs:Map<String, Array<MobileInputID>> = new Map<String, Array<MobileInputID>>();
 
@@ -97,41 +97,41 @@ class Hitbox extends MobileInputManager implements IMobileControls
 
 	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):TouchButton
 	{
-		var hint = new TouchButton(X, Y, null, Width, Height);
-		loadGraphic(createHintGraphic(width, height));
+		var hint = new TouchButton(X, Y);
+		loadGraphic(createHintGraphic(Width, Height));
 
 		if (ClientPrefs.data.hitboxType != "Hidden")
 		{
 			var hintTween:FlxTween = null;
 
-			onDown.callback = function()
+			hint.onDown.callback = function()
 			{
 				if (hintTween != null)
 					hintTween.cancel();
 
-				hintTween = FlxTween.tween(this, {alpha: ClientPrefs.data.controlsAlpha}, ClientPrefs.data.controlsAlpha / 100, {
+				hintTween = FlxTween.tween(hint, {alpha: ClientPrefs.data.controlsAlpha}, ClientPrefs.data.controlsAlpha / 100, {
 					ease: FlxEase.circInOut,
 					onComplete: (twn:FlxTween) -> hintTween = null
 				});
 			}
 
-			onOut.callback = onUp.callback = function()
+			hint.onOut.callback = hint.onUp.callback = function()
 			{
 				if (hintTween != null)
 					hintTween.cancel();
 
-				hintTween = FlxTween.tween(this, {alpha: 0.00001}, ClientPrefs.data.controlsAlpha / 10, {
+				hintTween = FlxTween.tween(hint, {alpha: 0.00001}, ClientPrefs.data.controlsAlpha / 10, {
 					ease: FlxEase.circInOut,
 					onComplete: (twn:FlxTween) -> hintTween = null
 				});
 			}
 		}
-		statusAlphas = [];
-		statusIndicatorType = NONE;
-		immovable = multiTouch = true;
-		solid = moves = false;
-		alpha = 0.00001;
-		antialiasing = ClientPrefs.data.antialiasing;
+		hint.statusAlphas = [];
+		hint.statusIndicatorType = NONE;
+		hint.immovable = hint.multiTouch = true;
+		hint.solid = hint.moves = false;
+		hint.alpha = 0.00001;
+		hint.antialiasing = ClientPrefs.data.antialiasing;
 		hint.color = Color;
 		#if FLX_DEBUG
 		hint.ignoreDrawDebug = true;

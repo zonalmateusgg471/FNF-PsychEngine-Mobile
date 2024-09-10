@@ -21,7 +21,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 	var ui:FlxCamera;
 	var curOption:Int = MobileData.mode;
 	var buttonBinded:Bool = false;
-	var bindButton:TouchPadButton;
+	var bindButton:TouchButton;
 	var reset:UIButton;
 	var tweenieShit:Float = 0;
 
@@ -171,13 +171,13 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 			}
 			else
 			{
-				control.touchPad.forEachAlive((button:TouchPadButton) ->
+				control.touchPad.forEachAlive((button:TouchButton) ->
 				{
 					if (button.justPressed)
 						moveButton(TouchFunctions.touch, button);
 				});
 			}
-			control.touchPad.forEachAlive((button:TouchPadButton) ->
+			control.touchPad.forEachAlive((button:TouchButton) ->
 			{
 				if (button != bindButton && buttonBinded)
 				{
@@ -258,7 +258,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 			case 5:
 				reset.visible = true;
 				changeControls(0, true);
-				control.touchPad.forEachAlive((button:TouchPadButton) ->
+				control.touchPad.forEachAlive((button:TouchButton) ->
 				{
 					var ignore = ['G', 'S'];
 					if (!ignore.contains(button.tag.toUpperCase()))
@@ -316,7 +316,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 			func();
 	}
 
-	function moveButton(touch:FlxTouch, button:TouchPadButton):Void
+	function moveButton(touch:FlxTouch, button:TouchButton):Void
 	{
 		bindButton = button;
 		buttonBinded = bindButton == null ? false : true;

@@ -155,7 +155,7 @@ class EditorPlayState extends MusicBeatSubstate
 		#end
 
 		addMobileControls();
-		mobileControls.visible = true;
+		mobileControls.instance.visible = true;
 
 		super.create();
 
@@ -465,7 +465,7 @@ class EditorPlayState extends MusicBeatSubstate
 
 		Conductor.songPosition = FlxG.sound.music.time = vocals.time = opponentVocals.time = startPos - Conductor.offset;
 
-		mobileControls.visible = false;
+		mobileControls.instance.visible = false;
 
 		close();
 	}
