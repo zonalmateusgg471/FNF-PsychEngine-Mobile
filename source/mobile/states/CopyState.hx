@@ -200,8 +200,7 @@ class CopyState extends MusicBeatState
 			if (filesToRemove.contains(file))
 				continue;
 
-			var ignoreFile:String = getFile(Path.join([Path.directory(file), IGNORE_FOLDER_FILE_NAME]));
-			if (OpenFLAssets.exists(ignoreFile) && !directoriesToIgnore.contains(ignoreFile))
+			if(file.endsWith(IGNORE_FOLDER_FILE_NAME) && !directoriesToIgnore.contains(Path.directory(file)))
 				directoriesToIgnore.push(Path.directory(file));
 
 			if (directoriesToIgnore.length > 0)
@@ -211,10 +210,6 @@ class CopyState extends MusicBeatState
 					if (file.startsWith(directory))
 						filesToRemove.push(file);
 				}
-			}
-			else
-			{
-				break;
 			}
 		}
 

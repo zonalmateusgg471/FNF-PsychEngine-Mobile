@@ -121,6 +121,7 @@ class Main extends Sprite
 		Mods.loadTopMod();
 
 		FlxG.save.bind('funkin', CoolUtil.getSavePath());
+		MobileData.init();
 
 		Highscore.load();
 
@@ -159,8 +160,7 @@ class Main extends Sprite
 		#if DISCORD_ALLOWED
 		DiscordClient.prepare();
 		#end
-		MobileData.init();
-
+		
 		#if desktop FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, toggleFullScreen); #end
 
 		#if android FlxG.android.preventDefaultKeys = [BACK]; #end

@@ -98,6 +98,8 @@ class Hitbox extends MobileInputManager implements IMobileControls
 	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):TouchButton
 	{
 		var hint = new TouchButton(X, Y);
+		hint.statusAlphas = [];
+		hint.statusIndicatorType = NONE;
 		loadGraphic(createHintGraphic(Width, Height));
 
 		if (ClientPrefs.data.hitboxType != "Hidden")
@@ -126,8 +128,7 @@ class Hitbox extends MobileInputManager implements IMobileControls
 				});
 			}
 		}
-		hint.statusAlphas = [];
-		hint.statusIndicatorType = NONE;
+
 		hint.immovable = hint.multiTouch = true;
 		hint.solid = hint.moves = false;
 		hint.alpha = 0.00001;
