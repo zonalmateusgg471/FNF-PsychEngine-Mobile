@@ -65,7 +65,7 @@ class MobileFunctions
 			return false;
 		});
 
-		funk.set("vibrate", (duration:Null<Int>, ?period:Null<Int>) ->
+		funk.set("vibrate", (?duration:Int, ?period:Int) ->
 		{
 			if (duration == null)
 				return FunkinLua.luaTrace('vibrate: No duration specified.');
@@ -217,7 +217,7 @@ class AndroidFunctions
 		funk.set("menuJustReleased", FlxG.android.justReleased.MENU);
 
 		funk.set("getCurrentOrientation", () -> PsychJNI.getCurrentOrientationAsString());
-		funk.set("setOrientation", function(hint:Null<String>):Void
+		funk.set("setOrientation", function(?hint:String):Void
 		{
 			switch (hint.toLowerCase())
 			{
@@ -239,7 +239,7 @@ class AndroidFunctions
 
 		funk.set("minimizeWindow", () -> AndroidTools.minimizeWindow());
 
-		funk.set("showToast", function(text:String, duration:Null<Int>, ?xOffset:Null<Int>, ?yOffset:Null<Int>) // , ?gravity:Null<Int>
+		funk.set("showToast", function(text:String, ?duration:Int, ?xOffset:Int, ?yOffset:Int) /* , ?gravity:Int*/
 		{
 			if (text == null)
 				return FunkinLua.luaTrace('showToast: No text specified.');
@@ -258,7 +258,7 @@ class AndroidFunctions
 
 		funk.set("clipboardHasText", () -> PsychJNI.clipboardHasText());
 		funk.set("clipboardGetText", () -> PsychJNI.clipboardGetText());
-		funk.set("clipboardSetText", function(text:Null<String>):Void
+		funk.set("clipboardSetText", function(?text:String):Void
 		{
 			if (text != null)
 				return FunkinLua.luaTrace('clipboardSetText: No text specified.');
@@ -267,7 +267,7 @@ class AndroidFunctions
 
 		funk.set("manualBackButton", () -> PsychJNI.manualBackButton());
 
-		funk.set("setActivityTitle", function(text:Null<String>):Void
+		funk.set("setActivityTitle", function(text:String):Void
 		{
 			if (text != null)
 				return FunkinLua.luaTrace('setActivityTitle: No text specified.');
