@@ -334,7 +334,7 @@ class PauseSubState extends MusicBeatSubstate
 			}
 		}
 
-		if (touchPad == null) //sometimes it dosent add the vpad, hopefully this fixes it
+		if (touchPad == null) //sometimes it dosent add the tpad, hopefully this fixes it
 		{
 			addTouchPad(PlayState.chartingMode ? 'LEFT_FULL' : 'UP_DOWN', 'A');
 			addTouchPadCamera();

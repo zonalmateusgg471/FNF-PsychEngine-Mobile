@@ -339,7 +339,7 @@ class HScript extends Iris
   
 		set("addTouchPadCamera", () -> {
 			if(PlayState.instance.luaTouchPad == null){
-				FunkinLua.luaTrace('addTouchPadCamera: VPAD does not exist.');
+				FunkinLua.luaTrace('addTouchPadCamera: TPAD does not exist.');
 				return;
 			}
 			PlayState.instance.addLuaTouchPadCamera();
@@ -347,7 +347,7 @@ class HScript extends Iris
   
 		set("touchPadJustPressed", function(button:Dynamic):Bool {
 			if(PlayState.instance.luaTouchPad == null){
-			  //FunkinLua.luaTrace('touchPadJustPressed: VPAD does not exist.');
+			  //FunkinLua.luaTrace('touchPadJustPressed: TPAD does not exist.');
 			  return false;
 			}
 		  return PlayState.instance.luaTouchPadJustPressed(button);
@@ -355,7 +355,7 @@ class HScript extends Iris
   
 		set("touchPadPressed", function(button:Dynamic):Bool {
 			if(PlayState.instance.luaTouchPad == null){
-				//FunkinLua.luaTrace('touchPadPressed: VPAD does not exist.');
+				//FunkinLua.luaTrace('touchPadPressed: TPAD does not exist.');
 				return false;
 			}
 			return PlayState.instance.luaTouchPadPressed(button);
@@ -363,7 +363,7 @@ class HScript extends Iris
   
 		set("touchPadJustReleased", function(button:Dynamic):Bool {
 			if(PlayState.instance.luaTouchPad == null){
-				//FunkinLua.luaTrace('touchPadJustReleased: VPAD does not exist.');
+				//FunkinLua.luaTrace('touchPadJustReleased: TPAD does not exist.');
 				return false;
 			}
 			return PlayState.instance.luaTouchPadJustReleased(button);
