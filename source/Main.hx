@@ -121,7 +121,6 @@ class Main extends Sprite
 		Mods.loadTopMod();
 
 		FlxG.save.bind('funkin', CoolUtil.getSavePath());
-		MobileData.init();
 
 		Highscore.load();
 
