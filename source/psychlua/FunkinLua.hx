@@ -1560,14 +1560,11 @@ class FunkinLua {
 		CustomSubstate.implement(this);
 		ShaderFunctions.implement(this);
 		DeprecatedFunctions.implement(this);
-		MobileFunctions.implement(this);
-		#if android AndroidFunctions.implement(this); #end
 
 		for (name => func in customFunctions)
 		{
 			if(func != null)
 				set(name, func);
-				// Lua_helper.add_callback(lua, name, func);
 		}
 
 		try{
@@ -1581,7 +1578,7 @@ class FunkinLua {
 			var resultStr:String = Lua.tostring(lua, result);
 			if(resultStr != null && result != 0) {
 				trace(resultStr);
-				#if (windows || android || js || wasm)
+				#if (desktop || mobile)
 				CoolUtil.showPopUp(resultStr, 'Error on lua script!');
 				#else
 				luaTrace('$scriptName\n$resultStr', true, false, FlxColor.RED);
@@ -1795,7 +1792,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, name, null); //just so that it gets called
 	}
 
-	#if (MODS_ALLOWED && !flash && sys)
+	#if (!flash && sys)
 	public var runtimeShaders:Map<String, Array<String>> = new Map<String, Array<String>>();
 	#end
 
@@ -1803,7 +1800,7 @@ class FunkinLua {
 	{
 		if(!ClientPrefs.data.shaders) return false;
 
-		#if (MODS_ALLOWED && !flash && sys)
+		#if (!flash && sys)
 		if(runtimeShaders.exists(name))
 		{
 			var shaderData:Array<String> = runtimeShaders.get(name);

@@ -12,7 +12,7 @@ class ShaderFunctions
 		funk.addLocalCallback("initLuaShader", function(name:String) {
 			if(!ClientPrefs.data.shaders) return false;
 
-			#if (!flash && MODS_ALLOWED && sys)
+			#if (!flash && sys)
 			return funk.initLuaShader(name);
 			#else
 			FunkinLua.luaTrace("initLuaShader: Platform unsupported for Runtime Shaders!", false, false, FlxColor.RED);
@@ -264,7 +264,7 @@ class ShaderFunctions
 		});
 	}
 	
-	#if (!flash && MODS_ALLOWED && sys)
+	#if (!flash && sys)
 	public static function getShader(obj:String):FlxRuntimeShader
 	{
 		var split:Array<String> = obj.split('.');

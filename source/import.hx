@@ -1,13 +1,17 @@
 #if !macro
-// Discord API
+//Discord API
 #if DISCORD_ALLOWED
 import backend.Discord;
 #end
 
-// LuaJIT
+//Psych
 #if LUA_ALLOWED
 import llua.*;
 import llua.Lua;
+#end
+
+#if ACHIEVEMENTS_ALLOWED
+import backend.Achievements;
 #end
 
 // Mobile
@@ -18,7 +22,6 @@ import mobile.objects.TouchPad;
 import mobile.objects.TouchButton;
 import mobile.input.MobileInputID;
 import mobile.backend.MobileData;
-import mobile.backend.StorageUtil;
 import mobile.input.MobileInputManager;
 
 // Android
@@ -34,7 +37,6 @@ import android.os.Build.VERSION_CODES as AndroidVersionCode;
 import android.os.BatteryManager as AndroidBatteryManager;
 #end
 
-// Sys
 #if sys
 import sys.*;
 import sys.io.*;
@@ -42,7 +44,6 @@ import sys.io.*;
 import js.html.*;
 #end
 
-// Psych
 import backend.Paths;
 import backend.Controls;
 import backend.CoolUtil;
@@ -55,6 +56,7 @@ import backend.BaseStage;
 import backend.Difficulty;
 import backend.Mods;
 import backend.Language;
+import mobile.backend.StorageUtil;
 
 import backend.ui.*; //Psych-UI
 
@@ -64,16 +66,12 @@ import objects.BGSprite;
 import states.PlayState;
 import states.LoadingState;
 
-#if ACHIEVEMENTS_ALLOWED
-import backend.Achievements;
-#end
-
 #if flxanimate
 import flxanimate.*;
 import flxanimate.PsychFlxAnimate as FlxAnimate;
 #end
 
-// Flixel
+//Flixel
 import flixel.sound.FlxSound;
 import flixel.FlxG;
 import flixel.FlxSprite;
