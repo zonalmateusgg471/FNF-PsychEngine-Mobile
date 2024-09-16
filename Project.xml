@@ -116,13 +116,10 @@
 
 	<!--Psych stuff needed-->
 	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
-	<haxelib name="hscript-iris" if="HSCRIPT_ALLOWED" version="1.0.2"/>
-	<haxelib name="hxvlc" if="VIDEOS_ALLOWED"/>
-	<haxelib name="hxdiscord_rpc" if="DISCORD_ALLOWED"/>
-	<haxelib name="flxanimate" unless="html5"/>
-	<haxelib name="tjson"/>
-	<haxelib name="funkin.vis"/>
-	<haxelib name="grig.audio" />
+	<haxelib name="hscript-iris" if="HSCRIPT_ALLOWED" version="1.1.0"/>
+	<haxelib name="hxvlc" if="VIDEOS_ALLOWED" version="1.8.2"/>
+	<haxelib name="hxdiscord_rpc" version="1.2.4" if="DISCORD_ALLOWED"/>
+	<haxelib name="flxanimate"/>
 
 	<!-- Android Specific-->
 	<haxelib name="extension-androidtools" if="android" />
@@ -136,6 +133,9 @@
 
 	<haxedef name="openfl_dpi_aware" if="openfl_dpi_aware" />
 
+	<haxedef name="HXC_LIBVLC_LOGGING" if="VIDEOS_ALLOWED debug" />
+	<haxedef name="HXVLC_NO_SHARE_DIRECTORY" />
+	
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
 	<!--Enable the Flixel core recording system-->
