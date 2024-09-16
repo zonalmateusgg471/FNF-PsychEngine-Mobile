@@ -14,7 +14,7 @@ import llua.Lua;
 import backend.Achievements;
 #end
 
-// Mobile
+// Mobile Controls
 import mobile.objects.MobileControls;
 import mobile.objects.IMobileControls;
 import mobile.objects.Hitbox;
@@ -87,6 +87,7 @@ import flixel.tweens.FlxTween;
 import flixel.group.FlxSpriteGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.addons.transition.FlxTransitionableState;
+import shaders.flixel.system.FlxShader;
 
 using StringTools;
 #end

@@ -3,10 +3,6 @@ package mobile.backend;
 import lime.system.System as LimeSystem;
 import haxe.io.Path;
 import haxe.Exception;
-#if android
-import android.Tools;
-import android.callback.CallBack;
-#end
 
 /**
  * A storage class for mobile.
@@ -41,7 +37,7 @@ class StorageUtil
 			if (FileSystem.exists(directory) && FileSystem.isDirectory(directory))
 				return;
 		}
-		catch (e:haxe.Exception)
+		catch (e:Exception)
 		{
 			trace('Something went wrong while looking at directory. (${e.message})');
 		}
@@ -142,7 +138,7 @@ class StorageUtil
 			if (path.contains(externalDir))
 				daPath = path;
 
-		daPath = haxe.io.Path.addTrailingSlash(daPath.endsWith("\n") ? daPath.substr(0, daPath.length - 1) : daPath);
+		daPath = Path.addTrailingSlash(daPath.endsWith("\n") ? daPath.substr(0, daPath.length - 1) : daPath);
 		return daPath;
 	}
 	#end

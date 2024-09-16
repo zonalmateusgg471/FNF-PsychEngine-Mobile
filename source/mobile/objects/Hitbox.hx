@@ -1,10 +1,7 @@
 package mobile.objects;
 
-import mobile.input.MobileInputManager;
 import openfl.display.BitmapData;
-import mobile.objects.TouchButton;
 import openfl.display.Shape;
-import mobile.objects.TouchButton;
 import flixel.graphics.FlxGraphic;
 
 /**

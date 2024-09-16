@@ -3,9 +3,7 @@ package mobile.objects;
 import flixel.input.FlxInput;
 import flixel.input.FlxPointer;
 import flixel.input.IFlxInput;
-import flixel.math.FlxPoint;
 import flixel.util.FlxDestroyUtil.IFlxDestroyable;
-import shaders.flixel.system.FlxShader;
 #if mac
 import flixel.input.mouse.FlxMouseButton;
 #end

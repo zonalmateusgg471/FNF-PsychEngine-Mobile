@@ -1,8 +1,6 @@
 package mobile.input;
 
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
-import mobile.input.MobileInputID;
-import mobile.objects.TouchButton;
 import haxe.ds.Map;
 
 /**

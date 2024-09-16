@@ -83,7 +83,7 @@ class CopyState extends MusicBeatState
 			{
 				if (failedFiles.length > 0)
 				{
-					#if !ios
+					#if (!ios || !iphoneos || !iphonesim)
 					CoolUtil.showPopUp(failedFiles.join('\n'), 'Failed To Copy ${failedFiles.length} File.');
 					#end
 					if (!FileSystem.exists('logs'))

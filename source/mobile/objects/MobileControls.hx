@@ -1,13 +1,5 @@
 package mobile.objects;
 
-import haxe.ds.Map;
-import flixel.math.FlxPoint;
-import mobile.input.MobileInputManager;
-import haxe.extern.EitherType;
-import mobile.objects.TouchButton;
-import flixel.util.FlxSave;
-import flixel.util.typeLimit.OneOfTwo;
-
 // I wanted to delete this but i have no idea how i coded MobileControlSelectSubState so idk how to implement IMobileControls into it... yet...
 
 /**

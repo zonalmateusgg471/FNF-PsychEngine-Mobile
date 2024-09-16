@@ -1,9 +1,5 @@
 package mobile.objects;
 
-import mobile.objects.TouchButton;
-import mobile.input.MobileInputManager;
-import flixel.math.FlxPoint;
-
 /**
  * ...
  * @author: Karim Akra and Lily Ross (mcagabe19)
