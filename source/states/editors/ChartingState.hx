@@ -1204,15 +1204,15 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 			updateSelectionBox();
 		}
 
+		var minX:Float = gridBg.x;
+		if(SHOW_EVENT_COLUMN && lockedEvents) minX += GRID_SIZE;
+
 		if (controls.mobileC)
 		{
 			for (touch in FlxG.touches.list)
 			{
 				if(touch.justPressed && (touch.overlaps(mainBox.bg) || touch.overlaps(infoBox.bg)))
 					ignoreClickForThisFrame = true;
-		
-				var minX:Float = gridBg.x;
-				if(SHOW_EVENT_COLUMN && lockedEvents) minX += GRID_SIZE;
 		
 				if(isMovingNotes && touch.justReleased)
 					stopMovingNotes();
@@ -1240,52 +1240,9 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 						dummyArrow.y = gridBg.y + diffY;
 					else
 					{
-<<<<<<< HEAD
 						var t:Float = (diffY - (GRID_SIZE / (curQuant/16)));
 						if(touch.y >= gridBg.y) t *= curZoom;
 						dummyArrow.y = gridBg.y + t;
-=======
-						var chartY:Float = FlxG.mouse.y - note.chartY;
-						return ((note.isEvent && noteData < 0) || (!note.isEvent && note.songData[1] == noteData)) && chartY >= 0 && chartY < GRID_SIZE;
-					});
-					closeNotes.sort(function(a:MetaNote, b:MetaNote) return Math.abs(a.strumTime - FlxG.mouse.y) < Math.abs(b.strumTime - FlxG.mouse.y) ? 1 : -1);
-
-					var closest = closeNotes[0];
-					if(closest != null && (!closest.isEvent || !lockedEvents))
-					{
-						if(FlxG.keys.pressed.SHIFT || holdingAlt) // Select Note/Event
-						{
-							var sel = selectedNotes.copy();
-							if(!selectedNotes.contains(closest))
-							{
-								selectedNotes.push(closest);
-								addUndoAction(SELECT_NOTE, {old: sel, current: selectedNotes.copy()});
-							}
-							else if(!holdingAlt)
-							{
-								resetSelectedNotes();
-								selectedNotes = sel.copy();
-								selectedNotes.remove(closest);
-								addUndoAction(SELECT_NOTE, {old: sel, current: selectedNotes.copy()});
-							}
-
-							trace('Notes selected: ' + selectedNotes.length);
-						}
-						else if(!FlxG.keys.pressed.CONTROL) // Remove Note/Event
-						{
-							trace('Removed ${!closest.isEvent ? 'note' : 'event'} at time: ${closest.strumTime}');
-							if(!closest.isEvent)
-								notes.remove(closest);
-							else
-								events.remove(cast (closest, EventMetaNote));
-
-							selectedNotes.remove(closest);
-							curRenderedNotes.remove(closest, true);
-							addUndoAction(DELETE_NOTE, !closest.isEvent ? {notes: [closest]} : {events: [closest]});
-						}
-						if(selectedNotes.length == 1) onSelectNote();
-						forceDataUpdate = true;
->>>>>>> upstream/experimental
 					}
 		
 					if(isMovingNotes)
@@ -1363,14 +1320,14 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 							var closeNotes:Array<MetaNote> = curRenderedNotes.members.filter(function(note:MetaNote)
 							{
 								var chartY:Float = touch.y - note.chartY;
-								return ((note.isEvent && noteData < 0) || note.songData[1] == noteData) && chartY >= 0 && chartY < GRID_SIZE;
+								return ((note.isEvent && noteData < 0) || (!note.isEvent && note.songData[1] == noteData)) && chartY >= 0 && chartY < GRID_SIZE;
 							});
 							closeNotes.sort(function(a:MetaNote, b:MetaNote) return Math.abs(a.strumTime - touch.y) < Math.abs(b.strumTime - touch.y) ? 1 : -1);
 		
 							var closest = closeNotes[0];
 							if(closest != null && (!closest.isEvent || !lockedEvents))
 							{
-								if(holdingAlt) // Select Note/Event
+								if(touchPad.buttonY.pressed || holdingAlt) // Select Note/Event
 								{
 									var sel = selectedNotes.copy();
 									if(!selectedNotes.contains(closest))
@@ -1378,7 +1335,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 										selectedNotes.push(closest);
 										addUndoAction(SELECT_NOTE, {old: sel, current: selectedNotes.copy()});
 									}
-									else if(!holdingAlt)
+									else if(!touchPad.buttonY.pressed || !holdingAlt)
 									{
 										resetSelectedNotes();
 										selectedNotes = sel.copy();
@@ -1476,9 +1433,6 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		} else {
 			if(FlxG.mouse.justPressed && (FlxG.mouse.overlaps(mainBox.bg) || FlxG.mouse.overlaps(infoBox.bg)))
 				ignoreClickForThisFrame = true;
-	
-			var minX:Float = gridBg.x;
-			if(SHOW_EVENT_COLUMN && lockedEvents) minX += GRID_SIZE;
 	
 			if(isMovingNotes && FlxG.mouse.justReleased)
 				stopMovingNotes();
@@ -1586,7 +1540,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 						var closeNotes:Array<MetaNote> = curRenderedNotes.members.filter(function(note:MetaNote)
 						{
 							var chartY:Float = FlxG.mouse.y - note.chartY;
-							return ((note.isEvent && noteData < 0) || note.songData[1] == noteData) && chartY >= 0 && chartY < GRID_SIZE;
+							return ((note.isEvent && noteData < 0) || (!note.isEvent && note.songData[1] == noteData)) && chartY >= 0 && chartY < GRID_SIZE;
 						});
 						closeNotes.sort(function(a:MetaNote, b:MetaNote) return Math.abs(a.strumTime - FlxG.mouse.y) < Math.abs(b.strumTime - FlxG.mouse.y) ? 1 : -1);
 	
