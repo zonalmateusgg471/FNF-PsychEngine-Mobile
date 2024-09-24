@@ -1085,7 +1085,8 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 						selectedNotes.shift();
 						if(note == null) continue;
 		
-						trace('Removed ${!note.isEvent ? 'note' : 'event'} at time: ${note.strumTime}');
+						var kind:String = !note.isEvent ? 'note' : 'event';
+						trace('Removed $kind at time: ${note.strumTime}');
 						if(!note.isEvent)
 						{
 							notes.remove(note);
@@ -1338,7 +1339,6 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 									else if(!touchPad.buttonY.pressed || !holdingAlt)
 									{
 										resetSelectedNotes();
-										selectedNotes = sel.copy();
 										selectedNotes.remove(closest);
 										addUndoAction(SELECT_NOTE, {old: sel, current: selectedNotes.copy()});
 									}
@@ -1347,7 +1347,8 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 								}
 								else if(!FlxG.keys.pressed.CONTROL) // Remove Note/Event
 								{
-									trace('Removed ${!closest.isEvent ? 'note' : 'event'} at time: ${closest.strumTime}');
+									var kind:String = !closest.isEvent ? 'note' : 'event';
+									trace('Removed $kind at time: ${closest.strumTime}')
 									if(!closest.isEvent)
 										notes.remove(closest);
 									else
@@ -1558,7 +1559,6 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 								else if(!holdingAlt)
 								{
 									resetSelectedNotes();
-									selectedNotes = sel.copy();
 									selectedNotes.remove(closest);
 									addUndoAction(SELECT_NOTE, {old: sel, current: selectedNotes.copy()});
 								}
@@ -1567,7 +1567,8 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 							}
 							else if(!FlxG.keys.pressed.CONTROL) // Remove Note/Event
 							{
-								trace('Removed ${!closest.isEvent ? 'note' : 'event'} at time: ${closest.strumTime}');
+								var kind:String = !closest.isEvent ? 'note' : 'event';
+								trace('Removed $kind at time: ${closest.strumTime}');
 								if(!closest.isEvent)
 									notes.remove(closest);
 								else
@@ -3128,15 +3129,10 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 				if(note == null) continue;
 
 				if(!note.isEvent && affectNotes.checked)
-				{
 					notes.remove(note);
-					trace('removed normal note');
-				}
 				if(note.isEvent && affectEvents.checked)
-				{
 					events.remove(cast (note, EventMetaNote));
-					trace('removed event note');
-				}
+
 				selectedNotes.remove(note);
 			}
 			softReloadNotes(true);
@@ -5078,6 +5074,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 			case MOVE_NOTE:
 				actionRemoveNotes(action.data.movedNotes, action.data.movedEvents);
 				actionPushNotes(action.data.originalNotes, action.data.originalEvents);
+				onSelectNote();
 
 			case SELECT_NOTE:
 				resetSelectedNotes();
@@ -5110,6 +5107,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 			case MOVE_NOTE:
 				actionRemoveNotes(action.data.originalNotes, action.data.originalEvents);
 				actionPushNotes(action.data.movedNotes, action.data.movedEvents);
+				onSelectNote();
 
 			case SELECT_NOTE:
 				resetSelectedNotes();
@@ -5132,6 +5130,8 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 				{
 					notes.push(note);
 					selectedNotes.push(note);
+					note.songData[0] = note.strumTime;
+					note.songData[1] = note.chartNoteData;
 				}
 			}
 			notes.sort(PlayState.sortByTime);
@@ -5144,6 +5144,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 				{
 					events.push(event);
 					selectedNotes.push(event);
+					event.songData[0] = event.strumTime;
 				}
 			}
 			events.sort(PlayState.sortByTime);
@@ -5161,6 +5162,12 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 				{
 					notes.remove(note);
 					selectedNotes.remove(note);
+
+					if(note.exists)
+					{
+						note.colorTransform.redMultiplier = note.colorTransform.greenMultiplier = note.colorTransform.blueMultiplier = 1;
+						if(note.animation.curAnim != null) note.animation.curAnim.curFrame = 0;
+					}
 				}
 
 			}
@@ -5173,6 +5180,12 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 				{
 					trace(events.remove(event));
 					selectedNotes.remove(event);
+
+					if(event.exists)
+					{
+						event.colorTransform.redMultiplier = event.colorTransform.greenMultiplier = event.colorTransform.blueMultiplier = 1;
+						if(event.animation.curAnim != null) event.animation.curAnim.curFrame = 0;
+					}
 				}
 			}
 		}

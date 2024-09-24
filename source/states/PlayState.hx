@@ -249,10 +249,14 @@ class PlayState extends MusicBeatState
 
 	public var luaTouchPad:TouchPad;
 
+	public static var nextReloadAll:Bool = false;
+
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
 		Paths.clearStoredMemory();
+		if(nextReloadAll) Paths.clearUnusedMemory();
+		nextReloadAll = false;
 
 		startCallback = startCountdown;
 		endCallback = endSong;
