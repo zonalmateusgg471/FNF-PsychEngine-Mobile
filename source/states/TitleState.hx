@@ -72,12 +72,15 @@ class TitleState extends MusicBeatState
 	override public function create():Void
 	{
 		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-		ClientPrefs.loadPrefs();
-		Language.reloadPhrases();
-
 		super.create();
-		
+		Paths.clearUnusedMemory();
+
+		if(!initialized)
+		{
+			ClientPrefs.loadPrefs();
+			Language.reloadPhrases();
+		}
+
 		curWacky = FlxG.random.getObject(getIntroTextShit());
 
 		#if CHECK_FOR_UPDATES
@@ -136,15 +139,7 @@ class TitleState extends MusicBeatState
 		}
 		else
 		{
-			if (initialized)
-				startIntro();
-			else
-			{
-				new FlxTimer().start(1, function(tmr:FlxTimer)
-				{
-					startIntro();
-				});
-			}
+			startIntro();
 		}
 		#end
 	}
@@ -186,8 +181,8 @@ class TitleState extends MusicBeatState
 		gfDance.frames = Paths.getSparrowAtlas(characterImage);
 		if(!useIdle)
 		{
-			gfDance.animation.addByIndices('danceLeft', animationName, [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
-			gfDance.animation.addByIndices('danceRight', animationName, [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
+			gfDance.animation.addByIndices('danceLeft', animationName, danceLeftFrames, "", 24, false);
+			gfDance.animation.addByIndices('danceRight', animationName, danceRightFrames, "", 24, false);
 			gfDance.animation.play('danceRight');
 		}
 		else
@@ -281,6 +276,7 @@ class TitleState extends MusicBeatState
 					enterPosition.set(titleJSON.startx, titleJSON.starty);
 					musicBPM = titleJSON.bpm;
 					
+					if(titleJSON.animation != null && titleJSON.animation.length > 0) animationName = titleJSON.animation;
 					if(titleJSON.dance_left != null && titleJSON.dance_left.length > 0) danceLeftFrames = titleJSON.dance_left;
 					if(titleJSON.dance_right != null && titleJSON.dance_right.length > 0) danceRightFrames = titleJSON.dance_right;
 					useIdle = (titleJSON.idle == true);
@@ -330,8 +326,8 @@ class TitleState extends MusicBeatState
 			case 'PESSY':
 				characterImage = 'PessyBump';
 				animationName = 'Pessy Title Bump';
-				gfPosition.x += 192;
-				gfPosition.y += 70;
+				gfPosition.x += 165;
+				gfPosition.y += 60;
 				danceLeftFrames = [29, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 				danceRightFrames = [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
 		}
@@ -614,6 +610,7 @@ class TitleState extends MusicBeatState
 			#if TITLE_SCREEN_EASTER_EGG
 			if (playJingle) //Ignore deez
 			{
+				playJingle = false;
 				var easteregg:String = FlxG.save.data.psychDevsEasterEgg;
 				if (easteregg == null) easteregg = '';
 				easteregg = easteregg.toUpperCase();
@@ -635,7 +632,6 @@ class TitleState extends MusicBeatState
 						remove(credGroup);
 						FlxG.camera.flash(FlxColor.WHITE, 2);
 						skippedIntro = true;
-						playJingle = false;
 
 						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
@@ -662,9 +658,10 @@ class TitleState extends MusicBeatState
 						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
 						transitioning = false;
+						if(easteregg == 'PESSY')
+							Achievements.unlock('pessy_easter_egg');
 					};
 				}
-				playJingle = false;
 			}
 			else #end //Default! Edit this one!!
 			{
