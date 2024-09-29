@@ -1348,7 +1348,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 								else if(!FlxG.keys.pressed.CONTROL) // Remove Note/Event
 								{
 									var kind:String = !closest.isEvent ? 'note' : 'event';
-									trace('Removed $kind at time: ${closest.strumTime}')
+									trace('Removed $kind at time: ${closest.strumTime}');
 									if(!closest.isEvent)
 										notes.remove(closest);
 									else
