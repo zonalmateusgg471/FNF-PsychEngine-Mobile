@@ -6,10 +6,13 @@ jobs:
     outputs:
       commit_hash: ${{ steps.get-commit-hash.outputs.commit_hash }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
       - name: Get latest commit hash
         id: commit_hash
         run: |
-          commit_hash=${GITHUB_SHA:0:7}
+          commit_hash=$(git rev-parse --short HEAD)
           echo "Latest commit hash is $latest_tag"
           echo "::set-output name=commit_hash::$commit_hash"
 
