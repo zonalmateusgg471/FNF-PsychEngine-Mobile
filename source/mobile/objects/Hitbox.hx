@@ -19,8 +19,8 @@ class Hitbox extends MobileInputManager implements IMobileControls
 	public var buttonDown:TouchButton = new TouchButton(0, 0, [MobileInputID.HITBOX_DOWN, MobileInputID.NOTE_DOWN]);
 	public var buttonUp:TouchButton = new TouchButton(0, 0, [MobileInputID.HITBOX_UP, MobileInputID.NOTE_UP]);
 	public var buttonRight:TouchButton = new TouchButton(0, 0, [MobileInputID.HITBOX_RIGHT, MobileInputID.NOTE_RIGHT]);
-	public var buttonExtra:TouchButton = new TouchButton(0, 0);
-	public var buttonExtra2:TouchButton = new TouchButton(0, 0);
+	public var buttonExtra:TouchButton = new TouchButton(0, 0, [MobileInputID.Key_SHIFT]);
+	public var buttonExtra2:TouchButton = new TouchButton(0, 0, [MobileInputID.KEY_SPACE]);
 
 	public var instance:MobileInputManager;
 
