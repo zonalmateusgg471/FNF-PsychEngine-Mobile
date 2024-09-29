@@ -61,8 +61,8 @@ enum abstract MobileInputID(Int) from Int to Int
 	var HITBOX_DOWN = 39;
 	var HITBOX_LEFT = 40;
 	var HITBOX_RIGHT = 41;
-	var KEY_SHIFT = 42;
-	var KEY_SPACE = 43;
+	var SHIFT = 42;
+	var SPACE = 43;
 
 	@:from
 	public static inline function fromString(s:String)
