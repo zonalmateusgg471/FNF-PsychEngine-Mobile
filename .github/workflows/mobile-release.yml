@@ -4,8 +4,11 @@ jobs:
   get-latest-commit-hash:
     runs-on: ubuntu-latest
     outputs:
-      latest_commit_hash: ${{ steps.get_hash.outputs.LATEST_COMMIT_HASH }}
+      latest_commit_hash: ${{ steps.get-latest-commit-hash.outputs.LATEST_COMMIT_HASH }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
       - name: Get latest release tag
         id: get_hash
         run: |
