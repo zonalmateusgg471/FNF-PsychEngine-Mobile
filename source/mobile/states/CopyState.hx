@@ -16,7 +16,7 @@ class CopyState extends MusicBeatState
 {
 	private static final textFilesExtensions:Array<String> = ['ini', 'txt', 'xml', 'hxs', 'hx', 'lua', 'json', 'frag', 'vert'];
 	public static final IGNORE_FOLDER_FILE_NAME:String = "ignore.txt";
-	private var directoriesToIgnore:Array<String> = [];
+	private static var directoriesToIgnore:Array<String> = [];
 	public static var locatedFiles:Array<String> = [];
 	public static var maxLoopTimes:Int = 0;
 
