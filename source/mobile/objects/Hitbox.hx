@@ -1,168 +1,387 @@
 package mobile.objects;
 
+//new
+import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.graphics.FlxGraphic;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.FlxSprite;
+//old
+import flixel.FlxG;
+import flixel.group.FlxSpriteGroup;
+import flixel.util.FlxColor;
 import openfl.display.BitmapData;
 import openfl.display.Shape;
-import flixel.graphics.FlxGraphic;
+import openfl.geom.Matrix;
 
 /**
  * A zone with 4 hint's (A hitbox).
  * It's really easy to customize the layout.
  *
- * @author: Mihai Alexandru and Karim Akra
+ * @author Mihai Alexandru (M.A. Jigsaw)
  */
-class Hitbox extends MobileInputManager implements IMobileControls
+class FlxNewHitbox extends FlxSpriteGroup
 {
-	final offsetFir:Int = (ClientPrefs.data.hitbox2 ? Std.int(FlxG.height / 4) * 3 : 0);
-	final offsetSec:Int = (ClientPrefs.data.hitbox2 ? 0 : Std.int(FlxG.height / 4));
-
-	public var buttonLeft:TouchButton = new TouchButton(0, 0, [MobileInputID.HITBOX_LEFT, MobileInputID.NOTE_LEFT]);
-	public var buttonDown:TouchButton = new TouchButton(0, 0, [MobileInputID.HITBOX_DOWN, MobileInputID.NOTE_DOWN]);
-	public var buttonUp:TouchButton = new TouchButton(0, 0, [MobileInputID.HITBOX_UP, MobileInputID.NOTE_UP]);
-	public var buttonRight:TouchButton = new TouchButton(0, 0, [MobileInputID.HITBOX_RIGHT, MobileInputID.NOTE_RIGHT]);
-	public var buttonExtra:TouchButton = new TouchButton(0, 0, [MobileInputID.SPACE]);
-	public var buttonExtra2:TouchButton = new TouchButton(0, 0, [MobileInputID.SHIFT]);
-
-	public var instance:MobileInputManager;
-
-	var storedButtonsIDs:Map<String, Array<MobileInputID>> = new Map<String, Array<MobileInputID>>();
+	public var buttonLeft:FlxButton = new FlxButton(0, 0);
+	public var buttonDown:FlxButton = new FlxButton(0, 0);
+	public var buttonUp:FlxButton = new FlxButton(0, 0);
+	public var buttonRight:FlxButton = new FlxButton(0, 0);
+	
+	public var buttonExtra1:FlxButton = new FlxButton(0, 0);
+    public var buttonExtra2:FlxButton = new FlxButton(0, 0);
+    public var buttonExtra3:FlxButton = new FlxButton(0, 0);
+	public var buttonExtra4:FlxButton = new FlxButton(0, 0);
+	public static var hitbox_hint:FlxSprite;
 
 	/**
 	 * Create the zone.
 	 */
-	public function new(?extraMode:ExtraActions = NONE)
+	public function new():Void
 	{
 		super();
-
-		for (button in Reflect.fields(this))
-		{
-			var field = Reflect.field(this, button);
-			if (Std.isOfType(field, TouchButton))
-				storedButtonsIDs.set(button, Reflect.getProperty(field, 'IDs'));
+		if (ClientPrefs.extraKeys == 0){
+            add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFFC24B99));
+		    add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF00FFFF));
+		    add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF12FA05));
+		    add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFFF9393F));
+		    if (ClientPrefs.hitboxhint){
+    		hitbox_hint = new FlxSprite(0, -150).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
+    		add(hitbox_hint);
+    		}
+        }else {
+            if (ClientPrefs.hitboxLocation == 'Bottom'){
+		        add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFC24B99));
+		        add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF00FFFF));
+		        add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF12FA05));
+		        add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFF9393F));
+		        if (ClientPrefs.hitboxhint){
+        		hitbox_hint = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
+        		add(hitbox_hint);
+        		}
+        		
+                switch (ClientPrefs.extraKeys){
+    				case 1:		        
+                        add(buttonExtra1 = createHint(0, (FlxG.height / 5) * 4, FlxG.width, Std.int(FlxG.height / 5), 0xFFFF00));
+    		        case 2:                
+                        add(buttonExtra1 = createHint(0, (FlxG.height / 5) * 4, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFF0000));
+                        add(buttonExtra2 = createHint(FlxG.width / 2, (FlxG.height / 5) * 4, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFFFF00));
+                    case 3:		        
+                        add(buttonExtra1 = createHint(0, (FlxG.height / 5) * 4, Std.int(FlxG.width / 3), Std.int(FlxG.height / 5), 0xFF0000));
+                        add(buttonExtra2 = createHint(FlxG.width / 3 - 1, (FlxG.height / 5) * 4, Std.int(FlxG.width / 3 + 2), Std.int(FlxG.height / 5), 0xFFFF00));
+                        add(buttonExtra3 = createHint(FlxG.width / 3 * 2, (FlxG.height / 5) * 4, Std.int(FlxG.width / 3), Std.int(FlxG.height / 5), 0x0000FF));
+    		        case 4:                                  
+    		            add(buttonExtra1 = createHint(0, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFF0000));
+                        add(buttonExtra2 = createHint(FlxG.width / 4, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));      
+                        add(buttonExtra3 = createHint(FlxG.width / 4 * 2, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0x0000FF));
+                        add(buttonExtra4 = createHint(FlxG.width / 4 * 3, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));     
+                }
+		    }else{// Top
+		        add(buttonLeft = createHint(0, (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFC24B99));
+		        add(buttonDown = createHint(FlxG.width / 4, (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF00FFFF));
+		        add(buttonUp = createHint(FlxG.width / 2, (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF12FA05));
+		        add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFF9393F));
+		        if (ClientPrefs.hitboxhint){
+        		hitbox_hint = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
+        		add(hitbox_hint);
+        		}
+ 
+                switch (ClientPrefs.extraKeys){
+    				case 1:		        
+                        add(buttonExtra1 = createHint(0, 0, FlxG.width, Std.int(FlxG.height / 5), 0xFFFF00));
+    		        case 2:                
+                        add(buttonExtra1 = createHint(0, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFF0000));
+                        add(buttonExtra2 = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFFFF00));
+                    case 3:		        
+                        add(buttonExtra1 = createHint(0, 0, Std.int(FlxG.width / 3), Std.int(FlxG.height / 5), 0xFF0000));
+                        add(buttonExtra2 = createHint(FlxG.width / 3, 0, Std.int(FlxG.width / 3), Std.int(FlxG.height / 5), 0xFFFF00));
+                        add(buttonExtra3 = createHint(FlxG.width / 3 * 2, 0, Std.int(FlxG.width / 3), Std.int(FlxG.height / 5), 0x0000FF));
+    		        case 4:                                  
+    		            add(buttonExtra1 = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFF0000));
+                        add(buttonExtra2 = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));
+                        add(buttonExtra3 = createHint(FlxG.width / 4 * 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0x0000FF));
+                        add(buttonExtra4 = createHint(FlxG.width / 4 * 3, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0x00FF00));      
+                }
+		    }
 		}
-
-		switch (extraMode)
-		{
-			case NONE:
-				add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), FlxG.height, 0xFFC24B99));
-				add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), FlxG.height, 0xFF00FFFF));
-				add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), FlxG.height, 0xFF12FA05));
-				add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), FlxG.height, 0xFFF9393F));
-			case SINGLE:
-				add(buttonLeft = createHint(0, offsetSec, Std.int(FlxG.width / 4), Std.int(FlxG.height / 4) * 3, 0xFFC24B99));
-				add(buttonDown = createHint(FlxG.width / 4, offsetSec, Std.int(FlxG.width / 4), Std.int(FlxG.height / 4) * 3, 0xFF00FFFF));
-				add(buttonUp = createHint(FlxG.width / 2, offsetSec, Std.int(FlxG.width / 4), Std.int(FlxG.height / 4) * 3, 0xFF12FA05));
-				add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), offsetSec, Std.int(FlxG.width / 4), Std.int(FlxG.height / 4) * 3,
-					0xFFF9393F));
-				add(buttonExtra = createHint(0, offsetFir, FlxG.width, Std.int(FlxG.height / 4), 0xFF0066FF));
-			case DOUBLE:
-				add(buttonLeft = createHint(0, offsetSec, Std.int(FlxG.width / 4), Std.int(FlxG.height / 4) * 3, 0xFFC24B99));
-				add(buttonDown = createHint(FlxG.width / 4, offsetSec, Std.int(FlxG.width / 4), Std.int(FlxG.height / 4) * 3, 0xFF00FFFF));
-				add(buttonUp = createHint(FlxG.width / 2, offsetSec, Std.int(FlxG.width / 4), Std.int(FlxG.height / 4) * 3, 0xFF12FA05));
-				add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), offsetSec, Std.int(FlxG.width / 4), Std.int(FlxG.height / 4) * 3,
-					0xFFF9393F));
-				add(buttonExtra2 = createHint(Std.int(FlxG.width / 2), offsetFir, Std.int(FlxG.width / 2), Std.int(FlxG.height / 4), 0xFFFF00));
-				add(buttonExtra = createHint(0, offsetFir, Std.int(FlxG.width / 2), Std.int(FlxG.height / 4), 0xFF0000));
-		}
-
-		for (button in Reflect.fields(this))
-		{
-			if (Std.isOfType(Reflect.field(this, button), TouchButton))
-				Reflect.setProperty(Reflect.getProperty(this, button), 'IDs', storedButtonsIDs.get(button));
-		}
-
-		storedButtonsIDs.clear();
+		
 		scrollFactor.set();
-		updateTrackedButtons();
-
-		instance = this;
 	}
 
 	/**
 	 * Clean up memory.
 	 */
-	override function destroy()
+	override function destroy():Void
 	{
 		super.destroy();
 
-		for (fieldName in Reflect.fields(this))
-		{
-			var field = Reflect.field(this, fieldName);
-			if (Std.isOfType(field, TouchButton))
-				Reflect.setField(this, fieldName, FlxDestroyUtil.destroy(field));
-		}
+		buttonLeft = null;
+		buttonDown = null;
+		buttonUp = null;
+		buttonRight = null;
+		
+		buttonExtra1 = null;
+		buttonExtra2 = null;
+		buttonExtra3 = null;
+		buttonExtra4 = null;
 	}
 
-	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):TouchButton
+	private function createHintGraphic(Width:Int, Height:Int, Color:Int = 0xFFFFFF):BitmapData
 	{
-		var hint = new TouchButton(X, Y);
-		hint.statusAlphas = [];
-		hint.statusIndicatorType = NONE;
-		hint.loadGraphic(createHintGraphic(Width, Height));
-
-		if (ClientPrefs.data.hitboxType != "Hidden")
+	    var guh:Float = ClientPrefs.hitboxalpha;
+		var shape:Shape = new Shape();
+		shape.graphics.beginFill(Color);
+		if (ClientPrefs.hitboxtype == "No Gradient")
 		{
-			var hintTween:FlxTween = null;
+			var matrix:Matrix = new Matrix();
+			matrix.createGradientBox(Width, Height, 0, 0, 0);
 
-			hint.onDown.callback = function()
-			{
-				if (hintTween != null)
-					hintTween.cancel();
-
-				hintTween = FlxTween.tween(hint, {alpha: ClientPrefs.data.controlsAlpha}, ClientPrefs.data.controlsAlpha / 100, {
-					ease: FlxEase.circInOut,
-					onComplete: (twn:FlxTween) -> hintTween = null
-				});
-			}
-
-			hint.onOut.callback = hint.onUp.callback = function()
-			{
-				if (hintTween != null)
-					hintTween.cancel();
-
-				hintTween = FlxTween.tween(hint, {alpha: 0.00001}, ClientPrefs.data.controlsAlpha / 10, {
-					ease: FlxEase.circInOut,
-					onComplete: (twn:FlxTween) -> hintTween = null
-				});
-			}
+			shape.graphics.beginGradientFill(RADIAL, [Color, Color], [0, guh], [60, 255], matrix, PAD, RGB, 0);
+			shape.graphics.drawRect(0, 0, Width, Height);
+			shape.graphics.endFill();
 		}
+		else if (ClientPrefs.hitboxtype == "No Gradient (Old)")
+		{
+			shape.graphics.lineStyle(10, Color, 1);
+			shape.graphics.drawRect(0, 0, Width, Height);
+			shape.graphics.endFill();
+		}
+		else if (ClientPrefs.hitboxtype == "Gradient")
+		{
+			shape.graphics.lineStyle(3, Color, 1);
+			shape.graphics.drawRect(0, 0, Width, Height);
+			shape.graphics.lineStyle(0, 0, 0);
+			shape.graphics.drawRect(3, 3, Width - 6, Height - 6);
+			shape.graphics.endFill();
+			shape.graphics.beginGradientFill(RADIAL, [Color, FlxColor.TRANSPARENT], [guh, 0], [0, 255], null, null, null, 0.5);
+			shape.graphics.drawRect(3, 3, Width - 6, Height - 6);
+			shape.graphics.endFill();
+		}
+		
+		/*
+		shape.graphics.lineStyle(10, Color, 1);
+		shape.graphics.drawRect(0, 0, Width, Height);
+		shape.graphics.endFill();
+		*/
 
-		hint.immovable = hint.multiTouch = true;
-		hint.solid = hint.moves = false;
+		var bitmap:BitmapData = new BitmapData(Width, Height, true, 0);
+		bitmap.draw(shape);
+		return bitmap;
+	}
+
+	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):FlxButton
+	{
+		var hint:FlxButton = new FlxButton(X, Y);
+		hint.loadGraphic(createHintGraphic(Width, Height, Color));
+		hint.solid = false;
+		hint.immovable = true;
+		hint.scrollFactor.set();
 		hint.alpha = 0.00001;
-		hint.antialiasing = ClientPrefs.data.antialiasing;
-		hint.color = Color;
+		hint.onDown.callback = hint.onOver.callback = function()
+		{
+			if (hint.alpha != ClientPrefs.hitboxalpha)
+				hint.alpha = ClientPrefs.hitboxalpha;
+		}
+		hint.onUp.callback = hint.onOut.callback = function()
+		{
+			if (hint.alpha != 0.00001)
+				hint.alpha = 0.00001;
+		}
 		#if FLX_DEBUG
 		hint.ignoreDrawDebug = true;
 		#end
 		return hint;
 	}
+}package mobile.flixel;
 
-	function createHintGraphic(Width:Int, Height:Int):FlxGraphic
+//new
+import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.graphics.FlxGraphic;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.FlxSprite;
+//old
+import flixel.FlxG;
+import flixel.group.FlxSpriteGroup;
+import flixel.util.FlxColor;
+import openfl.display.BitmapData;
+import openfl.display.Shape;
+import openfl.geom.Matrix;
+
+/**
+ * A zone with 4 hint's (A hitbox).
+ * It's really easy to customize the layout.
+ *
+ * @author Mihai Alexandru (M.A. Jigsaw)
+ */
+class FlxNewHitbox extends FlxSpriteGroup
+{
+	public var buttonLeft:FlxButton = new FlxButton(0, 0);
+	public var buttonDown:FlxButton = new FlxButton(0, 0);
+	public var buttonUp:FlxButton = new FlxButton(0, 0);
+	public var buttonRight:FlxButton = new FlxButton(0, 0);
+	
+	public var buttonExtra1:FlxButton = new FlxButton(0, 0);
+    public var buttonExtra2:FlxButton = new FlxButton(0, 0);
+    public var buttonExtra3:FlxButton = new FlxButton(0, 0);
+	public var buttonExtra4:FlxButton = new FlxButton(0, 0);
+	public static var hitbox_hint:FlxSprite;
+
+	/**
+	 * Create the zone.
+	 */
+	public function new():Void
 	{
-		var shape:Shape = new Shape();
-		shape.graphics.beginFill(0xFFFFFF);
+		super();
+		if (ClientPrefs.extraKeys == 0){
+            add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFFC24B99));
+		    add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF00FFFF));
+		    add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF12FA05));
+		    add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFFF9393F));
+		    if (ClientPrefs.hitboxhint){
+    		hitbox_hint = new FlxSprite(0, -150).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
+    		add(hitbox_hint);
+    		}
+        }else {
+            if (ClientPrefs.hitboxLocation == 'Bottom'){
+		        add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFC24B99));
+		        add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF00FFFF));
+		        add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF12FA05));
+		        add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFF9393F));
+		        if (ClientPrefs.hitboxhint){
+        		hitbox_hint = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
+        		add(hitbox_hint);
+        		}
+        		
+                switch (ClientPrefs.extraKeys){
+    				case 1:		        
+                        add(buttonExtra1 = createHint(0, (FlxG.height / 5) * 4, FlxG.width, Std.int(FlxG.height / 5), 0xFFFF00));
+    		        case 2:                
+                        add(buttonExtra1 = createHint(0, (FlxG.height / 5) * 4, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFF0000));
+                        add(buttonExtra2 = createHint(FlxG.width / 2, (FlxG.height / 5) * 4, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFFFF00));
+                    case 3:		        
+                        add(buttonExtra1 = createHint(0, (FlxG.height / 5) * 4, Std.int(FlxG.width / 3), Std.int(FlxG.height / 5), 0xFF0000));
+                        add(buttonExtra2 = createHint(FlxG.width / 3 - 1, (FlxG.height / 5) * 4, Std.int(FlxG.width / 3 + 2), Std.int(FlxG.height / 5), 0xFFFF00));
+                        add(buttonExtra3 = createHint(FlxG.width / 3 * 2, (FlxG.height / 5) * 4, Std.int(FlxG.width / 3), Std.int(FlxG.height / 5), 0x0000FF));
+    		        case 4:                                  
+    		            add(buttonExtra1 = createHint(0, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFF0000));
+                        add(buttonExtra2 = createHint(FlxG.width / 4, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));      
+                        add(buttonExtra3 = createHint(FlxG.width / 4 * 2, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0x0000FF));
+                        add(buttonExtra4 = createHint(FlxG.width / 4 * 3, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));     
+                }
+		    }else{// Top
+		        add(buttonLeft = createHint(0, (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFC24B99));
+		        add(buttonDown = createHint(FlxG.width / 4, (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF00FFFF));
+		        add(buttonUp = createHint(FlxG.width / 2, (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF12FA05));
+		        add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFF9393F));
+		        if (ClientPrefs.hitboxhint){
+        		hitbox_hint = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
+        		add(hitbox_hint);
+        		}
+ 
+                switch (ClientPrefs.extraKeys){
+    				case 1:		        
+                        add(buttonExtra1 = createHint(0, 0, FlxG.width, Std.int(FlxG.height / 5), 0xFFFF00));
+    		        case 2:                
+                        add(buttonExtra1 = createHint(0, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFF0000));
+                        add(buttonExtra2 = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFFFF00));
+                    case 3:		        
+                        add(buttonExtra1 = createHint(0, 0, Std.int(FlxG.width / 3), Std.int(FlxG.height / 5), 0xFF0000));
+                        add(buttonExtra2 = createHint(FlxG.width / 3, 0, Std.int(FlxG.width / 3), Std.int(FlxG.height / 5), 0xFFFF00));
+                        add(buttonExtra3 = createHint(FlxG.width / 3 * 2, 0, Std.int(FlxG.width / 3), Std.int(FlxG.height / 5), 0x0000FF));
+    		        case 4:                                  
+    		            add(buttonExtra1 = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFF0000));
+                        add(buttonExtra2 = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));
+                        add(buttonExtra3 = createHint(FlxG.width / 4 * 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0x0000FF));
+                        add(buttonExtra4 = createHint(FlxG.width / 4 * 3, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0x00FF00));      
+                }
+		    }
+		}
+		
+		scrollFactor.set();
+	}
 
-		if (ClientPrefs.data.hitboxType == 'Gradient')
+	/**
+	 * Clean up memory.
+	 */
+	override function destroy():Void
+	{
+		super.destroy();
+
+		buttonLeft = null;
+		buttonDown = null;
+		buttonUp = null;
+		buttonRight = null;
+		
+		buttonExtra1 = null;
+		buttonExtra2 = null;
+		buttonExtra3 = null;
+		buttonExtra4 = null;
+	}
+
+	private function createHintGraphic(Width:Int, Height:Int, Color:Int = 0xFFFFFF):BitmapData
+	{
+	    var guh:Float = ClientPrefs.hitboxalpha;
+		var shape:Shape = new Shape();
+		shape.graphics.beginFill(Color);
+		if (ClientPrefs.hitboxtype == "No Gradient")
 		{
-			shape.graphics.lineStyle(3, 0xFFFFFF, 1);
+			var matrix:Matrix = new Matrix();
+			matrix.createGradientBox(Width, Height, 0, 0, 0);
+
+			shape.graphics.beginGradientFill(RADIAL, [Color, Color], [0, guh], [60, 255], matrix, PAD, RGB, 0);
+			shape.graphics.drawRect(0, 0, Width, Height);
+			shape.graphics.endFill();
+		}
+		else if (ClientPrefs.hitboxtype == "No Gradient (Old)")
+		{
+			shape.graphics.lineStyle(10, Color, 1);
+			shape.graphics.drawRect(0, 0, Width, Height);
+			shape.graphics.endFill();
+		}
+		else if (ClientPrefs.hitboxtype == "Gradient")
+		{
+			shape.graphics.lineStyle(3, Color, 1);
 			shape.graphics.drawRect(0, 0, Width, Height);
 			shape.graphics.lineStyle(0, 0, 0);
 			shape.graphics.drawRect(3, 3, Width - 6, Height - 6);
 			shape.graphics.endFill();
-			shape.graphics.beginGradientFill(RADIAL, [0xFFFFFF, FlxColor.TRANSPARENT], [1, 0], [0, 255], null, null, null, 0.5);
+			shape.graphics.beginGradientFill(RADIAL, [Color, FlxColor.TRANSPARENT], [guh, 0], [0, 255], null, null, null, 0.5);
 			shape.graphics.drawRect(3, 3, Width - 6, Height - 6);
 			shape.graphics.endFill();
 		}
-		else
-		{
-			shape.graphics.lineStyle(10, 0xFFFFFF, 1);
-			shape.graphics.drawRect(0, 0, Width, Height);
-			shape.graphics.endFill();
-		}
+		
+		/*
+		shape.graphics.lineStyle(10, Color, 1);
+		shape.graphics.drawRect(0, 0, Width, Height);
+		shape.graphics.endFill();
+		*/
 
 		var bitmap:BitmapData = new BitmapData(Width, Height, true, 0);
 		bitmap.draw(shape);
+		return bitmap;
+	}
 
-		return FlxG.bitmap.add(bitmap);
+	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):FlxButton
+	{
+		var hint:FlxButton = new FlxButton(X, Y);
+		hint.loadGraphic(createHintGraphic(Width, Height, Color));
+		hint.solid = false;
+		hint.immovable = true;
+		hint.scrollFactor.set();
+		hint.alpha = 0.00001;
+		hint.onDown.callback = hint.onOver.callback = function()
+		{
+			if (hint.alpha != ClientPrefs.hitboxalpha)
+				hint.alpha = ClientPrefs.hitboxalpha;
+		}
+		hint.onUp.callback = hint.onOut.callback = function()
+		{
+			if (hint.alpha != 0.00001)
+				hint.alpha = 0.00001;
+		}
+		#if FLX_DEBUG
+		hint.ignoreDrawDebug = true;
+		#end
+		return hint;
 	}
 }
